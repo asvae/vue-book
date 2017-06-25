@@ -1,7 +1,7 @@
 <template>
     <div class="demo-folder-1">
         <div class="demo-folder-1__title" @click="isOpen = !isOpen">
-            <span class="icon-2">
+            <span class="icon-1">
                 <i class="fa fa-caret-down" v-if="isOpen"></i>
                 <i class="fa fa-caret-right" v-else></i>
             </span>

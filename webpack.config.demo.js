@@ -73,8 +73,10 @@ module.exports = function () {
       hints: false
     },
     plugins: [
-      new HtmlWebpackPlugin(),
-      new ExtractTextPlugin('css/app.css'),
+      new HtmlWebpackPlugin({
+        template: './demo/index.html'
+      }),
+      new ExtractTextPlugin('app.css'),
     ],
     devtool: '#source-map'
   }

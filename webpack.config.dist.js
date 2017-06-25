@@ -8,6 +8,8 @@ module.exports = function () {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'js/app.js',
+      library: 'VueComponentTree',
+      libraryTarget: 'umd'
     },
     stats: {
       colors: true,
@@ -18,25 +20,16 @@ module.exports = function () {
     module: {
       rules: [
         {
-          test: /\.sass$/,
-          loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: 'css-loader!sass-loader'
-          })
+          test: /\.sсss$/,
+          loaders: ['style-loader', 'css-loader', 'sass-loader']
         },
         {
-          test: /\.sсss$/,
-          loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: 'css-loader!sass-loader!font-awesome/scss/font-awesome.scss'
-          })
+          test: /\.sass$/,
+          loaders: ['style-loader', 'css-loader', 'sass-loader?indentedSyntax']
         },
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: 'css-loader'
-          })
+          loader: ['style-loader', 'css-loader']
         },
         {
           test: /\.vue$/,
@@ -72,7 +65,7 @@ module.exports = function () {
       hints: false
     },
     plugins: [
-      new ExtractTextPlugin('css/app.css'),
+      // new ExtractTextPlugin('css/app.css'),
     ],
     devtool: '#source-map'
   }

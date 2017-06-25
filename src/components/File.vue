@@ -1,7 +1,8 @@
 <template>
     <router-link
-            class="demo-node"
-            :class="['demo-node--' + file.component.status, isActive && 'demo-node--active']"
+            tag="div"
+            class="demo-node-1"
+            :class="[status, isActive && 'demo-node-1--active']"
             :to="file.path"
     >
         <div>
@@ -23,6 +24,10 @@
     computed: {
       isActive () {
         return this.$route.path === this.file.path
+      },
+      status () {
+        const status = this.file.component.status
+        return status && `demo-node-1--${status}`
       }
     }
   }

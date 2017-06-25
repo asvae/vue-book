@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import DemoPage from '../dist/js/app.js'
+import vueComponentTree from '../dist/js/app.js'
 
 Vue.use(Router)
 
 const router = new Router({
   linkActiveClass: 'is-active',
   routes: [
-    DemoPage.create(require.context('./components', true, /.vue$/), '/demo'),
+    vueComponentTree.create(require.context('./components', true, /.vue$/), '/demo'),
   ]
 })
 

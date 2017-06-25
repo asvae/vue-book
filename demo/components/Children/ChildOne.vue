@@ -1,13 +1,11 @@
 <template>
     <div>
-        Some
+        I am ChildOne
     </div>
 </template>
 
 <script>
-    export default {
-
-    }
+  export default {}
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

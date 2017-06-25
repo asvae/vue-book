@@ -2,7 +2,7 @@
     <div class="container-1">
         <div class="container-1__item container-1__item--narrow">
             <div v-show="isHidden">
-                <span class="icon-2" style="cursor: pointer"
+                <span class="icon-1" style="cursor: pointer"
                       @click="isHidden = ! isHidden">
                      <i class="fa fa-bars"></i>
                 </span>
