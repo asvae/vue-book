@@ -1,0 +1,22 @@
+.demo-node {
+  padding-left: 20px;
+  min-width: 100%;
+  color: black;
+  white-space: nowrap;
+  display: block;
+  &.demo-node--active * {
+    background-color: #ebe5ff;
+  }
+  &.demo-node--stable {
+    color: green;
+  }
+  &.demo-node--wip {
+    color: #978d26;
+  }
+  &.demo-node--unstable {
+    color: #d94d5e;
+  }
+  &.demo-node--hold {
+    color: #b769d9;
+  }
+}

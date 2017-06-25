@@ -1,0 +1,46 @@
+.container-1 {
+  display: flex;
+  justify-content: space-between;
+  margin: -5px; }
+  .container-1 .container-1__item {
+    padding: 5px; }
+  .container-1.container-1--full-width {
+    width: calc(100% + 10px/2); }
+  .container-1.container-1--column {
+    flex-direction: column; }
+  .container-1.container-1--start {
+    justify-content: flex-start; }
+  .container-1.container-1--wrap {
+    flex-wrap: wrap; }
+  .container-1 .container-1__item {
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 1; }
+    .container-1 .container-1__item.container-1__item--narrow {
+      flex: none; }
+
+.demo-folder__title {
+  cursor: pointer;
+  white-space: nowrap; }
+
+.demo-folder__insides {
+  padding-left: 16px; }
+
+.demo-node {
+  padding-left: 20px;
+  min-width: 100%;
+  color: black;
+  white-space: nowrap;
+  display: block; }
+  .demo-node.demo-node--active * {
+    background-color: #ebe5ff; }
+  .demo-node.demo-node--stable {
+    color: green; }
+  .demo-node.demo-node--wip {
+    color: #978d26; }
+  .demo-node.demo-node--unstable {
+    color: #d94d5e; }
+  .demo-node.demo-node--hold {
+    color: #b769d9; }
+
+/*# sourceMappingURL=app.css.map*/

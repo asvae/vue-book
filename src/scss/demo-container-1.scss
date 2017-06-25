@@ -1,0 +1,35 @@
+.container-1 {
+  display: flex;
+  justify-content: space-between;
+
+  $gutter: 10px;
+
+  margin: -$gutter/2;
+  .container-1__item {
+    padding: $gutter/2
+  }
+  &.container-1--full-width {
+    width: calc(100% + #{$gutter}/2);
+  }
+
+  &.container-1--column {
+    flex-direction: column;
+  }
+
+  &.container-1--start {
+    justify-content: flex-start;
+  }
+
+  &.container-1--wrap {
+    flex-wrap: wrap;
+  }
+
+  .container-1__item {
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+    &.container-1__item--narrow {
+      flex: none;
+    }
+  }
+}
