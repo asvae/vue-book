@@ -10,12 +10,7 @@ module.exports = function () {
       path: path.resolve(__dirname, 'public'),
       filename: 'app.js',
     },
-    stats: {
-      colors: true,
-      modules: true,
-      reasons: true,
-      errorDetails: true
-    },
+    stats: 'minimal',
     module: {
       rules: [
         {

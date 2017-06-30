@@ -1,4 +1,4 @@
-import DemoNode from '../../../src/modules/DemoPage2/DemoNode.js'
+import DemoNode from '../../src/classes/Main/DemoNode.js'
 
 describe('DemoNode', () => {
   it('is initialized', () => {

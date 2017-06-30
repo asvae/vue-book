@@ -979,7 +979,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.file-structure {\n  width: 300px;\n  overflow: auto;\n  padding: 5px;\n  background-color: white;\n}\n", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -1116,7 +1116,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (!_vm.isHidden),
       expression: "! isHidden"
     }],
-    staticClass: "file-structure"
+    staticClass: "file-structure-1"
   }, [_c('div', {
     staticStyle: {
       "text-align": "right"
@@ -1240,7 +1240,7 @@ var content = __webpack_require__(11);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("f600037a", content, true);
+var update = __webpack_require__(3)("beaf33b8", content, true);
 
 /***/ }),
 /* 21 */
@@ -1253,7 +1253,7 @@ var content = __webpack_require__(12);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("3c1cfa22", content, true);
+var update = __webpack_require__(3)("372e7a83", content, true);
 
 /***/ }),
 /* 22 */
@@ -1266,7 +1266,7 @@ var content = __webpack_require__(13);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("4684701d", content, true);
+var update = __webpack_require__(3)("79914784", content, true);
 
 /***/ }),
 /* 23 */

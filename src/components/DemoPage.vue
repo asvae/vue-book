@@ -7,7 +7,7 @@
                      <i class="fa fa-bars"></i>
                 </span>
             </div>
-            <div v-show="! isHidden" class="file-structure">
+            <div v-show="! isHidden" class="file-structure-1">
                 <div style="text-align: right">
                     <span class="icon-2" style="cursor: pointer"
                           @click="isHidden = ! isHidden"
@@ -75,11 +75,6 @@
   }
 </script>
 
-<style lang="scss">
-    .file-structure {
-        width: 300px;
-        overflow: auto;
-        padding: 5px;
-        background-color: white;
-    }
+<style lang="scss" rel="stylesheet/scss">
+
 </style>
