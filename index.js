@@ -1,3 +1,3 @@
-import DemoPage from './src/classes/Main/DemoPage.js'
+import DemoPage from './dist/js/app.js'
 
 export default DemoPage
