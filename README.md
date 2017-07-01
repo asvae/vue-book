@@ -1,7 +1,7 @@
 [![Build status][circleci-badge]][circleci-url]
 
 # vue-component-tree
-Tree view for your demo components
+Tree view for your demo components. [Demo](http://vue-component-tree-demo.asva.by/#/Demo/Children/Grandchildren/GrandchildTwo.vue).
 
 ![Interface](docs/main.gif)
 
@@ -28,12 +28,12 @@ Only then I start to work on component.
 
 You can think of demo as of semi-manual unit tests. But why not use actual unit tests, you'll ask. Let me explain.
 * Demos are cheap. And you don't have to be a senior unit tester to create them.
-* Demos are visual. In many cases you can *see* if something goes wrong. Unit tests also won't show your styling mistakes.
+* Demos are visual. In many cases you can *see* if something goes wrong. But unit tests won't show any of your styling mistakes.
 * Demos are developer friendly. You can instantly find usage examples or just glance over existing components. Which is crucial for teamwork.
 
 Of course, this doesn't mean you have to dump unit tests. Leave them for appropriate tasks. Like logic heavy classes.
 
-So, back to the library. It was created with intent of simplifying demo workflow as much as possible. Just toss your demos into folder and enjoy tree generation.
+So, back to the library. The main intent behind is simplifying demo workflow as much as possible. Just toss your demos into folder and enjoy tree generation.
 
 ## Config
 
