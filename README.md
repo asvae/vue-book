@@ -1,3 +1,5 @@
+[![Build status][circleci-badge]][circleci-url]
+
 # vue-component-tree
 Tree view for your demo components
 
@@ -80,4 +82,5 @@ Also remember: Stars fuel packages development!
 ## Licence
 MIT
 
-
+[circleci-badge]: https://img.shields.io/circleci/project/github/asvae/vue-component-tree/master.svg?style=flat-square
+[circleci-url]: https://circleci.com/gh/asvae/vue-component-tree
