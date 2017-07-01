@@ -14,6 +14,18 @@ module.exports = function () {
     module: {
       rules: [
         {
+          test: /\.sсss$/,
+          loaders: ['style-loader', 'css-loader', 'sass-loader']
+        },
+        {
+          test: /\.sass$/,
+          loaders: ['style-loader', 'css-loader', 'sass-loader?indentedSyntax']
+        },
+        {
+          test: /\.css$/,
+          loader: ['style-loader', 'css-loader']
+        },
+        {
           test: /\.vue$/,
           loader: 'vue-loader',
         },
@@ -22,6 +34,23 @@ module.exports = function () {
           loader: 'babel-loader',
           exclude: /node_modules/
         },
+        {
+          test: /\.svg$/,
+          loader: 'vue-svg-loader',
+          include: path.resolve('./src/assets/svg'),
+        },
+        {
+          test: /\.(png|jpg|gif)$/,
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]?[hash]'
+          }
+        },
+        {
+          test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+          loader: 'url-loader?limit=100000&name=[name].[ext]',
+          exclude: path.resolve('./src/assets/svg'),
+        }
       ]
     },
     performance: {

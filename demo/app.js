@@ -1,5 +1,3 @@
-import './../src/scss/app.sass'
-
 import Vue from 'vue'
 import App from './App.vue'
 

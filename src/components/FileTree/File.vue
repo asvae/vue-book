@@ -6,7 +6,7 @@
             :to="file.path"
     >
         <div>
-            <i class="fa fa-file"></i> <span>{{ file.getFilename() }}</span>
+            <i class="icon-folder"></i> <span>{{ file.getFilename() }}</span>
         </div>
     </router-link>
 </template>
