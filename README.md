@@ -81,7 +81,7 @@ You don't have to keep demos in production. Use webpack [define-plugin](https://
 ## Feedback | Support
 Leave an issue if something doesn't work for you.
 
-Also remember: Stars fuel packages development! 
+Also remember: Stars fuel package development! 
 
 ## Licence
 MIT
