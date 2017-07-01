@@ -26,12 +26,12 @@ Only then I start to work on component.
 
 You can think of demo as of semi-manual unit tests. But why not use actual unit tests, you'll ask. Let me explain.
 * Demos are cheap. And you don't have to be a senior unit tester to create them.
-* Demos are visual. In many cases you can *see* if something goes wrong. Unit tests also won't show you styling mistakes.
+* Demos are visual. In many cases you can *see* if something goes wrong. Unit tests also won't show your styling mistakes.
 * Demos are developer friendly. You can instantly find usage examples or just glance over existing components. Which is crucial for teamwork.
 
 Of course, this doesn't mean you have to dump unit tests. Leave them for appropriate tasks. Like logic heavy classes.
 
-So, back to the library. It was created with intent of simplifying demo workflow as much as possible. Just toss your demos in folder and enjoy tree generation.
+So, back to the library. It was created with intent of simplifying demo workflow as much as possible. Just toss your demos into folder and enjoy tree generation.
 
 ## Config
 
@@ -53,7 +53,7 @@ So, about arguments.
 * `/demo` is root route for vue-router.
 
 ### Component status
-Inside of your demo components you can set statuses, which'll colorize filenames on the tree in accordance.
+Inside of your demo component you can set status, which will colorize filenames on the tree in accordance.
 
 ```javascript
 {
