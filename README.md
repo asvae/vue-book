@@ -74,6 +74,10 @@ Supported statuses are:
  
 You can add your own. They're just css classes. 
 
+### Production
+
+You don't have to keep demos in production. Use webpack [define-plugin](https://webpack.js.org/plugins/define-plugin/) and exclude them from bundle.  
+
 ## Feedback | Support
 Leave an issue if something doesn't work for you.
 
