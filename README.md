@@ -3,6 +3,11 @@ Tree view for your demo components
 
 ![Interface](docs/main.gif)
 
+## Install
+```
+npm install vue-component-tree
+```
+
 ## Features
 * Display your components as a tree.
 * Preview components on the page.
@@ -28,14 +33,9 @@ Of course, this doesn't mean you have to dump unit tests. Leave them for appropr
 
 So, back to the library. It was created with intent of simplifying demo workflow as much as possible. Just toss your demos in folder and enjoy tree generation.
 
-## Install
-```
-npm install vue-component-tree
-```
-
 ## Config
 
-Attach VueComponentTree to your router. And yes [vue-router](https://github.com/vuejs/vue-router) is required.
+Attach VueComponentTree to your router. And yes, [vue-router](https://github.com/vuejs/vue-router) is required.
 ```
 import Router from 'vue-router'
 import VueComponentTree from 'vue-component-tree'
@@ -46,6 +46,11 @@ const router = new Router({
   ]
 })
 ```
+So, about arguments. 
+
+`require.context('./../tree', true, /.vue$/), '/demo'`
+* `./../tree` is path to your demo folder. Works the same as require/import.
+* `/demo` is root route for vue-router.
 
 ### Component status
 Inside of your demo components you can set statuses, which'll colorize filenames on the tree in accordance.
@@ -66,6 +71,11 @@ Supported statuses are:
  * 'unstable' - red
  
 You can add your own. They're just css classes. 
+
+## Feedback | Support
+Leave an issue if something doesn't work for you.
+
+Also remember: Stars fuel packages development! 
 
 ## Licence
 MIT
