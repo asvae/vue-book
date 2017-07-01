@@ -6,7 +6,6 @@ export default class DemoFolder {
   name: String = ''
 
   constructor (data) {
-    this.folders = []
     Object.assign(this, data)
   }
 

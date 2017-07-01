@@ -1,13 +1,13 @@
 <template>
-    <div class="demo-folder-1">
-        <div class="demo-folder-1__title" @click="isOpen = !isOpen">
-            <span class="icon-1">
+    <div class="demo-folder">
+        <div class="demo-folder__title" @click="isOpen = !isOpen">
+            <span class="icon">
                 <i class="fa fa-caret-down" v-if="isOpen"></i>
                 <i class="fa fa-caret-right" v-else></i>
             </span>
             <i class="fa fa-folder"></i> <span>{{folder.name}}</span>
         </div>
-        <div class="demo-folder-1__insides" v-if="isOpen && ! folder.isEmpty()">
+        <div class="demo-folder__insides" v-if="isOpen && ! folder.isEmpty()">
             <folder v-for="child in folder.folders"
                     :key="child.path"
                     :folder="child"
@@ -24,8 +24,8 @@
 <script>
   import vmFile from './File.vue'
 
-  import DemoFolder from '../classes/Main/DemoFolder.js'
-  import ObjectHelpers from '../classes/Utility/ObjectHelpers.js'
+  import DemoFolder from '../../classes/Main/DemoFolder.js'
+  import ObjectHelpers from '../../classes/Utility/ObjectHelpers.js'
 
   export default {
     name: 'Folder',

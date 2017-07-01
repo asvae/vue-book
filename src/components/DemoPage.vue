@@ -1,25 +1,25 @@
 <template>
-    <div class="container-1">
-        <div class="container-1__item container-1__item--narrow">
+    <div class="container">
+        <div class="container__item container__item--narrow" style="background-color: rgba(201,223,254,0.37)">
             <div v-show="isHidden">
-                <span class="icon-1" style="cursor: pointer"
+                <span class="icon" style="cursor: pointer"
                       @click="isHidden = ! isHidden">
                      <i class="fa fa-bars"></i>
                 </span>
             </div>
-            <div v-show="! isHidden" class="file-structure-1">
+            <div v-show="! isHidden" class="file-structure">
                 <div style="text-align: right">
-                    <span class="icon-2" style="cursor: pointer"
+                    <span class="icon" style="cursor: pointer"
                           @click="isHidden = ! isHidden"
                     >
                          <i class="fa fa-bars"></i>
                     </span>
-                    <span class="icon-2" style="cursor: pointer"
+                    <span class="icon" style="cursor: pointer"
                           @click="$refs.folder.openSelected()"
                     >
                          <i class="fa fa-dot-circle-o"></i>
                     </span>
-                    <span class="icon-2" style="cursor: pointer"
+                    <span class="icon" style="cursor: pointer"
                           @click="$refs.folder.isOpen = false">
                          <i class="fa fa-exchange"></i>
                     </span>
@@ -27,7 +27,7 @@
                 <vm-folder ref="folder" :folder="tree"/>
             </div>
         </div>
-        <div class="container-1__item">
+        <div class="container__item">
             <component
                 v-if="component"
                 :is="component"
@@ -38,7 +38,7 @@
 
 
 <script>
-  import vmFolder from './Folder.vue'
+  import vmFolder from './FileTree/Folder.vue'
 
   import DemoFolder from '../classes/Main/DemoFolder.js'
   import DemoNode from '../classes/Main/DemoNode.js'

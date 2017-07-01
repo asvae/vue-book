@@ -1,0 +1,29 @@
+.selectable-item {
+  cursor: pointer;
+  padding: 10px 25px;
+  min-height: 50px;
+  border-radius: 5px;
+  color: #245f87;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  border: 1px solid #d0e4f9;
+  background-color: #fff;
+  & + & {
+    margin-top: 10px;
+  }
+  &.active {
+    background-color: #1388d6;
+    color: #fff;
+  }
+  &:hover {
+    border-color: #1388d6;
+  }
+  &.is-small {
+    & + & {
+      margin-top: 5px;
+    }
+    min-height: 20px;
+    padding: 5px 10px;
+  }
+}

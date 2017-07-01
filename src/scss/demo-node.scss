@@ -1,23 +1,22 @@
-.demo-node-1 {
+.demo-node {
   cursor: pointer;
   padding-left: 20px;
-  min-width: 100%;
   color: black;
   white-space: nowrap;
   display: block;
-  &.demo-node-1--active * {
+  &#{&}--active * {
     background-color: #ebe5ff;
   }
-  &.demo-node-1--stable {
+  &#{&}--stable {
     color: green;
   }
-  &.demo-node-1--wip {
+  &#{&}--wip {
     color: #978d26;
   }
-  &.demo-node-1--unstable {
+  &#{&}--unstable {
     color: #d94d5e;
   }
-  &.demo-node-1--hold {
+  &#{&}--hold {
     color: #b769d9;
   }
 }

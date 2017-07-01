@@ -1,6 +1,6 @@
 export default class DemoNode {
   path: String = ''
-  component: Object
+  component: Object = {}
 
   constructor (data) {
     Object.assign(this, data)

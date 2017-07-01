@@ -1,8 +1,8 @@
 <template>
     <router-link
             tag="div"
-            class="demo-node-1"
-            :class="[status, isActive && 'demo-node-1--active']"
+            class="demo-node"
+            :class="[status, isActive && 'demo-node--active']"
             :to="file.path"
     >
         <div>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import DemoNode from '../classes/Main/DemoNode.js'
+  import DemoNode from '../../classes/Main/DemoNode.js'
 
   export default {
     name: 'File',
@@ -27,7 +27,7 @@
       },
       status () {
         const status = this.file.component.status
-        return status && `demo-node-1--${status}`
+        return status && `demo-node--${status}`
       }
     }
   }

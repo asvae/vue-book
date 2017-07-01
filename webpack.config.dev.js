@@ -63,8 +63,11 @@ module.exports = {
     ]
   },
   devServer: {
-    historyApiFallback: true,
-    contentBase: path.join(__dirname, "dev"),
+    port: 9000,
+    historyApiFallback: {
+      disableDotRule: true,
+      index: '/dev/index.html',
+    },
     overlay: {
       warnings: true,
       errors: true

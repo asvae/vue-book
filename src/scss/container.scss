@@ -1,4 +1,4 @@
-.container-1 {
+.container {
   font-family: "Noto Sans", sans-serif;
 
   display: flex;
@@ -7,30 +7,30 @@
   $gutter: 10px;
 
   margin: -$gutter/2;
-  .container-1__item {
+  &__item {
     padding: $gutter/2
   }
-  &.container-1--full-width {
+  &#{&}--full-width {
     width: calc(100% + #{$gutter}/2);
   }
 
-  &.container-1--column {
+  &#{&}--column {
     flex-direction: column;
   }
 
-  &.container-1--start {
+  &#{&}--start {
     justify-content: flex-start;
   }
 
-  &.container-1--wrap {
+  &#{&}--wrap {
     flex-wrap: wrap;
   }
 
-  .container-1__item {
+  &__item {
     flex-basis: 0;
     flex-grow: 1;
     flex-shrink: 1;
-    &.container-1__item--narrow {
+    &#{&}--narrow {
       flex: none;
     }
   }

@@ -9,7 +9,8 @@ const router = new Router({
   mode: 'history',
   linkActiveClass: 'is-active',
   routes: [
-    vueComponentTree.create(require.context('./components', true, /.vue$/), '/demo'),
+    vueComponentTree.create(require.context('./tree', true, /.vue$/), '/Demo'),
+    vueComponentTree.create(require.context('./../src/tree', true, /.vue$/), '/SourceComponents'),
   ]
 })
 
