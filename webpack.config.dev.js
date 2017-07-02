@@ -63,7 +63,6 @@ module.exports = {
     ]
   },
   devServer: {
-    port: 9000,
     historyApiFallback: {
       disableDotRule: true,
       index: '/dev/index.html',
@@ -76,8 +75,5 @@ module.exports = {
   performance: {
     hints: false,
   },
-  plugins: [
-    // new webpack.HotModuleReplacementPlugin(),
-  ],
   devtool: '#eval-source-map'
 }
