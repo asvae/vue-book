@@ -15,28 +15,28 @@ module.exports = function () {
       rules: [
         {
           test: /\.sсss$/,
-          loaders: ['style-loader', 'css-loader', 'sass-loader']
+          use: ['style-loader', 'css-loader', 'sass-loader']
         },
         {
           test: /\.sass$/,
-          loaders: ['style-loader', 'css-loader', 'sass-loader?indentedSyntax']
+          use: ['style-loader', 'css-loader', 'sass-loader?indentedSyntax']
         },
         {
           test: /\.css$/,
-          loader: ['style-loader', 'css-loader']
+          use: ['style-loader', 'css-loader']
         },
         {
           test: /\.vue$/,
-          loader: 'vue-loader',
+          use: 'vue-loader',
         },
         {
           test: /\.js$/,
-          loader: 'babel-loader',
+          use: 'babel-loader',
           exclude: /node_modules/
         },
         {
           test: /\.svg$/,
-          loader: 'vue-svg-loader',
+          use: 'vue-svg-loader',
           include: path.resolve('./src/assets/svg'),
         },
         {
@@ -48,7 +48,7 @@ module.exports = function () {
         },
         {
           test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-          loader: 'url-loader?limit=100000&name=[name].[ext]',
+          use: 'url-loader?limit=100000&name=[name].[ext]',
           exclude: path.resolve('./src/assets/svg'),
         }
       ]

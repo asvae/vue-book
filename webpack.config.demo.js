@@ -15,23 +15,23 @@ module.exports = function () {
       rules: [
         {
           test: /\.sass$/,
-          loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: 'css-loader!sass-loader'
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: 'css-loader!sass-loader'
           })
         },
         {
           test: /\.sсss$/,
-          loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: 'css-loader!sass-loader!font-awesome/scss/font-awesome.scss'
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: 'css-loader!sass-loader!font-awesome/scss/font-awesome.scss'
           })
         },
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: 'css-loader'
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: 'css-loader'
           })
         },
         {
@@ -40,8 +40,8 @@ module.exports = function () {
           options: {
             loaders: {
               css: ExtractTextPlugin.extract({
-                loader: 'css-loader',
-                fallbackLoader: 'vue-style-loader' // <- this is a dep of vue-loader, so no need to explicitly install if using npm3
+                use: 'css-loader',
+                fallback: 'vue-style-loader' // <- this is a dep of vue-loader, so no need to explicitly install if using npm3
               }),
               // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
               // the "scss" and "sass" values for the lang attribute to the right configs here.
@@ -54,12 +54,12 @@ module.exports = function () {
         },
         {
           test: /\.js$/,
-          loader: 'babel-loader',
+          use: 'babel-loader',
           exclude: /node_modules/
         },
         {
           test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-          loader: 'url-loader?limit=100000&name=[name].[ext]',
+          use: 'url-loader?limit=100000&name=[name].[ext]',
           exclude: path.resolve('./src/assets/svg'),
         }
       ]
