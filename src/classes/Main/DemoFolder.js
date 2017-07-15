@@ -3,8 +3,8 @@ import DemoFile from './DemoFile'
 export default class DemoFolder {
   folders: Array<DemoFolder> = []
   files: Array<DemoFile> = []
-  name: String
-  path: String
+  name: String = ''
+  isOpen: Boolean = false
 
   constructor (data) {
     Object.assign(this, data)
@@ -15,11 +15,25 @@ export default class DemoFolder {
       const folderNameArray = relativePath.split('/')
       const folderName = folderNameArray.shift()
       this.findOrCreateFolder(folderName)
-        .addFile(node, folderNameArray.join('/'))
+          .addFile(node, folderNameArray.join('/'))
       return
     }
 
     this.files.push(node)
+  }
+
+  toggle (): void {
+    this.isOpen = !this.isOpen
+  }
+
+  getOpenFolders (): DemoFolder[] {
+    return this.folders.filter(folder => folder.isOpen)
+               .map((folder: DemoFolder) => {
+                 return new DemoFolder({
+                   name: folder.name,
+                   folders: folder.getOpenFolders(),
+                 })
+               })
   }
 
   findOrCreateFolder (name): DemoFolder {
@@ -27,14 +41,14 @@ export default class DemoFolder {
     if (foundFolder) {
       return foundFolder
     }
-    const folder = new DemoFolder({name})
+    const folder = new DemoFolder({ name })
     this.folders.push(folder)
     return folder
   }
 
   addDemoFile (node: DemoFile): void {
     const relativePath = node.getParentFolderPath().split('/').slice(1)
-      .join('/')
+                             .join('/')
     this.addFile(node, relativePath)
   }
 

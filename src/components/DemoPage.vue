@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <div class="container__item container__item--narrow" style="background-color: rgba(201,223,254,0.37)">
+        <div class="container__item container__item--narrow"
+             style="background-color: rgba(201,223,254,0.37)">
             <div v-show="isHidden">
                 <span class="icon" style="cursor: pointer"
                       @click="isHidden = ! isHidden">
@@ -20,7 +21,7 @@
                          <i class="fa fa-dot-circle-o"></i>
                     </span>
                     <span class="icon" style="cursor: pointer"
-                          @click="$refs.folder.isOpen = false">
+                          @click="tree.isOpen = false">
                          <i class="fa fa-exchange"></i>
                     </span>
                 </div>
@@ -49,12 +50,14 @@
     name: 'DemoPage',
     data () {
       return {
+        tree: this.renderTree(),
         isHidden: false,
         foldersStore,
       }
     },
     mounted () {
-      this.$refs.folder.openSelected()
+      console.log(this.tree)
+//      this.$refs.folder.openSelected()
     },
     provide () {
       return {
@@ -75,9 +78,12 @@
       files () {
         return this.$route.meta.files
       },
-      tree () {
-        const tree = new DemoFolder({})
-        this.files.forEach(node => tree.addDemoFile(node))
+    },
+    methods: {
+      renderTree () {
+        const tree = new DemoFolder()
+        const files = this.$route.meta.files
+        files.forEach(node => tree.addDemoFile(node))
         return tree.folders[0]
       }
     }

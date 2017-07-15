@@ -1,13 +1,13 @@
 <template>
     <div class="demo-folder">
-        <div class="demo-folder__title" @click="isOpen = !isOpen">
+        <div class="demo-folder__title" @click="folder.toggle()">
             <span class="icon">
-                <i class="fa fa-caret-down" v-if="isOpen"></i>
+                <i class="fa fa-caret-down" v-if="folder.isOpen"></i>
                 <i class="fa fa-caret-right" v-else></i>
             </span>
             <i class="fa fa-folder"></i> <span>{{folder.name}}</span>
         </div>
-        <div class="demo-folder__insides" v-if="isOpen && ! folder.isEmpty()">
+        <div class="demo-folder__insides" v-if="folder.isOpen && ! folder.isEmpty()">
             <folder v-for="child in folder.folders"
                     :key="child.path"
                     :folder="child"
@@ -29,11 +29,6 @@
 
   export default {
     name: 'Folder',
-    data () {
-      return {
-        isOpen: false
-      }
-    },
     inject: ['foldersStore'],
     props: {
       folder: {
@@ -49,7 +44,7 @@
             })
 
         if (foldersChain.length) {
-          this.isOpen = true
+          this.folder.isOpen = true
         }
 
         if (foldersChain.length > 1) {
