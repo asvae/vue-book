@@ -34,6 +34,7 @@
         isOpen: false
       }
     },
+    inject: ['foldersStore'],
     props: {
       folder: {
         type: DemoFolder

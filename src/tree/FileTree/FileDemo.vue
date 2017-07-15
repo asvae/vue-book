@@ -14,7 +14,7 @@
 
 <script>
   import vmFile from '../../components/FileTree/File.vue'
-  import DemoNode from '../../classes/Main/DemoNode'
+  import DemoNode from '../../classes/Main/DemoFile'
   import DemoFileFactory from "../../classes/Factory/DemoFileFactory";
 
   export default {

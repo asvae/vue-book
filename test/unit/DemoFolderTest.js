@@ -1,5 +1,5 @@
 import DemoFolder from '../../src/classes/Main/DemoFolder.js'
-import DemoNode from '../../src/classes/Main/DemoNode.js'
+import DemoNode from '../../src/classes/Main/DemoFile.js'
 
 describe('DemoFolder', () => {
   it('is initialized', () => {
@@ -23,11 +23,11 @@ describe('DemoFolder', () => {
     const folderTwo = folderOne.folders[0]
     expect(folderTwo.name).toBe('two')
   })
-  it('addDemoNode', () => {
+  it('addDemoFile', () => {
     const folder = new DemoFolder()
-    folder.addDemoNode(new DemoNode({ path: '/one/two/file.js' }))
-    folder.addDemoNode(new DemoNode({ path: '/one/two/file1.js' }))
-    folder.addDemoNode(new DemoNode({ path: '/one/file2.js' }))
+    folder.addDemoFile(new DemoNode({ path: '/one/two/file.js' }))
+    folder.addDemoFile(new DemoNode({ path: '/one/two/file1.js' }))
+    folder.addDemoFile(new DemoNode({ path: '/one/file2.js' }))
     const folderOne = folder.folders[0]
     expect(folderOne.name).toBe('one')
     expect(folderOne.files.length).toBe(1)

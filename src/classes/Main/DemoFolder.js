@@ -1,20 +1,21 @@
-import DemoNode from './DemoNode'
+import DemoFile from './DemoFile'
 
 export default class DemoFolder {
   folders: Array<DemoFolder> = []
-  files: Array<DemoNode> = []
-  name: String = ''
+  files: Array<DemoFile> = []
+  name: String
+  path: String
 
   constructor (data) {
     Object.assign(this, data)
   }
 
-  addFile (node: DemoNode, relativePath: String): void {
+  addFile (node: DemoFile, relativePath: String): void {
     if (relativePath) {
       const folderNameArray = relativePath.split('/')
       const folderName = folderNameArray.shift()
       this.findOrCreateFolder(folderName)
-          .addFile(node, folderNameArray.join('/'))
+        .addFile(node, folderNameArray.join('/'))
       return
     }
 
@@ -26,14 +27,14 @@ export default class DemoFolder {
     if (foundFolder) {
       return foundFolder
     }
-    const folder = new DemoFolder({ name })
+    const folder = new DemoFolder({name})
     this.folders.push(folder)
     return folder
   }
 
-  addDemoNode (node: DemoNode): void {
+  addDemoFile (node: DemoFile): void {
     const relativePath = node.getParentFolderPath().split('/').slice(1)
-                             .join('/')
+      .join('/')
     this.addFile(node, relativePath)
   }
 

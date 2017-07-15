@@ -1,4 +1,4 @@
-export default class DemoNode {
+export default class DemoFile {
   path: String = ''
   component: Object = {}
 

@@ -29,8 +29,8 @@
         </div>
         <div class="container__item">
             <component
-                v-if="component"
-                :is="component"
+                    v-if="component"
+                    :is="component"
             />
         </div>
     </div>
@@ -38,19 +38,28 @@
 
 
 <script>
+  import foldersStore from '../store/foldersStore'
+
   import vmFolder from './FileTree/Folder.vue'
 
   import DemoFolder from '../classes/Main/DemoFolder.js'
-  import DemoNode from '../classes/Main/DemoNode.js'
+  import DemoNode from '../classes/Main/DemoFile.js'
 
   export default {
+    name: 'DemoPage',
     data () {
       return {
         isHidden: false,
+        foldersStore,
       }
     },
     mounted () {
       this.$refs.folder.openSelected()
+    },
+    provide () {
+      return {
+        foldersStore,
+      }
     },
     methods: {},
     components: {
@@ -68,7 +77,7 @@
       },
       tree () {
         const tree = new DemoFolder({})
-        this.files.forEach(node => tree.addDemoNode(node))
+        this.files.forEach(node => tree.addDemoFile(node))
         return tree.folders[0]
       }
     }

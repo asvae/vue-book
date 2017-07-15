@@ -1,4 +1,4 @@
-import DemoNode from "../Main/DemoNode";
+import DemoNode from "../Main/DemoFile";
 
 export default class DemoFileFactory {
 

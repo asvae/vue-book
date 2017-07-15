@@ -25,7 +25,7 @@
 
 <script>
   import vmFolder from '../../components/FileTree/Folder.vue'
-  import DemoNode from '../../classes/Main/DemoNode'
+  import DemoNode from '../../classes/Main/DemoFile'
   import DemoFolder from '../../classes/Main/DemoFolder'
   import DemoFolderFactory from "../../classes/Factory/DemoFolderFactory";
 

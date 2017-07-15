@@ -1,4 +1,4 @@
-import DemoNode from './DemoNode.js'
+import DemoNode from './DemoFile.js'
 
 import vmDemoPage from './../../components/DemoPage.vue'
 

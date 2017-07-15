@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import DemoNode from '../../classes/Main/DemoNode.js'
+  import DemoNode from '../../classes/Main/DemoFile.js'
 
   export default {
     name: 'File',
