@@ -1,7 +1,7 @@
 [![Build status][circleci-badge]][circleci-url]
 
 # vue-component-tree
-Tree view for your demo components. [Demo](http://vue-component-tree-demo.asva.by/#/Demo/Children/Grandchildren/GrandchildTwo.vue).
+Tree view for your demo components. [Demo](http://vue-component-tree-demo.asva.by/#/Demo/ConactComponent.vue).
 
 ![Interface](docs/main.gif)
 
