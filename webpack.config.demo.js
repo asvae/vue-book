@@ -24,7 +24,7 @@ module.exports = function () {
           test: /\.sсss$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: 'css-loader!sass-loader!font-awesome/scss/font-awesome.scss'
+            use: 'css-loader!sass-loader'
           })
         },
         {

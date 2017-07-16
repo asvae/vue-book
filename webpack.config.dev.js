@@ -17,12 +17,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.sсss$/,
+        test: /\.s(a|c)ss$/,
         use: ['style-loader', 'css-loader', 'sass-loader']
-      },
-      {
-        test: /\.sass$/,
-        use: ['style-loader', 'css-loader', 'sass-loader?indentedSyntax']
       },
       {
         test: /\.css$/,
