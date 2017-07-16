@@ -11,9 +11,11 @@ npm install vue-component-tree
 ```
 
 ## Features
-* Display your components as a tree.
+* Display your components as a tree or flat list.
 * Preview components on the page.
+* Text search (keybind: press Shift then Shift)
 * Routing support.
+* Saves on page reload.
 * Colored statuses.
 
 ## The gist
