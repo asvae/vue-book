@@ -1,0 +1,10 @@
+// Inliine icon. Works nicely with font awesome.
+
+.button-icon {
+  cursor: pointer;
+  display: inline-flex;
+  border-radius: 3px;
+  &--active {
+    background-color: #c7d6e1;
+  }
+}

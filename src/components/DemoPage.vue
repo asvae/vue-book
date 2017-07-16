@@ -3,29 +3,72 @@
         <div class="container__item container__item--narrow"
              style="background-color: rgba(201,223,254,0.37)">
             <div v-show="isHidden">
-                <span class="icon" style="cursor: pointer"
-                      @click="isHidden = ! isHidden">
-                     <i class="fa fa-bars"></i>
-                </span>
+                <div class="button-icon"
+                     :class="{'button-icon--active': isHidden}"
+                     @click="isHidden = ! isHidden"
+                >
+                        <span class="icon">
+                            <i class="fa fa-bars"></i>
+                        </span>
+                </div>
             </div>
             <div v-show="! isHidden" class="file-structure">
-                <div style="text-align: right">
-                    <span class="icon" style="cursor: pointer"
-                          @click="isHidden = ! isHidden"
-                    >
-                         <i class="fa fa-bars"></i>
-                    </span>
-                    <span class="icon" style="cursor: pointer"
-                          @click="$refs.folder.openSelected()"
+                <div style="text-align: right; min-width: 250px">
+                    <span v-if="currentFile"
+                          class="icon"
+                          style="cursor: pointer"
+                          @click="currentFile.openFolder()"
                     >
                          <i class="fa fa-dot-circle-o"></i>
                     </span>
-                    <span class="icon" style="cursor: pointer"
-                          @click="tree.isOpen = false">
-                         <i class="fa fa-exchange"></i>
-                    </span>
+                    <div class="button-icon"
+                         @click="tree.close()"
+                    >
+                        <span class="icon">
+                            <i class="fa fa-exchange"></i>
+                        </span>
+                    </div>
+                    &nbsp;
+                    <div class="button-icon"
+                         :class="{'button-icon--active': isHidden}"
+                         @click="isHidden = ! isHidden"
+                    >
+                        <span class="icon">
+                            <i class="fa fa-bars"></i>
+                        </span>
+                    </div>
+                    <div class="button-icon"
+                         :class="{'button-icon--active': hasSearch}"
+                         @click="hasSearch = ! hasSearch"
+                    >
+                        <span class="icon">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                    <div class="button-icon"
+                         :class="{'button-icon--active': isFlat}"
+                         @click="isFlat = !isFlat"
+                    >
+                        <span class="icon">
+                            <i class="fa fa-arrows-v"></i>
+                        </span>
+                    </div>
                 </div>
-                <vm-folder ref="folder" :folder="tree"/>
+                <vm-search-panel
+                        v-if="hasSearch"
+                        :files="files"
+                        @selected="hasSearch = !hasSearch"
+                />
+                <div v-else>
+                    <div v-if="isFlat">
+                        <vm-file
+                                v-for="file in files"
+                                :key="file.path"
+                                :file="file"
+                        />
+                    </div>
+                    <vm-folder v-else :folder="tree"/>
+                </div>
             </div>
         </div>
         <div class="container__item">
@@ -42,22 +85,35 @@
   import foldersStore from '../store/foldersStore'
 
   import vmFolder from './FileTree/Folder.vue'
+  import vmFile from './FileTree/File.vue'
 
   import DemoFolder from '../classes/Main/DemoFolder.js'
   import DemoNode from '../classes/Main/DemoFile.js'
+  import VmSearchPanel from './FileTree/SearchPanel.vue'
 
   export default {
-    name: 'DemoPage',
+    name: 'VmDemoPage',
     data () {
       return {
         tree: this.renderTree(),
         isHidden: false,
+        isFlat: false,
+        hasSearch: false,
+        searchText: '',
         foldersStore,
       }
     },
-    mounted () {
-      console.log(this.tree)
-//      this.$refs.folder.openSelected()
+    watch: {
+      'tree': {
+        deep: true,
+        handler (value: DemoFolder, oldValue) {
+          if (value !== oldValue) {
+            // Updated from local storage.
+            return
+          }
+          foldersStore.openFolders = value.getOpenFolders()
+        }
+      }
     },
     provide () {
       return {
@@ -66,14 +122,18 @@
     },
     methods: {},
     components: {
+      VmSearchPanel,
       vmFolder,
+      vmFile,
     },
     computed: {
       component () {
-        const file = this.files.find(file => {
+        return this.currentFile && this.currentFile.component
+      },
+      currentFile () {
+        return this.files.find(file => {
           return this.$route.path === file.path
-        })
-        return file ? file.component : null
+        }) || null
       },
       files () {
         return this.$route.meta.files
@@ -84,12 +144,27 @@
         const tree = new DemoFolder()
         const files = this.$route.meta.files
         files.forEach(node => tree.addDemoFile(node))
+        tree.fillParents()
         return tree.folders[0]
-      }
-    }
+      },
+    },
+    created () {
+      this.tree.open()
+      this.tree.mergeWithFolders(foldersStore.openFolders)
+
+      let shiftFlag = false
+      document.addEventListener('keydown', (event) => {
+        if (shiftFlag) {
+          this.hasSearch = true
+          return
+        }
+        if (event.key === 'Shift') {
+          shiftFlag = true
+          setTimeout(() => {
+            shiftFlag = false
+          }, 300)
+        }
+      })
+    },
   }
 </script>
-
-<style lang="scss" rel="stylesheet/scss">
-
-</style>

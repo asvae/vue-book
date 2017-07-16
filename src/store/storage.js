@@ -3,11 +3,11 @@ const STORAGE_KEY = 'vue-component-tree'
 export default {
   store (key, value): void {
     const all = this.getAll()
-    all.key = value
+    all[key] = value
     localStorage.setItem(STORAGE_KEY, JSON.stringify(all))
   },
   fetch (key): any {
-    this.getAll()[key]
+    return this.getAll()[key]
   },
   getAll (): Object {
     const defaultItems = this.getDefault()

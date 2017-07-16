@@ -1,5 +1,5 @@
 import DemoFolder from '../../src/classes/Main/DemoFolder.js'
-import DemoNode from '../../src/classes/Main/DemoFile.js'
+import DemoFile from '../../src/classes/Main/DemoFile.js'
 
 describe('DemoFolder', () => {
   it('is initialized', () => {
@@ -17,7 +17,7 @@ describe('DemoFolder', () => {
   })
   it('addFile', () => {
     const folder = new DemoFolder()
-    folder.addFile(new DemoNode(), 'one/two')
+    folder.addFile(new DemoFile(), 'one/two')
     const folderOne = folder.folders[0]
     expect(folderOne.name).toBe('one')
     const folderTwo = folderOne.folders[0]
@@ -25,9 +25,9 @@ describe('DemoFolder', () => {
   })
   it('addDemoFile', () => {
     const folder = new DemoFolder()
-    folder.addDemoFile(new DemoNode({ path: '/one/two/file.js' }))
-    folder.addDemoFile(new DemoNode({ path: '/one/two/file1.js' }))
-    folder.addDemoFile(new DemoNode({ path: '/one/file2.js' }))
+    folder.addDemoFile(new DemoFile({ path: '/one/two/file.js' }))
+    folder.addDemoFile(new DemoFile({ path: '/one/two/file1.js' }))
+    folder.addDemoFile(new DemoFile({ path: '/one/file2.js' }))
     const folderOne = folder.folders[0]
     expect(folderOne.name).toBe('one')
     expect(folderOne.files.length).toBe(1)
@@ -37,16 +37,16 @@ describe('DemoFolder', () => {
   })
   it('getOpenFolders', () => {
     const folder = new DemoFolder()
-    folder.addDemoFile(new DemoNode({ path: '/one/file1.js' }))
-    folder.addDemoFile(new DemoNode({ path: '/two/file2.js' }))
-    folder.addDemoFile(new DemoNode({ path: '/three/file3.js' }))
+    folder.addDemoFile(new DemoFile({ path: '/one/file1.js' }))
+    folder.addDemoFile(new DemoFile({ path: '/two/file2.js' }))
+    folder.addDemoFile(new DemoFile({ path: '/three/file3.js' }))
     expect(folder.getOpenFolders().length).toBe(0)
-    folder.folders[0].toggle()
+    folder.folders[0].open()
     expect(folder.getOpenFolders().length).toBe(1)
-    folder.folders[0].toggle()
+    folder.folders[0].close()
     expect(folder.getOpenFolders().length).toBe(0)
-    folder.folders[1].toggle()
-    folder.folders[2].toggle()
+    folder.folders[1].open()
+    folder.folders[2].open()
     expect(folder.getOpenFolders().length).toBe(2)
   })
 })

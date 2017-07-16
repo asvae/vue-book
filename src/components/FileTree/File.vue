@@ -12,13 +12,13 @@
 </template>
 
 <script>
-  import DemoNode from '../../classes/Main/DemoFile.js'
+  import DemoFile from '../../classes/Main/DemoFile.js'
 
   export default {
-    name: 'File',
+    name: 'VmFile',
     props: {
       file: {
-        type: DemoNode
+        type: DemoFile
       }
     },
     computed: {

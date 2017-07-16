@@ -8,7 +8,7 @@
             <i class="fa fa-folder"></i> <span>{{folder.name}}</span>
         </div>
         <div class="demo-folder__insides" v-if="folder.isOpen && ! folder.isEmpty()">
-            <folder v-for="child in folder.folders"
+            <vm-folder v-for="child in folder.folders"
                     :key="child.path"
                     :folder="child"
                     ref="folders"
@@ -28,7 +28,7 @@
   import ObjectHelpers from '../../classes/Utility/ObjectHelpers.js'
 
   export default {
-    name: 'Folder',
+    name: 'VmFolder',
     inject: ['foldersStore'],
     props: {
       folder: {

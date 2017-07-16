@@ -1,10 +1,13 @@
 import DemoFile from './DemoFile'
+import DemoFolderMapper from '../Mapper/DemoFolderMapper'
 
 export default class DemoFolder {
-  folders: Array<DemoFolder> = []
-  files: Array<DemoFile> = []
   name: String = ''
   isOpen: Boolean = false
+
+  folders: Array<DemoFolder> = []
+  files: Array<DemoFile> = []
+  parentFolder: DemoFolder = null
 
   constructor (data) {
     Object.assign(this, data)
@@ -15,25 +18,27 @@ export default class DemoFolder {
       const folderNameArray = relativePath.split('/')
       const folderName = folderNameArray.shift()
       this.findOrCreateFolder(folderName)
-          .addFile(node, folderNameArray.join('/'))
+        .addFile(node, folderNameArray.join('/'))
       return
     }
 
     this.files.push(node)
   }
 
-  toggle (): void {
-    this.isOpen = !this.isOpen
+  open (): void {
+    this.isOpen = true
+    if (this.parentFolder && !this.parentFolder.isOpen) {
+      this.parentFolder.open()
+    }
   }
 
-  getOpenFolders (): DemoFolder[] {
-    return this.folders.filter(folder => folder.isOpen)
-               .map((folder: DemoFolder) => {
-                 return new DemoFolder({
-                   name: folder.name,
-                   folders: folder.getOpenFolders(),
-                 })
-               })
+  close (): void {
+    this.isOpen = false
+    this.folders.forEach(folder => folder.close())
+  }
+
+  toggle (): void {
+    this.isOpen ? this.close() : this.open()
   }
 
   findOrCreateFolder (name): DemoFolder {
@@ -41,14 +46,27 @@ export default class DemoFolder {
     if (foundFolder) {
       return foundFolder
     }
-    const folder = new DemoFolder({ name })
+    const folder = new DemoFolder({name})
     this.folders.push(folder)
     return folder
   }
 
+  /**
+   * Folder fills parent slots in its children.
+   */
+  fillParents () {
+    this.files.forEach((demoFile: DemoFile) => {
+      demoFile.folder = this
+    })
+    this.folders.forEach((demoFolder: DemoFolder) => {
+      demoFolder.parentFolder = this
+      demoFolder.fillParents()
+    })
+  }
+
   addDemoFile (node: DemoFile): void {
     const relativePath = node.getParentFolderPath().split('/').slice(1)
-                             .join('/')
+      .join('/')
     this.addFile(node, relativePath)
   }
 
@@ -57,10 +75,36 @@ export default class DemoFolder {
   }
 
   toJson (): Object {
-    return {
-      name: this.name,
-      folders: this.folders.map(folder => folder.toJson()),
-      files: this.files.map(file => file.toJson()),
-    }
+    return DemoFolderMapper.transform(this)
+  }
+
+  /**
+   * Basically get structure holding all information about open folders.
+   */
+  getOpenFolders (): DemoFolder[] {
+    return this.folders.filter(folder => folder.isOpen)
+      .map((folder: DemoFolder) => {
+        return new DemoFolder({
+          name: folder.name,
+          folders: folder.getOpenFolders(),
+          isOpen: true,
+        })
+      })
+  }
+
+  /**
+   * Basically open all folders from passed structure.
+   */
+  mergeWithFolders (folders: DemoFolder[]) {
+    folders.forEach((folder: DemoFolder) => {
+      const selfFolder = this.folders.find((selfFolder: DemoFolder) => {
+        return folder.name === selfFolder.name
+      })
+      if (!selfFolder) {
+        return
+      }
+      selfFolder.isOpen = true
+      selfFolder.mergeWithFolders(folder.folders)
+    })
   }
 }
