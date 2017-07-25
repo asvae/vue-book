@@ -151,20 +151,6 @@
     created () {
       this.tree.open()
       this.tree.mergeWithFolders(foldersStore.openFolders)
-
-      let shiftFlag = false
-      document.addEventListener('keydown', (event) => {
-        if (shiftFlag) {
-          this.hasSearch = true
-          return
-        }
-        if (event.key === 'Shift') {
-          shiftFlag = true
-          setTimeout(() => {
-            shiftFlag = false
-          }, 300)
-        }
-      })
     },
   }
 </script>
