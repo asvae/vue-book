@@ -1,7 +1,8 @@
 [![Build status][circleci-badge]][circleci-url]
 
 # vue-component-tree
-Tree view for your demo components. [Demo](http://vue-component-tree-demo.asva.by/#/Demo/ConactComponent.vue).
+
+Tree view for your demo components. [Demo](http://vue-component-tree-demo.asva.by/#/Demo/ContactComponent.vue).
 
 ![Interface](docs/main.gif)
 
@@ -15,6 +16,7 @@ Tree view for your demo components. [Demo](http://vue-component-tree-demo.asva.b
 * Preview components on the page.
 * Text search (keybind: press Shift then Shift)
 * Routing support.
+* Shows dependencies for you components.
 * Saves on page reload.
 * Colored statuses.
 
@@ -56,17 +58,24 @@ So, about arguments.
 * `./../tree` is path to your demo folder. Works the same as require/import.
 * `/demo` is root route for vue-router.
 
-### Component status
-Inside of your demo component you can set status, which will colorize filenames on the tree in accordance.
+### Options
+Inside of your demo component you can set set some options. All of them are optional.
 
-```javascript
-{
-  status: 'wip',
-  data () {
-     // ...
-  }
-}
-```
+ ```javascript
+ {
+   componentTree: {
+     status: 'wip',
+     component: VmMainComponent,
+   },
+   data () {
+      // ...
+   }
+ }
+ ```
+ 
+#### Status 
+
+Will colorize filenames on the tree in accordance.
 
 Supported statuses are:
  * 'wip' - yellow
@@ -74,7 +83,15 @@ Supported statuses are:
  * 'stable' - green
  * 'unstable' - red
  
-You can add your own. They're just css classes. 
+You can add your own status. They're just css classes. 
+
+#### Component
+
+Component means main component for demo.
+If you omit this option - the library will try to guess, which of registered components is main.
+
+For example, if you have `ParentDemo.vue` demo-component, and you have registered inside {name: 'VmParent'} - the library will guess correctly.
+`component` options is required for dependency tracking to work.   
 
 ### Production
 

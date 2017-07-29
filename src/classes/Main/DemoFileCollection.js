@@ -32,8 +32,6 @@ export default class DemoFileCollection {
       })
     })
 
-    console.log(componentDemos)
-
     return this
   }
 }
