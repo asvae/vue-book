@@ -6,9 +6,9 @@ Tree view for your demo components. [Demo](http://vue-component-tree-demo.asva.b
 ![Interface](docs/main.gif)
 
 ## Install
-```
-npm install vue-component-tree
-```
+
+* **npm**: `npm install -D vue-component-tree` 
+* **yarn**: `yarn add -D vue-component-tree`
 
 ## Features
 * Display your components as a tree or flat list.

@@ -14,13 +14,14 @@
             </div>
             <div v-show="! isHidden" class="file-structure">
                 <div style="text-align: right; min-width: 250px">
-                    <span v-if="currentFile"
-                          class="icon"
-                          style="cursor: pointer"
+                    <div v-if="currentFile"
+                          class="button-icon"
                           @click="currentFile.openFolder()"
                     >
-                         <i class="fa fa-dot-circle-o"></i>
-                    </span>
+                        <span class="icon">
+                            <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                    </div>
                     <div class="button-icon"
                          @click="tree.close()"
                     >
@@ -37,14 +38,32 @@
                             <i class="fa fa-bars"></i>
                         </span>
                     </div>
+
                     <div class="button-icon"
-                         :class="{'button-icon--active': hasSearch}"
-                         @click="hasSearch = ! hasSearch"
+                         :class="{'button-icon--active': mode === 'default'}"
+                         @click="mode = 'default'"
+                    >
+                        <span class="icon">
+                            <i class="fa fa-server"></i>
+                        </span>
+                    </div>
+                    <div class="button-icon"
+                         :class="{'button-icon--active': mode === 'search'}"
+                         @click="mode = 'search'"
                     >
                         <span class="icon">
                             <i class="fa fa-search"></i>
                         </span>
                     </div>
+                    <div class="button-icon"
+                         :class="{'button-icon--active': mode === 'info'}"
+                         @click="mode = 'info'"
+                    >
+                        <span class="icon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                    </div>
+
                     <div class="button-icon"
                          :class="{'button-icon--active': isFlat}"
                          @click="isFlat = !isFlat"
@@ -54,20 +73,27 @@
                         </span>
                     </div>
                 </div>
-                <vm-search-panel
-                        v-if="hasSearch"
-                        :files="files"
-                        @selected="hasSearch = !hasSearch"
-                />
-                <div v-else>
-                    <div v-if="isFlat">
-                        <vm-file
-                                v-for="file in files"
-                                :key="file.path"
-                                :file="file"
+
+                <div>
+                    <div v-if="mode === 'search'">
+                        <vm-search-panel
+                                :files="files"
+                                @selected="mode === 'default'"
                         />
                     </div>
-                    <vm-folder v-else :folder="tree"/>
+                    <div v-if="mode === 'default'">
+                        <div v-if="isFlat">
+                            <vm-file
+                                    v-for="file in files"
+                                    :key="file.path"
+                                    :file="file"
+                            />
+                        </div>
+                        <vm-folder v-else :folder="tree"/>
+                    </div>
+                    <div v-if="mode === 'info' && currentFile">
+                        <vm-file-info-panel :file="currentFile"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,15 +116,16 @@
   import DemoFolder from '../classes/Main/DemoFolder.js'
   import DemoNode from '../classes/Main/DemoFile.js'
   import VmSearchPanel from './FileTree/SearchPanel.vue'
+  import VmFileInfoPanel from './FileTree/FileInfoPanel.vue'
 
   export default {
     name: 'VmDemoPage',
     data () {
       return {
         tree: this.renderTree(),
+        mode: 'default', // 'search', 'info'
         isHidden: false,
         isFlat: false,
-        hasSearch: false,
         searchText: '',
         foldersStore,
       }
@@ -122,6 +149,7 @@
     },
     methods: {},
     components: {
+      VmFileInfoPanel,
       VmSearchPanel,
       vmFolder,
       vmFile,
@@ -136,13 +164,13 @@
         }) || null
       },
       files () {
-        return this.$route.meta.files
+        return this.$route.meta.demoFilesCollection.demoFiles
       },
     },
     methods: {
       renderTree () {
         const tree = new DemoFolder()
-        const files = this.$route.meta.files
+        const files = this.$route.meta.demoFilesCollection.demoFiles
         files.forEach(node => tree.addDemoFile(node))
         tree.fillParents()
         return tree.folders[0]

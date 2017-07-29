@@ -55,10 +55,12 @@ module.exports = {
         test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
         use: 'url-loader?limit=100000&name=[name].[ext]',
         exclude: path.resolve('./src/assets/svg'),
-      }
+      },
     ]
   },
   devServer: {
+    port: 4265,
+    inline: true,
     historyApiFallback: {
       disableDotRule: true,
       index: '/dev/index.html',

@@ -46,12 +46,10 @@
       }
     },
     methods: {
-      some (){
-        console.log('some')
-      },
       fileSelected (file: DemoFile) {
-        file.path.includes(this.text)
-        return file.path.includes(this.text)
+        const path = file.path.toUpperCase()
+        const text = this.text.toUpperCase()
+        return path.includes(text)
       }
     },
     mounted () {
