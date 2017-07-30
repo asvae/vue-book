@@ -1,6 +1,6 @@
 <template>
     <div>
-        I am GrandchildOne
+        Component
     </div>
 </template>
 

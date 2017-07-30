@@ -1,6 +1,6 @@
 <template>
     <div>
-        I am GrandchildOne
+        <div style="width: 2000px; height: 2000px; background-color: aqua"></div>
     </div>
 </template>
 
