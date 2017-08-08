@@ -6,6 +6,8 @@
 
 <script>
   export default {
-    status: 'hold',
+    componentTree: {
+      status: 'hold',
+    },
   }
 </script>

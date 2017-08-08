@@ -26,7 +26,7 @@
         return this.$route.path === this.file.path
       },
       status () {
-        const status = this.file.component.status
+        const status = this.file.options.status
         return status && `demo-node--${status}`
       }
     }

@@ -6,6 +6,8 @@
 
 <script>
   export default {
-    status: 'wip',
+    componentTree: {
+      status: 'wip',
+    },
   }
 </script>

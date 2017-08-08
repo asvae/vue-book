@@ -15,6 +15,8 @@
 
 <script>
   export default {
-    status: 'stable',
+    componentTree: {
+      status: 'stable',
+    },
   }
 </script>
