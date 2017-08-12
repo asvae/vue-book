@@ -1,8 +1,6 @@
-import DemoNode from "../Main/DemoFile";
+import DemoNode from '../Main/DemoFile'
 
 export default class DemoFileFactory {
-
-
   static getWithShortPath (): DemoNode {
     return new DemoNode({ path: '/short/short.path' })
   }

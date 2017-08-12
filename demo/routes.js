@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import VueComponentTree from '../src/app.js'
+import VueComponentTree from '../src/app.ts'
 
 Vue.use(Router)
 

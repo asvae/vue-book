@@ -27,7 +27,7 @@
   import vmFolder from '../../components/FileTree/Folder.vue'
   import DemoNode from '../../classes/Main/DemoFile'
   import DemoFolder from '../../classes/Main/DemoFolder'
-  import DemoFolderFactory from "../../classes/Factory/DemoFolderFactory";
+  import DemoFolderFactory from '../../classes/Factory/DemoFolderFactory'
 
   export default {
     data () {
@@ -46,7 +46,3 @@
     },
   }
 </script>
-
-<style lang="scss" rel="stylesheet/scss">
-
-</style>

@@ -3,9 +3,14 @@ var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const resolve = require('./blocks/resolve')
+const performance = require('./blocks/performance')
+
 module.exports = function () {
   return {
-    entry: './demo/app.js',
+    resolve,
+    performance,
+    entry: './demo/app.ts',
     output: {
       path: path.resolve(__dirname, 'public'),
       filename: 'app.js',
@@ -38,18 +43,17 @@ module.exports = function () {
           test: /\.vue$/,
           loader: 'vue-loader',
           options: {
-            loaders: {
-              css: ExtractTextPlugin.extract({
-                use: 'css-loader',
-                fallback: 'vue-style-loader' // <- this is a dep of vue-loader, so no need to explicitly install if using npm3
-              }),
-              // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-              // the "scss" and "sass" values for the lang attribute to the right configs here.
-              // other preprocessors should work out of the box, no loader config like this nessessary.
-              scss: 'vue-style-loader!css-loader!sass-loader',
-              sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-            }
-            // other vue-loader options go here
+            options: {
+              esModule: true,
+              extractCSS: true,
+            },
+          }
+        },
+        {
+          test: /\.ts$/,
+          loader: 'ts-loader',
+          options: {
+            appendTsSuffixTo: [/\.vue$/]
           }
         },
         {
@@ -63,9 +67,6 @@ module.exports = function () {
           exclude: path.resolve('./src/assets/svg'),
         }
       ]
-    },
-    performance: {
-      hints: false
     },
     plugins: [
       new HtmlWebpackPlugin({

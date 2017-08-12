@@ -1,4 +1,4 @@
-import DemoNode from '../../src/classes/Main/DemoFile.js'
+import DemoNode from '../../src/classes/Main/DemoFile.ts'
 
 describe('DemoNode', () => {
   it('is initialized', () => {

@@ -111,14 +111,14 @@
 </template>
 
 
-<script>
-  import foldersStore from '../store/foldersStore'
+<script lang="ts">
+  import foldersStore from '../store/foldersStore.js'
 
   import vmFolder from './FileTree/Folder.vue'
   import vmFile from './FileTree/File.vue'
 
-  import DemoFolder from '../classes/Main/DemoFolder.js'
-  import DemoFile from '../classes/Main/DemoFile.js'
+  import DemoFolder from '../classes/Main/DemoFolder'
+  import DemoFile from '../classes/Main/DemoFile'
   import VmSearchPanel from './FileTree/SearchPanel.vue'
   import VmFileInfoPanel from './FileTree/FileInfoPanel.vue'
 
@@ -150,7 +150,6 @@
         foldersStore,
       }
     },
-    methods: {},
     components: {
       VmFileInfoPanel,
       VmSearchPanel,

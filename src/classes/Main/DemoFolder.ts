@@ -1,5 +1,5 @@
 import DemoFile from './DemoFile'
-import DemoFolderMapper from '../Mapper/DemoFolderMapper'
+import DemoFolderMapper from '../Mapper/DemoFolderMapper.js'
 
 export default class DemoFolder {
   name: String = ''
@@ -9,7 +9,7 @@ export default class DemoFolder {
   files: Array<DemoFile> = []
   parentFolder: DemoFolder = null
 
-  constructor (data) {
+  constructor (data?) {
     Object.assign(this, data)
   }
 

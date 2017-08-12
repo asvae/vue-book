@@ -1,9 +1,13 @@
 var path = require('path')
-var webpack = require('webpack')
+
+const resolve = require('./blocks/resolve')
+const performance = require('./blocks/performance')
 
 module.exports = function () {
   return {
-    entry: ['./src/app.js'],
+    resolve,
+    performance,
+    entry: './src/app.ts',
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'js/app.js',
@@ -30,14 +34,16 @@ module.exports = function () {
           use: 'vue-loader',
         },
         {
+          test: /\.ts$/,
+          loader: 'ts-loader',
+          options: {
+            appendTsSuffixTo: [/\.vue$/]
+          }
+        },
+        {
           test: /\.js$/,
           use: 'babel-loader',
           exclude: /node_modules/
-        },
-        {
-          test: /\.svg$/,
-          use: 'vue-svg-loader',
-          include: path.resolve('./src/assets/svg'),
         },
         {
           test: /\.(png|jpg|gif)$/,
@@ -52,9 +58,6 @@ module.exports = function () {
           exclude: path.resolve('./src/assets/svg'),
         }
       ]
-    },
-    performance: {
-      hints: false
     },
     devtool: '#source-map'
   }

@@ -3,14 +3,14 @@ import DemoFile from './DemoFile'
 const optionsKey = 'componentTree'
 
 export default class DemoFileOptions {
-  status: String
-  component: ?Object
+  status: string
+  component?: Object
 
-  constructor (data) {
+  constructor (data?) {
     Object.assign(this, data)
   }
 
-  static createFromDemoFile (demoFile: DemoFile): this {
+  static createFromDemoFile (demoFile: DemoFile) {
     const component = demoFile.component
     const optionsData = component[optionsKey] || {}
 

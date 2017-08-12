@@ -1,9 +1,10 @@
 import DemoFolder from './DemoFolder'
 import DemoFileOptions from './DemoFileOptions'
+import {ComponentOptions} from 'vue'
 
 export default class DemoFile {
-  path: String = ''
-  component: Object = {}
+  path: string = ''
+  component: ComponentOptions<any> = {}
   folder: DemoFolder = null
   options: DemoFileOptions = null
   dependsOn: DemoFile[] = []
@@ -23,7 +24,7 @@ export default class DemoFile {
   }
 
   // returns `ComponentDemo.vue`
-  getFilename (): String {
+  getFilename (): string {
     return this.path.split('/').pop()
   }
 
@@ -44,7 +45,7 @@ export default class DemoFile {
   /**
    * Guess component on which demo operates from registered ones.
    */
-  guessComponent (): ?Object {
+  guessComponent (): Object | null {
     const registeredComponents = this.component.components
     if (!registeredComponents) {
       return null

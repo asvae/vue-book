@@ -1,5 +1,5 @@
-import DemoFolder from '../../src/classes/Main/DemoFolder.js'
-import DemoFile from '../../src/classes/Main/DemoFile.js'
+import DemoFolder from '../../src/classes/Main/DemoFolder.ts'
+import DemoFile from '../../src/classes/Main/DemoFile.ts'
 
 describe('DemoFolder', () => {
   it('is initialized', () => {

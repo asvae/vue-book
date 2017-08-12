@@ -11,14 +11,14 @@
     </router-link>
 </template>
 
-<script>
-  import DemoFile from '../../classes/Main/DemoFile.js'
+<script lang="ts">
+  import DemoFile from '../../classes/Main/DemoFile'
 
   export default {
     name: 'VmFile',
     props: {
       file: {
-        type: DemoFile
+        type: DemoFile,
       }
     },
     computed: {
@@ -28,11 +28,7 @@
       status () {
         const status = this.file.options.status
         return status && `demo-node--${status}`
-      }
-    }
+      },
+    },
   }
 </script>
-
-<style lang="scss" rel="stylesheet/scss">
-
-</style>

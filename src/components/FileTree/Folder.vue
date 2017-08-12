@@ -21,10 +21,10 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
   import vmFile from './File.vue'
 
-  import DemoFolder from '../../classes/Main/DemoFolder.js'
+  import DemoFolder from '../../classes/Main/DemoFolder'
   import ObjectHelpers from '../../classes/Utility/ObjectHelpers.js'
 
   export default {
@@ -60,7 +60,3 @@
     },
   }
 </script>
-
-<style lang="scss" rel="stylesheet/scss">
-
-</style>

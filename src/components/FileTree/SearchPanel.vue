@@ -17,7 +17,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
   import DemoFile from '../../classes/Main/DemoFile'
   import VmFile from './File.vue'
 
@@ -58,7 +58,3 @@
     },
   }
 </script>
-
-<style lang="scss" rel="stylesheet/scss">
-
-</style>
