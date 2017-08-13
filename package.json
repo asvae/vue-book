@@ -7,7 +7,7 @@
     "build": "npm run dist && npm run demo",
     "dist": "cross-env NODE_ENV=production webpack --progress --hide-modules --config src/build/webpack.config.dist.js",
     "demo": "cross-env NODE_ENV=production webpack --progress --hide-modules --config src/build/webpack.config.demo.js",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --open --config src/build/webpack.config.dev.js",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --open --config src/build/webpack.config.dev.js",
     "test": "karma start --single-run",
     "test-dev": "karma start"
   },
@@ -65,5 +65,6 @@
     "vue-template-compiler": "^2.4.2",
     "webpack": "^3.5.4",
     "webpack-dev-server": "^2.7.1"
-  }
+  },
+  "engines" : { "node" : "~7.0.0" }
 }

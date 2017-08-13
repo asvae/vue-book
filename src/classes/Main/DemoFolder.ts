@@ -1,8 +1,8 @@
 import DemoFile from './DemoFile'
-import DemoFolderMapper from '../Mapper/DemoFolderMapper.js'
+import DemoFolderMapper from '../Mapper/DemoFolderMapper'
 
 export default class DemoFolder {
-  name: String = ''
+  name: string = ''
   isOpen: Boolean = false
 
   folders: Array<DemoFolder> = []
@@ -13,7 +13,7 @@ export default class DemoFolder {
     Object.assign(this, data)
   }
 
-  addFile (node: DemoFile, relativePath: String): void {
+  addFile (node: DemoFile, relativePath: string): void {
     if (relativePath) {
       const folderNameArray = relativePath.split('/')
       const folderName = folderNameArray.shift()

@@ -1,10 +1,11 @@
 import DemoFile from './DemoFile'
+import Vue, {ComponentOptions} from 'vue'
 
 const optionsKey = 'componentTree'
 
 export default class DemoFileOptions {
   status: string
-  component?: Object
+  component?: ComponentOptions<Vue>
 
   constructor (data?) {
     Object.assign(this, data)
@@ -15,7 +16,7 @@ export default class DemoFileOptions {
     const optionsData = component[optionsKey] || {}
 
     return new this({
-      status: optionsData.status || component.status || 'default',
+      status: optionsData.status || 'default',
       component: optionsData.component || demoFile.guessComponent(),
     })
   }

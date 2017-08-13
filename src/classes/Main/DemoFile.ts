@@ -1,16 +1,17 @@
 import DemoFolder from './DemoFolder'
 import DemoFileOptions from './DemoFileOptions'
-import {ComponentOptions} from 'vue'
+import Vue, {ComponentOptions} from 'vue'
+
 
 export default class DemoFile {
   path: string = ''
-  component: ComponentOptions<any> = {}
+  component: ComponentOptions<Vue>
   folder: DemoFolder = null
   options: DemoFileOptions = null
   dependsOn: DemoFile[] = []
   dependedBy: DemoFile[] = []
 
-  constructor (data) {
+  constructor (data?) {
     Object.assign(this, data)
   }
 
@@ -29,7 +30,7 @@ export default class DemoFile {
   }
 
   // returns `VmComponent`
-  guessComponentName (): String {
+  guessComponentName (): string {
     let name = this.getFilename()
     // remove extension
     if (/.vue$/.test(name)) {
@@ -65,7 +66,7 @@ export default class DemoFile {
     return Object.values(dependentComponents)
   }
 
-  getParentFolderPath (): String {
+  getParentFolderPath (): string {
     return this.path.split('/').slice(0, -1).join('/')
   }
 

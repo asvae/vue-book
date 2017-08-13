@@ -25,7 +25,7 @@
   import vmFile from './File.vue'
 
   import DemoFolder from '../../classes/Main/DemoFolder'
-  import ObjectHelpers from '../../classes/Utility/ObjectHelpers.js'
+  import ObjectHelpers from '../../classes/Utility/ObjectHelpers'
 
   export default {
     name: 'VmFolder',

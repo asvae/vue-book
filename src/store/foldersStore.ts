@@ -1,5 +1,5 @@
 import storage from './storage'
-import DemoFolder from "../classes/Main/DemoFolder";
+import DemoFolder from '../classes/Main/DemoFolder'
 import DemoFolderMapper from '../classes/Mapper/DemoFolderMapper'
 
 const STORAGE_KEY = 'openFolders'

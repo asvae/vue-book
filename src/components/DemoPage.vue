@@ -112,7 +112,7 @@
 
 
 <script lang="ts">
-  import foldersStore from '../store/foldersStore.js'
+  import foldersStore from '../store/foldersStore'
 
   import vmFolder from './FileTree/Folder.vue'
   import vmFile from './FileTree/File.vue'
