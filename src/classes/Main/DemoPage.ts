@@ -2,13 +2,13 @@ import DemoFile from './DemoFile'
 
 import vmDemoPage from './../../components/DemoPage.vue'
 import DemoFileCollection from './DemoFileCollection'
+import {RouterOptions} from 'vue-router'
 
 /**
  * Creates route for vue-router with all necessary boilerplate.
  */
 export default class DemoPage {
   static create (requireContext, path) {
-
     const demoFilesCollection = new DemoFileCollection({
       demoFiles: requireContext.keys().map(key => {
         return new DemoFile({
@@ -17,10 +17,11 @@ export default class DemoPage {
         }).hydrateOptions()
       })
     }).attachRelations()
+
     return {
       path: path + '*',
       component: vmDemoPage,
       meta: { demoFilesCollection },
-    }
+    } as RouterOptions
   }
 }

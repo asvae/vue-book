@@ -2,14 +2,10 @@
     <router-view></router-view>
 </template>
 
-<script lang="ts">
+<script>
   import router from './routes.js'
 
   export default {
     router,
   }
 </script>
-
-<style>
-
-</style>

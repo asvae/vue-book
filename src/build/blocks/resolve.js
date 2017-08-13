@@ -1,5 +1,6 @@
 module.exports = {
-  extensions: ['.ts', '.js'],
+  extensions: ['.js'],
+  // extensions: ['.ts', '.js'],
   alias: {
     'vue$': 'vue/dist/vue.common.js',
   },

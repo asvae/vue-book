@@ -13,10 +13,15 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
   export default {
     componentTree: {
       status: 'stable',
+    },
+    data (){
+      return {
+        some: 'some',
+      }
     },
   }
 </script>
