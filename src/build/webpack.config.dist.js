@@ -9,7 +9,7 @@ module.exports = function () {
     performance,
     entry: './src/app.ts',
     output: {
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, '../../dist'),
       filename: 'js/app.js',
       library: 'VueComponentTree',
       libraryTarget: 'umd'
@@ -18,12 +18,12 @@ module.exports = function () {
     module: {
       rules: [
         {
-          test: /\.sсss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader']
-        },
-        {
-          test: /\.sass$/,
-          use: ['style-loader', 'css-loader', 'sass-loader?indentedSyntax']
+          test: /\.scss$/,
+          use: [
+            { loader: 'style-loader' },
+            { loader: 'css-loader' },
+            { loader: 'sass-loader' },
+          ],
         },
         {
           test: /\.css$/,

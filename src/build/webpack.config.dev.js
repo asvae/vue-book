@@ -21,21 +21,23 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.s(a|c)ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        test: /\.scss$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' },
+        ],
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+        ]
       },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: {
-          options: {
-            esModule: true
-          },
-        }
       },
       {
         test: /\.ts$/,

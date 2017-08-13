@@ -12,42 +12,32 @@ module.exports = function () {
     performance,
     entry: './demo/app.ts',
     output: {
-      path: path.resolve(__dirname, 'public'),
+      path: path.resolve(__dirname, '../../public'),
       filename: 'app.js',
     },
     stats: 'minimal',
     module: {
       rules: [
         {
-          test: /\.sass$/,
+          test: /\.scss$/,
           use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: 'css-loader!sass-loader'
-          })
-        },
-        {
-          test: /\.sсss$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: 'css-loader!sass-loader'
+            use: [
+              { loader: 'css-loader' },
+              { loader: 'sass-loader' },
+            ],
+            fallback: 'style-loader'
           })
         },
         {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: 'css-loader'
+            use: 'css-loader',
+            fallback: 'style-loader'
           })
         },
         {
           test: /\.vue$/,
           loader: 'vue-loader',
-          options: {
-            options: {
-              esModule: true,
-              extractCSS: true,
-            },
-          }
         },
         {
           test: /\.ts$/,

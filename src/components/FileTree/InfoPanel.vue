@@ -36,9 +36,6 @@
         required: true,
       },
     },
-    created () {
-      console.log(this.file)
-    },
     computed: {
       componentName () {
         return this.file.getComponentName()
