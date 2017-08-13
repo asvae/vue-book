@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    componentTree: {
+    $componentTree: {
       status: 'stable',
     },
   }

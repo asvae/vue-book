@@ -9,7 +9,7 @@
   import VmParent from '../../components/Parent.vue'
 
   export default {
-    componentTree: {
+    $componentTree: {
       component: VmParent,
     },
     components: { VmParent }

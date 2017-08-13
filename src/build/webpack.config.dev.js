@@ -6,7 +6,7 @@ const performance = require('./blocks/performance')
 module.exports = {
   resolve,
   performance,
-  entry: './demo/app.js',
+  entry: './demo/app.ts',
   output: {
     path: path.resolve(__dirname, '../public/app/js'),
     publicPath: '/',
@@ -31,19 +31,19 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        // options: {
-        //   options: {
-        //     esModule: true
-        //   },
-        // }
+        options: {
+          options: {
+            esModule: true
+          },
+        }
       },
-      // {
-      //   test: /\.ts$/,
-      //   loader: 'ts-loader',
-      //   options: {
-      //     appendTsSuffixTo: [/\.vue$/]
-      //   }
-      // },
+      {
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,

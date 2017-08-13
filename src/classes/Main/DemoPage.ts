@@ -1,6 +1,6 @@
 import DemoFile from './DemoFile'
 
-import vmDemoPage from './../../components/DemoPage.vue'
+import vmDemoPage from '../../components/DemoPage.vue'
 import DemoFileCollection from './DemoFileCollection'
 import {RouterOptions} from 'vue-router'
 
@@ -13,7 +13,7 @@ export default class DemoPage {
       demoFiles: requireContext.keys().map(key => {
         return new DemoFile({
           path: path + key.substr(1),
-          component: requireContext(key),
+          component: requireContext(key).default,
         }).hydrateOptions()
       })
     }).attachRelations()

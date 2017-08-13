@@ -43,6 +43,10 @@ export default class DemoFile {
     return 'Vm' + name
   }
 
+  getComponentName (): string | null {
+    return this.options.component && this.options.component.name || null
+  }
+
   /**
    * Guess component on which demo operates from registered ones.
    */
@@ -71,6 +75,8 @@ export default class DemoFile {
   }
 
   toJson () {
-    return this.path
+    return {
+      path: this.path,
+    }
   }
 }

@@ -2,6 +2,7 @@ $fa-font-path: "~font-awesome/fonts/";
 @import "~font-awesome/scss/font-awesome.scss";
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,700&subset=cyrillic-ext');
 
+@import 'Reset';
 @import 'Container';
 @import 'RootContainer';
 @import 'FileStructure';
@@ -11,3 +12,4 @@ $fa-font-path: "~font-awesome/fonts/";
 @import 'DemoNode';
 @import 'Icon';
 @import 'ButtonIcon';
+@import 'InfoPanel';

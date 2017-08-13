@@ -8,7 +8,7 @@
   import VmChild1 from '../../components/Child1.vue'
 
   export default {
-    componentTree: {
+    $componentTree: {
       component: VmChild1,
     },
     components: { VmChild1 }

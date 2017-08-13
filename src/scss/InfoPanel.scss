@@ -1,0 +1,20 @@
+.info-panel {
+  display: flex;
+  border: solid 1px #ffdfbe;
+  padding: 5px;
+  height: 200px;
+
+  &__description-block {
+    padding: 5px;
+    .info-panel__description {
+      display: block;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    flex: 1 1 200px;
+  }
+  &__relation {
+    padding: 5px;
+    flex: 0 1 130px;
+  }
+}

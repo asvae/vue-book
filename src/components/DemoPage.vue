@@ -63,8 +63,8 @@
                         </span>
                 </div>
                 <div class="button-icon"
-                     :class="{'button-icon--active': mode === 'info'}"
-                     @click="mode = 'info'"
+                     :class="{'button-icon--active': isShowingInfo}"
+                     @click="isShowingInfo = !isShowingInfo"
                 >
                         <span class="icon">
                             <i class="fa fa-info-circle"></i>
@@ -104,8 +104,13 @@
             </div>
         </div>
 
-        <div class="root-container__component">
-            <component v-if="component" :is="component"/>
+        <div class="root-container__right-block">
+            <div class="root-container__component">
+                <component v-if="component" :is="component"/>
+            </div>
+            <div v-if="isShowingInfo" class="root-container__info">
+                <vm-info-panel v-if="currentFile" :file="currentFile"/>
+            </div>
         </div>
     </div>
 </template>
@@ -120,7 +125,7 @@
   import DemoFolder from '../classes/Main/DemoFolder'
   import DemoFile from '../classes/Main/DemoFile'
   import VmSearchPanel from './FileTree/SearchPanel.vue'
-  import VmFileInfoPanel from './FileTree/FileInfoPanel.vue'
+  import VmInfoPanel from './FileTree/InfoPanel.vue'
 
   export default {
     name: 'VmDemoPage',
@@ -129,6 +134,7 @@
         tree: this.renderTree(),
         mode: 'default', // 'search', 'info', 'hidden'
         isFlat: false,
+        isShowingInfo: true,
         searchText: '',
         foldersStore,
       }
@@ -151,7 +157,7 @@
       }
     },
     components: {
-      VmFileInfoPanel,
+      VmInfoPanel,
       VmSearchPanel,
       vmFolder,
       vmFile,
@@ -160,7 +166,7 @@
       component () {
         return this.currentFile && this.currentFile.component
       },
-      currentFile () {
+      currentFile (): DemoFile | null {
         return this.files.find(file => {
           return this.$route.path === file.path
         }) || null

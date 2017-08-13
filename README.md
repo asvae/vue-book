@@ -63,7 +63,7 @@ Inside of your demo component you can set set some options. All of them are opti
 
  ```javascript
  {
-   componentTree: {
+   $componentTree: {
      status: 'wip',
      component: VmMainComponent,
    },

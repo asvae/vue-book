@@ -18,9 +18,20 @@ $fileWidth: 270px;
     background-color: white;
   }
 
-  &__component {
+  &__right-block {
     flex: auto;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
     overflow: auto;
+
+    .root-container__component {
+      flex: 1 0;
+      padding: 10px;
+    }
+
+    .root-container__info {
+      flex: 0 0 150px;
+      height: 300px;
+    }
   }
 }
