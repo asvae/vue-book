@@ -65,7 +65,8 @@ Inside of your demo component you can set set some options. All of them are opti
  {
    $componentTree: {
      status: 'wip',
-     component: VmMainComponent,
+     component: VmMainComponent, // This allows us to figure out component relations.
+     description: 'Your description', 
    },
    data () {
       // ...
