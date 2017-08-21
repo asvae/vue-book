@@ -66,14 +66,14 @@
         const file: DemoFile = this.file
         const all = file.getDependsOnDeep()
         return all.filter(fileChecked => {
-          return !file.dependsOn.includes(fileChecked) && file.component
+          return (!file.dependsOn.includes(fileChecked)) && fileChecked.component
         })
       },
       dependedByDeep (): DemoFile[] {
         const file: DemoFile = this.file
         const all = file.getDependedByDeep()
         return all.filter(fileChecked => {
-          return !file.dependedBy.includes(fileChecked) && file.component
+          return (!file.dependedBy.includes(fileChecked)) && fileChecked.component
         })
       },
       componentName () {
