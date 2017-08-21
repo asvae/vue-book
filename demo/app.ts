@@ -1,4 +1,7 @@
-import Vue from 'vue'
+import Vue, {ComponentOptions} from 'vue'
 import App from './App.vue'
 
-new Vue(App).$mount('#app')
+// NOTE Weird hack to make TypeScript compiler happy.
+const componentOptions = App as ComponentOptions<Vue>
+
+new Vue(componentOptions).$mount('#app')

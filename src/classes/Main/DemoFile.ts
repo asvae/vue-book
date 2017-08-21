@@ -2,11 +2,12 @@ import DemoFolder from './DemoFolder'
 import DemoFileOptions from './DemoFileOptions'
 import Vue, {ComponentOptions} from 'vue'
 
+import statusColors from '../../config/statusColors'
 
 export default class DemoFile {
   path: string = ''
-  component: ComponentOptions<Vue>
-  folder: DemoFolder = null
+  component?: ComponentOptions<Vue> = null // demo component
+  folder?: DemoFolder = null
   options: DemoFileOptions = null
   dependsOn: DemoFile[] = []
   dependedBy: DemoFile[] = []
@@ -43,6 +44,14 @@ export default class DemoFile {
     return 'Vm' + name
   }
 
+  getColor (): string {
+    if (! this.component){
+      return statusColors['missing']
+    }
+    const status = this.options.status || 'default'
+    return statusColors[status] || statusColors['default']
+  }
+
   getComponentName (): string | null {
     return this.options.component && this.options.component.name || null
   }
@@ -72,6 +81,28 @@ export default class DemoFile {
 
   getParentFolderPath (): string {
     return this.path.split('/').slice(0, -1).join('/')
+  }
+
+  getDependsOnDeep (isRoot: boolean = true): DemoFile[] {
+    const currentDemoFile: DemoFile = this
+    let result = isRoot ? [] : [currentDemoFile]
+    this.dependsOn.forEach((demoFile: DemoFile) => {
+      result = [...result, ...demoFile.getDependsOnDeep(false)]
+    })
+    return result
+  }
+
+  getDependedByDeep (isRoot: boolean = true): DemoFile[] {
+    const currentDemoFile: DemoFile = this
+    let result = isRoot ? [] : [currentDemoFile]
+    this.dependedBy.forEach((demoFile: DemoFile) => {
+      result = [...result, ...demoFile.getDependedByDeep(false)]
+    })
+    return result
+  }
+
+  isDirectlyRelatedTo (demoFile: DemoFile): boolean {
+    return this.dependedBy.includes(demoFile) || this.dependsOn.includes(demoFile)
   }
 
   toJson () {

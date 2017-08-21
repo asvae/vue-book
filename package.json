@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/asvae/vue-component-tree#readme",
   "devDependencies": {
+    "@types/d3": "^4.10.0",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
@@ -37,6 +38,7 @@
     "brace": "^0.10.0",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.4",
+    "d3": "^4.10.0",
     "extract-text-webpack-plugin": "~3.0.0",
     "file-loader": "^0.11.0",
     "flow-bin": "^0.52.0",

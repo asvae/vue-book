@@ -126,6 +126,11 @@
   import DemoFile from '../classes/Main/DemoFile'
   import VmSearchPanel from './FileTree/SearchPanel.vue'
   import VmInfoPanel from './FileTree/InfoPanel.vue'
+  import VmComponentGraph from './FileTree/ComponentGraph.vue'
+  import {
+    componentTreeDemo,
+    default as DemoFileOptions,
+  } from '../classes/Main/DemoFileOptions'
 
   export default {
     name: 'VmDemoPage',
@@ -148,8 +153,8 @@
             return
           }
           foldersStore.openFolders = value.getOpenFolders()
-        }
-      }
+        },
+      },
     },
     provide () {
       return {
@@ -157,6 +162,7 @@
       }
     },
     components: {
+      VmComponentGraph,
       VmInfoPanel,
       VmSearchPanel,
       vmFolder,
@@ -189,11 +195,11 @@
         const tree = new DemoFolder()
         const files = this.$route.meta.demoFilesCollection.demoFiles
         files.forEach(node => tree.addDemoFile(node))
-        tree.fillParents()
         return tree.folders[0]
       },
     },
     created () {
+      this.tree.fillParents()
       this.tree.open()
       this.tree.mergeWithFolders(foldersStore.openFolders)
     },

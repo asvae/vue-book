@@ -64,6 +64,7 @@ export default class DemoFolder {
     })
   }
 
+
   addDemoFile (node: DemoFile): void {
     const relativePath = node.getParentFolderPath().split('/').slice(1)
       .join('/')

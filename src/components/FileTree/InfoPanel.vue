@@ -2,12 +2,21 @@
     <div class="info-panel">
         <div class="info-panel__description-block">
             <strong v-if="componentName">{{ componentName }}</strong>
-            <div class="info-panel__description">{{ file.options.description }}</div>
+            <div class="info-panel__description">{{ file.options.description
+                }}
+            </div>
         </div>
+        <vm-component-graph :file="file"/>
         <div class="info-panel__relation">
             <strong>Dependencies</strong>
             <vm-file
                     v-for="dependency in file.dependsOn"
+                    :key="dependency.path"
+                    :file="dependency"
+            />
+            <hr>
+            <vm-file
+                    v-for="dependency in dependsOnDeep"
                     :key="dependency.path"
                     :file="dependency"
             />
@@ -19,6 +28,12 @@
                     :key="dependency.path"
                     :file="dependency"
             />
+            <hr>
+            <vm-file
+                    v-for="dependency in dependedByDeep"
+                    :key="dependency.path"
+                    :file="dependency"
+            />
         </div>
     </div>
 </template>
@@ -26,9 +41,13 @@
 <script lang="ts">
   import DemoFile from '../../classes/Main/DemoFile'
   import VmFile from './File.vue'
+  import VmComponentGraph from './ComponentGraph.vue'
 
   export default {
-    components: {VmFile},
+    components: {
+      VmComponentGraph,
+      VmFile,
+    },
     name: 'VmInfoPanel',
     props: {
       file: {
@@ -37,6 +56,16 @@
       },
     },
     computed: {
+      dependsOnDeep (): DemoFile[] {
+        const file: DemoFile = this.file
+        const all = file.getDependsOnDeep()
+        return all.filter(fileChecked => !file.dependsOn.includes(fileChecked))
+      },
+      dependedByDeep (): DemoFile[] {
+        const file: DemoFile = this.file
+        const all = file.getDependedByDeep()
+        return all.filter(fileChecked => !file.dependedBy.includes(fileChecked))
+      },
       componentName () {
         return this.file.getComponentName()
       },

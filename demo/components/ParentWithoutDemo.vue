@@ -11,10 +11,11 @@
   import VmChild2 from './Child2.vue'
 
   export default {
-    name: 'VmParent',
+    name: 'VmParentWithoutDemo',
     components: {
       VmChild2,
       VmChild1
     },
   }
 </script>
+

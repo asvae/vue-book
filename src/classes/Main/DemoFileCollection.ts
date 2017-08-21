@@ -1,4 +1,5 @@
 import DemoFile from './DemoFile'
+import {componentTreeDemo, default as DemoFileOptions} from './DemoFileOptions'
 
 export default class DemoFileCollection {
   demoFiles: DemoFile[]
@@ -31,6 +32,31 @@ export default class DemoFileCollection {
         }
       })
     })
+
+    return this
+  }
+
+  /**
+   * Create and get demo file objects for components without demo.
+   */
+  hydrateGhostDemoFiles (): this {
+    const files: DemoFile[] = this.demoFiles
+    const ghostDemoFiles: DemoFile[] = []
+    files.forEach(file => {
+      if (!file.options.component) {
+        return
+      }
+      file.getMainComponentDependencies().forEach((component: any) => {
+        if (!component[componentTreeDemo]) {
+          const ghostDemoFile = new DemoFile({
+            options: new DemoFileOptions({component}),
+          })
+          ghostDemoFiles.push(ghostDemoFile)
+          component[componentTreeDemo] = ghostDemoFile
+        }
+      })
+    })
+    this.demoFiles = [...this.demoFiles, ...ghostDemoFiles]
 
     return this
   }

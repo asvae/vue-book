@@ -3,6 +3,8 @@ import Vue, {ComponentOptions} from 'vue'
 
 const optionsKey = '$componentTree'
 
+export const componentTreeDemo = Symbol('Component tree demo')
+
 export default class DemoFileOptions {
   status: string
   component?: ComponentOptions<Vue>
@@ -15,6 +17,11 @@ export default class DemoFileOptions {
   static createFromDemoFile (demoFile: DemoFile) {
     const optionsData = demoFile.component[optionsKey] || {}
     const description = optionsData.description || ''
+
+    const component = optionsData.component || demoFile.guessComponent()
+    if (component){
+      component[componentTreeDemo] = demoFile
+    }
 
     return new this({
       status: optionsData.status || 'default',

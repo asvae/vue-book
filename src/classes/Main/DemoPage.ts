@@ -16,7 +16,7 @@ export default class DemoPage {
           component: requireContext(key).default,
         }).hydrateOptions()
       })
-    }).attachRelations()
+    }).hydrateGhostDemoFiles().attachRelations()
 
     return {
       path: path + '*',
