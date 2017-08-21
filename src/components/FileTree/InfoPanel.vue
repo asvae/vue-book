@@ -10,7 +10,7 @@
         <div class="info-panel__relation">
             <strong>Dependencies</strong>
             <vm-file
-                    v-for="dependency in file.dependsOn"
+                    v-for="dependency in dependsOn"
                     :key="dependency.path"
                     :file="dependency"
             />
@@ -24,7 +24,7 @@
         <div class="info-panel__relation">
             <strong>Dependants</strong>
             <vm-file
-                    v-for="dependency in file.dependedBy"
+                    v-for="dependency in dependedBy"
                     :key="dependency.path"
                     :file="dependency"
             />
@@ -56,15 +56,25 @@
       },
     },
     computed: {
+      dependsOn (): DemoFile[] {
+        return this.file.dependsOn.filter(file => file.component)
+      },
+      dependedBy (): DemoFile[] {
+        return this.file.dependedBy.filter(file => file.component)
+      },
       dependsOnDeep (): DemoFile[] {
         const file: DemoFile = this.file
         const all = file.getDependsOnDeep()
-        return all.filter(fileChecked => !file.dependsOn.includes(fileChecked))
+        return all.filter(fileChecked => {
+          return !file.dependsOn.includes(fileChecked) && file.component
+        })
       },
       dependedByDeep (): DemoFile[] {
         const file: DemoFile = this.file
         const all = file.getDependedByDeep()
-        return all.filter(fileChecked => !file.dependedBy.includes(fileChecked))
+        return all.filter(fileChecked => {
+          return !file.dependedBy.includes(fileChecked) && file.component
+        })
       },
       componentName () {
         return this.file.getComponentName()

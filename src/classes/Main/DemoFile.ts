@@ -45,7 +45,7 @@ export default class DemoFile {
   }
 
   getColor (): string {
-    if (! this.component){
+    if (!this.component) {
       return statusColors['missing']
     }
     const status = this.options.status || 'default'
@@ -83,20 +83,26 @@ export default class DemoFile {
     return this.path.split('/').slice(0, -1).join('/')
   }
 
-  getDependsOnDeep (isRoot: boolean = true): DemoFile[] {
+  getDependsOnDeep (withRoot: boolean = false): DemoFile[] {
     const currentDemoFile: DemoFile = this
-    let result = isRoot ? [] : [currentDemoFile]
+    let result = withRoot ? [currentDemoFile] : []
     this.dependsOn.forEach((demoFile: DemoFile) => {
-      result = [...result, ...demoFile.getDependsOnDeep(false)]
+      demoFile.getDependsOnDeep(true)
+        .forEach((demoFile: DemoFile) => {
+          result.includes(demoFile) || result.push(demoFile)
+        })
     })
     return result
   }
 
-  getDependedByDeep (isRoot: boolean = true): DemoFile[] {
+  getDependedByDeep (withRoot: boolean = false): DemoFile[] {
     const currentDemoFile: DemoFile = this
-    let result = isRoot ? [] : [currentDemoFile]
+    let result = withRoot ? [currentDemoFile] : []
     this.dependedBy.forEach((demoFile: DemoFile) => {
-      result = [...result, ...demoFile.getDependedByDeep(false)]
+      demoFile.getDependedByDeep(true)
+        .forEach((demoFile: DemoFile) => {
+          result.includes(demoFile) || result.push(demoFile)
+        })
     })
     return result
   }
