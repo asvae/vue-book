@@ -92,6 +92,9 @@
         context.translate(width / 2, height / 2)
 
         this.links.forEach(link => this.drawLink(link))
+        const root = this.nodes[0]
+        root.x = 0
+        root.y = 0
         this.nodes.forEach(node => this.drawNode(node))
 
         context.restore()
