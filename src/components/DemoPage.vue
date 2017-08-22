@@ -92,6 +92,7 @@
                     <div v-if="isFlat">
                         <vm-file
                                 v-for="file in files"
+                                @click.native.ctrl="makeSecondComponent(file)"
                                 :key="file.path"
                                 :file="file"
                         />
@@ -105,8 +106,15 @@
         </div>
 
         <div class="root-container__right-block">
-            <div class="root-container__component">
+            <div class="root-container__component" v-if="! secondComponent">
                 <component v-if="component" :is="component"/>
+            </div>
+            <div class="root-container__component" v-if="secondComponent">
+                <div style="display: flex">
+                    <div style="flex: 1 0 50%" v-for="item in [component, secondComponent]">
+                        <component v-if="item" :is="item"/>
+                    </div>
+                </div>
             </div>
             <div v-if="isShowingInfo" class="root-container__info">
                 <vm-info-panel v-if="currentFile" :file="currentFile"/>
@@ -138,6 +146,7 @@
       return {
         tree: this.renderTree(),
         mode: 'default', // 'search', 'info', 'hidden'
+        secondComponent: null,
         isFlat: false,
         isShowingInfo: true,
         searchText: '',
@@ -145,7 +154,10 @@
       }
     },
     watch: {
-      'tree': {
+      currentFile () {
+        this.secondComponent = null
+      },
+      tree: {
         deep: true,
         handler (value: DemoFolder, oldValue) {
           if (value !== oldValue) {
@@ -182,6 +194,9 @@
       },
     },
     methods: {
+      makeSecondComponent(file: DemoFile) {
+        this.secondComponent = file.component
+      },
       next (invert: Boolean = false) {
         const index = this.files.indexOf(this.currentFile)
         const file = this.files[index + (invert ? -1 : 1 )]
