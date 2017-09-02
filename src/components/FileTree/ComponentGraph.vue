@@ -6,9 +6,10 @@
 
 <script lang="ts">
   import DemoFile from '../../classes/Main/DemoFile'
-  import * as d3 from 'd3'
 
   import VmFile from './File.vue'
+
+  import * as d3 from 'd3-force'
   import {
     Force,
     ForceLink,
