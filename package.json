@@ -1,6 +1,6 @@
 {
   "name": "vue-component-tree",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "Tree view for your demo components",
   "main": "index.js",
   "scripts": {
