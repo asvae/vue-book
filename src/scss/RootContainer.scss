@@ -1,5 +1,3 @@
-$fileWidth: 270px;
-
 .root-container {
   $root: &;
 
@@ -12,7 +10,7 @@ $fileWidth: 270px;
   left: 0;
 
   #{&}__file-list {
-    flex: 0 0 270px;
+    flex: 0 0;
     padding: 10px;
     overflow: auto;
     background-color: white;
@@ -24,15 +22,17 @@ $fileWidth: 270px;
     display: flex;
     flex-direction: column;
     overflow: auto;
+    height: 100%;
 
     #{$root}__component {
-      flex: 1 0;
+      overflow: auto;
+      flex: auto;
       padding: 10px;
     }
 
     #{$root}__info {
-      flex: 0 0 150px;
-      height: 300px;
+      overflow: auto;
+      flex: 0 0;
     }
   }
 }

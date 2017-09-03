@@ -1,5 +1,3 @@
-// Karma configuration
-var path = require('path')
 var webpackConfig = require('./src/build/webpack.config.test')
 
 module.exports = function (config) {
@@ -13,7 +11,7 @@ module.exports = function (config) {
 
     // Module processing
     preprocessors: {
-      'test/**/*.ts': ['webpack', 'sourcemap'],
+      'test/**/*.ts': ['webpack'],
     },
 
     // Targets

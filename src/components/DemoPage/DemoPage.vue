@@ -18,7 +18,7 @@
                     />
                 </div>
                 <div v-if="config.mode === 'Default'">
-                    <div v-if="isFlat">
+                    <div v-if="config.isFlat">
                         <vm-file
                                 v-for="file in files"
                                 @click.native.ctrl="makeSecondComponent(file)"
@@ -46,7 +46,11 @@
                     </div>
                 </div>
             </div>
-            <div v-if="isShowingInfo" class="root-container__info">
+            <vm-resize-line v-model="config.infoBlockHeight" isHorizontal/>
+            <div v-if="config.isShowingInfo"
+                 class="root-container__info"
+                 :style="{'flex-basis': config.infoBlockHeight + 'px'}"
+            >
                 <vm-info-panel v-if="currentFile" :file="currentFile"/>
             </div>
         </div>
@@ -85,11 +89,8 @@
         tree: this.renderTree(),
         mode: 'default', // 'search', 'info', 'hidden'
         secondComponent: null,
-        isFlat: false,
-        isShowingInfo: true,
         searchText: '',
         foldersStore,
-        width: 300,
       }
     },
     watch: {

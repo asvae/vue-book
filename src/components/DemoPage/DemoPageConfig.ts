@@ -11,12 +11,14 @@ export default class DemoPageConfig {
   isShowingInfo: boolean
   searchText: string
   width: number
+  infoBlockHeight: 200
 
-  constructor (mode?, isFlat?, isShowingInfo?, searchText?, width?) {
+  constructor (mode?, isFlat?, isShowingInfo?, searchText?, width?, infoBlockHeight?) {
     this.mode = mode || DemoPageMode.Default
     this.isFlat = isFlat || false
     this.isShowingInfo = isShowingInfo || true
     this.searchText = searchText || ''
     this.width = width || 300
+    this.infoBlockHeight = infoBlockHeight || 250
   }
 }
