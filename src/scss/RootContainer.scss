@@ -28,6 +28,10 @@
       overflow: auto;
       flex: auto;
       padding: 10px;
+
+      // This is required for position: absolute children to function properly
+      width: 100%;
+      height: 100%;
     }
 
     #{$root}__info {
