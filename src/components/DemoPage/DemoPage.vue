@@ -4,15 +4,17 @@
              :style="{'flex-basis': config.width + 'px'}"
         >
 
-            <vm-demo-page-menu :config="config"
-                               :currentFile="currentFile"
-                               @openFolder="currentFile.openFolder()"
-                               @next="next"
+            <vm-demo-page-menu
+                    :config="config"
+                    :currentFile="currentFile"
+                    @openFolder="currentFile.openFolder()"
+                    @next="next"
             />
 
             <div>
                 <div v-if="config.mode === 'Search'">
                     <vm-search-panel
+                            :config="config"
                             :files="files"
                             @selected="config.mode === 'default'"
                     />
