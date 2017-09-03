@@ -28,6 +28,7 @@
   "homepage": "https://github.com/asvae/vue-component-tree#readme",
   "devDependencies": {
     "@types/d3": "^4.10.0",
+    "@types/jasmine": "^2.5.54",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.2",
@@ -51,6 +52,7 @@
     "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.1.0",
     "karma-requirejs": "^1.1.0",
+    "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.3",
     "node-libs-browser": "^2.0.0",
     "node-sass": "^4.5.2",
