@@ -1,6 +1,6 @@
 import DemoFile from './DemoFile'
 
-import vmDemoPage from '../../components/DemoPage.vue'
+import vmDemoPage from '../../components/DemoPage/DemoPage.vue'
 import DemoFileCollection from './DemoFileCollection'
 import {RouterOptions} from 'vue-router'
 

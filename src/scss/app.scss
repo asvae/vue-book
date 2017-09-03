@@ -2,6 +2,8 @@ $fa-font-path: "~font-awesome/fonts/";
 @import "~font-awesome/scss/font-awesome.scss";
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,700&subset=cyrillic-ext');
 
+@import 'variables/colors';
+@import 'mixins/mixins';
 @import 'Reset';
 @import 'Container';
 @import 'RootContainer';
@@ -12,3 +14,4 @@ $fa-font-path: "~font-awesome/fonts/";
 @import 'Icon';
 @import 'ButtonIcon';
 @import 'InfoPanel';
+@import '../components/Service/ResizeLine';

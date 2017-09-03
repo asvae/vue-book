@@ -1,6 +1,8 @@
 $fileWidth: 270px;
 
 .root-container {
+  $root: &;
+
   font-family: "Noto Sans", sans-serif;
   height: 100%;
   width: 100%;
@@ -9,27 +11,26 @@ $fileWidth: 270px;
   top: 0;
   left: 0;
 
-  &__file-list {
+  #{&}__file-list {
     flex: 0 0 270px;
-
-    //flex-basis: 270px
     padding: 10px;
     overflow: auto;
     background-color: white;
+    border-right: solid 1px $border-color;
   }
 
-  &__right-block {
+  #{&}__right-block {
     flex: auto;
     display: flex;
     flex-direction: column;
     overflow: auto;
 
-    .root-container__component {
+    #{$root}__component {
       flex: 1 0;
       padding: 10px;
     }
 
-    .root-container__info {
+    #{$root}__info {
       flex: 0 0 150px;
       height: 300px;
     }
