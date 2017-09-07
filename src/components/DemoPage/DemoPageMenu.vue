@@ -61,9 +61,10 @@
                         <i class="fa fa-search"></i>
                     </span>
             </div>
+
             <div class="button-icon"
                  :class="{'button-icon--active': config.isShowingInfo}"
-                 @click="config.isShowingInfo = !config.isShowingInfo"
+                 @click="toggleInfoPanel()"
             >
                     <span class="icon">
                         <i class="fa fa-info-circle"></i>
@@ -98,6 +99,11 @@
         required: true,
       },
     },
+    methods: {
+      toggleInfoPanel() {
+        this.config.isShowingInfo = !this.config.isShowingInfo
+      }
+    }
   }
 </script>
 

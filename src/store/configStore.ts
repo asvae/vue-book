@@ -7,15 +7,16 @@ export default {
   _config: null,
 
   get config (): DemoPageConfig {
-    const data = storage.fetch(STORAGE_KEY) || new DemoPageConfig()
-    const config: DemoPageConfig = new DemoPageConfig(data.mode, data.isFlat, data.isShowingInfo, data.searchText, data.width)
-
-    this._config = config
+    if (! this._config) {
+      const data = storage.fetch(STORAGE_KEY) || new DemoPageConfig()
+      console.log('data', data)
+      const config: DemoPageConfig = new DemoPageConfig(data.mode, data.isFlat, data.isShowingInfo, data.searchText, data.width)
+      this._config = config
+    }
     return this._config
   },
-  set config (config: DemoPageConfig) {
+  setConfig (config: DemoPageConfig) {
     this._config = config
-
     storage.store(STORAGE_KEY, config)
   },
 }

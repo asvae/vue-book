@@ -48,13 +48,17 @@
                     </div>
                 </div>
             </div>
-            <vm-resize-line v-model="config.infoBlockHeight" isHorizontal/>
-            <div v-if="config.isShowingInfo"
-                 class="root-container__info"
-                 :style="{'flex-basis': config.infoBlockHeight + 'px'}"
-            >
-                <vm-info-panel v-if="currentFile" :file="currentFile"/>
-            </div>
+            <template v-if="config.isShowingInfo">
+                <vm-resize-line
+                        v-model="config.infoBlockHeight"
+                        isHorizontal
+                />
+                <div class="root-container__info"
+                     :style="{'flex-basis': config.infoBlockHeight + 'px'}"
+                >
+                    <vm-info-panel v-if="currentFile" :file="currentFile"/>
+                </div>
+            </template>
         </div>
     </div>
 </template>
@@ -85,7 +89,7 @@
 
   export default {
     name: 'VmDemoPage',
-    data () {
+    data() {
       return {
         configStore,
         tree: this.renderTree(),
@@ -96,19 +100,19 @@
       }
     },
     watch: {
-      currentFile () {
+      currentFile() {
         this.secondComponent = null
       },
       config: {
         deep: true,
-        handler (value: DemoPageConfig, oldValue: DemoPageConfig) {
-          if (JSON.stringify(value) !== JSON.stringify(oldValue)) {
+        handler(value: DemoPageConfig, oldValue: DemoPageConfig) {
+          if (value !== oldValue) {
             // Updated from local storage.
             return
           }
           const update = () => {
             if (lastUpdateTimestamp < Math.floor(Date.now()) - 200) {
-              configStore.config = value
+              configStore.setConfig(value)
               lastUpdateTimestamp = Math.floor(Date.now())
             }
           }
@@ -117,7 +121,7 @@
       },
       tree: {
         deep: true,
-        handler (value: DemoFolder, oldValue) {
+        handler(value: DemoFolder, oldValue) {
           if (value !== oldValue) {
             // Updated from local storage.
             return
@@ -126,7 +130,7 @@
         },
       },
     },
-    provide () {
+    provide() {
       return {
         foldersStore,
       }
@@ -141,26 +145,26 @@
       vmFile,
     },
     computed: {
-      config () {
+      config() {
         return configStore.config
       },
-      component () {
+      component() {
         return this.currentFile && this.currentFile.component
       },
-      currentFile (): DemoFile | null {
+      currentFile(): DemoFile | null {
         return this.files.find(file => {
           return this.$route.path === file.path
         }) || null
       },
-      files () {
+      files() {
         return this.$route.meta.demoFilesCollection.demoFiles
       },
     },
     methods: {
-      makeSecondComponent (file: DemoFile) {
+      makeSecondComponent(file: DemoFile) {
         this.secondComponent = file.component
       },
-      next (invert: Boolean = false) {
+      next(invert: Boolean = false) {
         const index = this.files.indexOf(this.currentFile)
         const file = this.files[index + (invert ? -1 : 1 )]
         if (!file) {
@@ -169,14 +173,14 @@
         this.$router.push(file.path)
         file.openFolder()
       },
-      renderTree () {
+      renderTree() {
         const tree = new DemoFolder()
         const files = this.$route.meta.demoFilesCollection.demoFiles
         files.forEach(node => tree.addDemoFile(node))
         return tree.folders[0]
       },
     },
-    created () {
+    created() {
       this.tree.fillParents()
       this.tree.open()
       this.tree.mergeWithFolders(foldersStore.openFolders)
