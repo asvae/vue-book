@@ -96,7 +96,7 @@ For example, if you have `ParentDemo.vue` demo-component, and you have registere
 
 ### Production
 
-You don't have to keep demos in production. Use webpack [define-plugin](https://webpack.js.org/plugins/define-plugin/) and exclude them from bundle.  
+You don't have to keep demos in production. Use webpack [define-plugin](https://webpack.js.org/plugins/define-plugin/) and exclude them from bundle.
 
 ## Feedback | Support
 Leave an issue if something doesn't work for you.
