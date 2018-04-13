@@ -1,4 +1,9 @@
 .root-container {
+  // Reset
+  * {
+    box-sizing: border-box;
+  }
+
   $root: &;
 
   font-family: "Noto Sans", sans-serif;

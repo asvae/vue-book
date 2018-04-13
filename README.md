@@ -92,7 +92,13 @@ Component means main component for demo.
 If you omit this option - the library will try to guess, which of registered components is main.
 
 For example, if you have `ParentDemo.vue` demo-component, and you have registered inside {name: 'VmParent'} - the library will guess correctly.
-`component` options is required for dependency tracking to work.   
+`component` options is required for dependency tracking to work.  
+
+### Deploy
+
+ * `yarn demo` - compile assets
+ * `yarn dist` - compile assets
+ * `npm publish` - publish to npm
 
 ### Production
 
