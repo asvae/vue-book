@@ -43,6 +43,9 @@
   import VmFile from './File.vue'
   import VmComponentGraph from './ComponentGraph.vue'
 
+  /**
+   * @deprecated
+   */
   export default {
     components: {
       VmComponentGraph,

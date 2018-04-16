@@ -4,6 +4,7 @@ const resolve = require('./blocks/resolve')
 const performance = require('./blocks/performance')
 
 module.exports = {
+  mode: 'production',
   resolve,
   performance,
   entry: './src/app.ts',

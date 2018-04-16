@@ -8,6 +8,7 @@ const performance = require('./blocks/performance')
 
 module.exports = function () {
   return {
+    mode: 'development',
     resolve,
     performance,
     entry: './demo/app.ts',
@@ -59,6 +60,7 @@ module.exports = function () {
       ]
     },
     plugins: [
+      new CleanWebpackPlugin(['demo'], { root: config.FOLDERS.ROOT }),
       new HtmlWebpackPlugin({
         template: './demo/index.html'
       }),

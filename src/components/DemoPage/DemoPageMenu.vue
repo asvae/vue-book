@@ -63,15 +63,6 @@
             </div>
 
             <div class="button-icon"
-                 :class="{'button-icon--active': config.isShowingInfo}"
-                 @click="toggleInfoPanel()"
-            >
-                    <span class="icon">
-                        <i class="fa fa-info-circle"></i>
-                    </span>
-            </div>
-
-            <div class="button-icon"
                  :class="{'button-icon--active': config.isFlat}"
                  @click="config.isFlat = !config.isFlat"
             >
@@ -99,11 +90,6 @@
         required: true,
       },
     },
-    methods: {
-      toggleInfoPanel() {
-        this.config.isShowingInfo = !this.config.isShowingInfo
-      }
-    }
   }
 </script>
 

@@ -48,17 +48,6 @@
                     </div>
                 </div>
             </div>
-            <template v-if="config.isShowingInfo">
-                <vm-resize-line
-                        v-model="config.infoBlockHeight"
-                        isHorizontal
-                />
-                <div class="root-container__info"
-                     :style="{'flex-basis': config.infoBlockHeight + 'px'}"
-                >
-                    <vm-info-panel v-if="currentFile" :file="currentFile"/>
-                </div>
-            </template>
         </div>
     </div>
 </template>
@@ -73,12 +62,6 @@
   import DemoFolder from '../../classes/Main/DemoFolder'
   import DemoFile from '../../classes/Main/DemoFile'
   import VmSearchPanel from '../FileTree/SearchPanel.vue'
-  import VmInfoPanel from '../FileTree/InfoPanel.vue'
-  import VmComponentGraph from '../FileTree/ComponentGraph.vue'
-  import {
-    componentTreeDemo,
-    default as DemoFileOptions,
-  } from '../../classes/Main/DemoFileOptions'
   import VmResizeLine from '../Service/ResizeLine.vue'
   import DemoPageConfig from './DemoPageConfig'
   import VmDemoPageMenu from './DemoPageMenu.vue'
@@ -138,8 +121,6 @@
     components: {
       VmDemoPageMenu,
       VmResizeLine,
-      VmComponentGraph,
-      VmInfoPanel,
       VmSearchPanel,
       vmFolder,
       vmFile,

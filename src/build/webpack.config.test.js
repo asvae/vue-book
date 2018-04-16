@@ -1,6 +1,7 @@
 const resolve = require('./blocks/resolve')
 
 module.exports = {
+  mode: 'development',
   resolve,
   module: {
     rules: [

@@ -1,3 +1,4 @@
+import {} from 'jasmine'
 import DemoFolder from '../../src/classes/Main/DemoFolder'
 import DemoFile from '../../src/classes/Main/DemoFile'
 
