@@ -1,7 +1,7 @@
-var path = require('path')
-var webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const resolve = require('./blocks/resolve')
 const performance = require('./blocks/performance')
@@ -60,7 +60,7 @@ module.exports = function () {
       ]
     },
     plugins: [
-      new CleanWebpackPlugin(['demo'], { root: config.FOLDERS.ROOT }),
+      new CleanWebpackPlugin(['public'], { root: path.resolve(__dirname, '../..')}),
       new HtmlWebpackPlugin({
         template: './demo/index.html'
       }),
