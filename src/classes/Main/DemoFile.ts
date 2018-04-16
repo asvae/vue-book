@@ -44,14 +44,6 @@ export default class DemoFile {
     return 'Vm' + name
   }
 
-  getColor (): string {
-    if (!this.component) {
-      return statusColors['missing']
-    }
-    const status = this.options.status || 'default'
-    return statusColors[status] || statusColors['default']
-  }
-
   getComponentName (): string | null {
     return this.options.component && this.options.component.name || null
   }

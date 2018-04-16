@@ -15,14 +15,6 @@
 
 <script lang="ts">
   export default {
-    $componentTree: {
-      status: 'stable',
-      description: `
-      This file contains some info taken from repo. Long one.
-      We can do multilines
-      ## But not headers yet.
-      `
-    },
     data (){
       return {
         some: 'some',

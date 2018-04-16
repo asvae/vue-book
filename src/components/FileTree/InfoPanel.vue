@@ -6,7 +6,6 @@
                 }}
             </div>
         </div>
-        <vm-component-graph :file="file"/>
         <div class="info-panel__relation">
             <strong>Dependencies</strong>
             <vm-file
@@ -41,17 +40,15 @@
 <script lang="ts">
   import DemoFile from '../../classes/Main/DemoFile'
   import VmFile from './File.vue'
-  import VmComponentGraph from './ComponentGraph.vue'
 
   /**
    * @deprecated
    */
   export default {
+    name: 'VmInfoPanel',
     components: {
-      VmComponentGraph,
       VmFile,
     },
-    name: 'VmInfoPanel',
     props: {
       file: {
         type: DemoFile,
