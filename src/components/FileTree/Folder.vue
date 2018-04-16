@@ -7,14 +7,15 @@
             </span>
             <i class="fa fa-folder"></i> <span>{{folder.name}}</span>
         </div>
-        <div class="demo-folder__insides" v-if="folder.isOpen && ! folder.isEmpty()">
+        <div class="demo-folder__insides"
+             v-if="folder.isOpen && ! folder.isEmpty()">
             <vm-folder v-for="child in folder.folders"
-                    :key="child.path"
-                    :folder="child"
-                    ref="folders"
+                       :key="generateKey()"
+                       :folder="child"
+                       ref="folders"
             />
             <vm-file v-for="file in folder.files"
-                     :key="file.name"
+                     :key="generateKey()"
                      :file="file"
             />
         </div>
@@ -32,16 +33,16 @@
     inject: ['foldersStore'],
     props: {
       folder: {
-        type: DemoFolder
-      }
+        type: DemoFolder,
+      },
     },
     methods: {
       openSelected () {
         const foldersChain = ObjectHelpers
-            .traverseBranch(this.folder, { path: this.$route.path })
-            .filter(item => {
-              return (item instanceof DemoFolder)
-            })
+          .traverseBranch(this.folder, { path: this.$route.path })
+          .filter(item => {
+            return (item instanceof DemoFolder)
+          })
 
         if (foldersChain.length) {
           this.folder.isOpen = true
@@ -53,7 +54,10 @@
             folderComponent.openSelected()
           })
         }
-      }
+      },
+      generateKey () {
+        return Math.floor(Math.random() * 1e8)
+      },
     },
     components: {
       vmFile,

@@ -58,51 +58,15 @@ So, about arguments.
 * `./../tree` is path to your demo folder. Works the same as require/import.
 * `/demo` is root route for vue-router.
 
-### Options
-Inside of your demo component you can set set some options. All of them are optional.
+### Production
 
- ```javascript
- {
-   $componentTree: {
-     status: 'wip',
-     component: VmMainComponent, // This allows us to figure out component relations.
-     description: 'Your description', 
-   },
-   data () {
-      // ...
-   }
- }
- ```
- 
-#### Status 
-
-Will colorize filenames on the tree in accordance.
-
-Supported statuses are:
- * 'wip' - yellow
- * 'hold' - purple
- * 'stable' - green
- * 'unstable' - red
- 
-You can add your own status. They're just css classes. 
-
-#### Component
-
-Component means main component for demo.
-If you omit this option - the library will try to guess, which of registered components is main.
-
-For example, if you have `ParentDemo.vue` demo-component, and you have registered inside {name: 'VmParent'} - the library will guess correctly.
-`component` options is required for dependency tracking to work.  
+You don't have to keep demos in production. Use webpack [define-plugin](https://webpack.js.org/plugins/define-plugin/) and exclude them from bundle.
 
 ### Deploy
 
  * `yarn demo` - compile assets
  * `yarn dist` - compile assets
  * `npm publish` - publish to npm
-
-### Production
-
-You don't have to keep demos in production. Use webpack [define-plugin](https://webpack.js.org/plugins/define-plugin/) and exclude them from bundle.
 
 ## Feedback | Support
 Leave an issue if something doesn't work for you.

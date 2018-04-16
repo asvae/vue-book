@@ -1,13 +1,13 @@
 {
   "name": "vue-component-tree",
-  "version": "2.2.2",
+  "version": "3.0.0",
   "description": "Tree view for your demo components",
   "main": "index.js",
   "private": false,
   "author": "Yauheni Prakopchyk",
   "license": "MIT",
   "scripts": {
-    "build": "npm run dist && npm run demo",
+    "build": "yarn dist && yarn demo",
     "dist": "webpack --progress --hide-modules --config src/build/webpack.config.dist.js",
     "demo": "webpack --progress --hide-modules --config src/build/webpack.config.demo.js",
     "dev": "webpack-dev-server --hot --open --config src/build/webpack.config.dev.js",
