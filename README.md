@@ -48,7 +48,7 @@ import VueComponentTree from 'vue-component-tree'
 
 const router = new Router({
   routes: [
-    VueComponentTree.create(require.context('./../tree', true, /.vue$/), '/demo'),
+    VueComponentTree(require.context('./../tree', true, /.vue$/), '/demo'),
   ]
 })
 ```
