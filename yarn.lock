@@ -2,6 +2,42 @@
 # yarn lockfile v1
 
 
+"@fortawesome/fontawesome-common-types@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.1.6.tgz#3cefd6cd88a2256e1daa69b6fc9a6ab5e3c33e4a"
+
+"@fortawesome/fontawesome-common-types@^0.2.0-8":
+  version "0.2.0-8"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.0-8.tgz#50bbcc3d585f2d4423e5269821b6ce6fcca00033"
+
+"@fortawesome/fontawesome-free-solid@^5.0.12":
+  version "5.0.12"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free-solid/-/fontawesome-free-solid-5.0.12.tgz#5cfa458336554139d16a9bce8df7c60b9aee1dc3"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.1.6"
+
+"@fortawesome/fontawesome-svg-core@^1.2.0-13":
+  version "1.2.0-13"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.0-13.tgz#d772f99de6ae3d59b22861abf5188f02161b30c9"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.0-8"
+
+"@fortawesome/fontawesome@^1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome/-/fontawesome-1.1.7.tgz#15a6508cd6ab465b6a5bd1fb83f4c962a8c7df7a"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.1.6"
+
+"@fortawesome/free-solid-svg-icons@^5.1.0-10":
+  version "5.1.0-10"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.1.0-10.tgz#7bd5292fee95a424d4f734521e592f8f54c25b3f"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.0-8"
+
+"@fortawesome/vue-fontawesome@^0.1.0-4":
+  version "0.1.0-4"
+  resolved "https://registry.yarnpkg.com/@fortawesome/vue-fontawesome/-/vue-fontawesome-0.1.0-4.tgz#d1bcacd6cd52dcfee637a3933417609aada60d9d"
+
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
@@ -285,6 +321,14 @@ ast-types@0.11.3:
   version "0.11.3"
   resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.11.3.tgz#c20757fe72ee71278ea0ff3d87e5c2ca30d9edf8"
 
+asva-executors@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/asva-executors/-/asva-executors-0.1.2.tgz#fb449a7d7c9b17d26cf71ef99b97e82af1c2e33b"
+
+asva-helpers@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/asva-helpers/-/asva-helpers-0.1.0.tgz#fd9a302537f7dd1c32d199b6ce33b657ad4d59aa"
+
 async-each@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.1.tgz#19d386a1d9edc6e7c1c85d388aedbcc56d33602d"
@@ -297,7 +341,7 @@ async@1.x, async@^1.4.0, async@^1.5.0, async@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@^2.0.0, async@^2.6.0:
+async@^2.0.0, async@^2.1.4, async@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.0.tgz#61a29abb6fcc026fea77e56d1c6ec53a795951f4"
   dependencies:
@@ -4215,7 +4259,7 @@ loader-utils@^0.2.16:
     json5 "^0.5.0"
     object-assign "^4.0.1"
 
-loader-utils@^1.0.0, loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0:
+loader-utils@^1.0.0, loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.0.4, loader-utils@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.1.0.tgz#c98aef488bcceda2ffb5e2de646d6a754429f5cd"
   dependencies:
@@ -6204,6 +6248,15 @@ sass-loader@^7.0.1:
     lodash.tail "^4.1.1"
     neo-async "^2.5.0"
     pify "^3.0.0"
+
+sass-resources-loader@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/sass-resources-loader/-/sass-resources-loader-1.3.3.tgz#90f0e614c444f6dfb8f54ce3e1d5f64a18d31537"
+  dependencies:
+    async "^2.1.4"
+    chalk "^1.1.3"
+    glob "^7.1.1"
+    loader-utils "^1.0.4"
 
 sax@~1.2.1:
   version "1.2.4"

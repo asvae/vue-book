@@ -12,14 +12,14 @@
             />
 
             <div>
-                <div v-if="config.mode === 'Search'">
+                <div v-if="config.mode === DemoPageMode.Search">
                     <vm-search-panel
                             :config="config"
                             :files="files"
-                            @selected="config.mode === 'default'"
+                            @selected="config.mode === DemoPageMode.Tree"
                     />
                 </div>
-                <div v-if="config.mode === 'Default'">
+                <div v-if="config.mode === DemoPageMode.Tree">
                     <div v-if="config.isFlat">
                         <vm-file
                                 v-for="file in files"
@@ -63,7 +63,7 @@
   import DemoFile from '../../classes/Main/DemoFile'
   import VmSearchPanel from '../FileTree/SearchPanel.vue'
   import VmResizeLine from '../Service/ResizeLine.vue'
-  import DemoPageConfig from './DemoPageConfig'
+  import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
   import VmDemoPageMenu from './DemoPageMenu.vue'
 
   import configStore from '../../store/configStore'
@@ -72,7 +72,7 @@
 
   export default {
     name: 'VmDemoPage',
-    data() {
+    data () {
       return {
         configStore,
         tree: this.renderTree(),
@@ -83,12 +83,12 @@
       }
     },
     watch: {
-      currentFile() {
+      currentFile () {
         this.secondComponent = null
       },
       config: {
         deep: true,
-        handler(value: DemoPageConfig, oldValue: DemoPageConfig) {
+        handler (value: DemoPageConfig, oldValue: DemoPageConfig) {
           if (value !== oldValue) {
             // Updated from local storage.
             return
@@ -104,7 +104,7 @@
       },
       tree: {
         deep: true,
-        handler(value: DemoFolder, oldValue) {
+        handler (value: DemoFolder, oldValue) {
           if (value !== oldValue) {
             // Updated from local storage.
             return
@@ -113,7 +113,7 @@
         },
       },
     },
-    provide() {
+    provide () {
       return {
         foldersStore,
       }
@@ -126,42 +126,43 @@
       vmFile,
     },
     computed: {
-      config() {
+      DemoPageMode: () => DemoPageMode,
+      config () {
         return configStore.config
       },
-      component() {
+      component () {
         return this.currentFile && this.currentFile.component
       },
-      currentFile(): DemoFile | null {
+      currentFile (): DemoFile | null {
         return this.files.find(file => {
           return this.$route.path === file.path
         }) || null
       },
-      files() {
+      files () {
         return this.$route.meta.demoFilesCollection.demoFiles
       },
     },
     methods: {
-      makeSecondComponent(file: DemoFile) {
+      makeSecondComponent (file: DemoFile) {
         this.secondComponent = file.component
       },
-      next(invert: Boolean = false) {
+      next (invert: Boolean = false) {
         const index = this.files.indexOf(this.currentFile)
-        const file = this.files[index + (invert ? -1 : 1 )]
+        const file = this.files[index + (invert ? -1 : 1)]
         if (!file) {
           return
         }
         this.$router.push(file.path)
         file.openFolder()
       },
-      renderTree() {
+      renderTree () {
         const tree = new DemoFolder()
         const files = this.$route.meta.demoFilesCollection.demoFiles
         files.forEach(node => tree.addDemoFile(node))
         return tree.folders[0]
       },
     },
-    created() {
+    created () {
       this.tree.fillParents()
       this.tree.open()
       this.tree.mergeWithFolders(foldersStore.openFolders)

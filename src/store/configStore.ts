@@ -9,7 +9,7 @@ export default {
   get config (): DemoPageConfig {
     if (! this._config) {
       const data = storage.fetch(STORAGE_KEY) || new DemoPageConfig()
-      const config: DemoPageConfig = new DemoPageConfig(data.mode, data.isFlat, data.isShowingInfo, data.searchText, data.width)
+      const config: DemoPageConfig = new DemoPageConfig(data)
       this._config = config
     }
     return this._config

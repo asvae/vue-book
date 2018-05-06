@@ -48,7 +48,7 @@ import VueComponentTree from 'vue-component-tree'
 
 const router = new Router({
   routes: [
-    VueComponentTree.create(require.context('./../tree', true, /.vue$/), '/demo'),
+    VueComponentTree(require.context('./../tree', true, /.vue$/), '/demo'),
   ]
 })
 ```
@@ -61,6 +61,20 @@ So, about arguments.
 ### Production
 
 You don't have to keep demos in production. Use webpack [define-plugin](https://webpack.js.org/plugins/define-plugin/) and exclude them from bundle.
+
+```javascript
+if (process.env.NODE_ENV !== 'production') {
+  import VueComponentTree from 'vue-component-tree'
+
+  routes.push({
+    path: '/demo',
+    component: App,
+    children: [
+      VueComponentTree(require.context('./..', true, /.demo.vue$/), '/demo'),
+    ],
+  })
+}
+```
 
 ### Deploy
 

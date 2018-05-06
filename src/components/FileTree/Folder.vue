@@ -26,7 +26,7 @@
   import vmFile from './File.vue'
 
   import DemoFolder from '../../classes/Main/DemoFolder'
-  import ObjectHelpers from '../../classes/Utility/ObjectHelpers'
+  import {ObjectHelpers} from 'asva-helpers'
 
   export default {
     name: 'VmFolder',

@@ -29,7 +29,7 @@
             </div>
 
             <div class="button-icon"
-                 @click="tree.close()"
+                 @click="$emit('collapseTree')"
             >
                     <span class="icon">
                         <i class="fa fa-exchange"></i>
@@ -37,8 +37,8 @@
             </div>
             &nbsp;
             <div class="button-icon"
-                 :class="{'button-icon--active': config.mode === 'Hidden'}"
-                 @click="config.mode = 'Hidden'"
+                 :class="{'button-icon--active': config.mode === DemoPageMode.Hidden}"
+                 @click="config.mode = DemoPageMode.Hidden"
             >
                     <span class="icon">
                         <i class="fa fa-bars"></i>
@@ -46,16 +46,16 @@
             </div>
 
             <div class="button-icon"
-                 :class="{'button-icon--active': config.mode === 'Default'}"
-                 @click="config.mode = 'Default'"
+                 :class="{'button-icon--active': config.mode === DemoPageMode.Tree}"
+                 @click="config.mode = DemoPageMode.Tree"
             >
                         <span class="icon">
                             <i class="fa fa-server"></i>
                         </span>
             </div>
             <div class="button-icon"
-                 :class="{'button-icon--active': config.mode === 'Search'}"
-                 @click="config.mode = 'Search'"
+                 :class="{'button-icon--active': config.mode === DemoPageMode.Search}"
+                 @click="config.mode = DemoPageMode.Search"
             >
                     <span class="icon">
                         <i class="fa fa-search"></i>
@@ -75,7 +75,7 @@
 </template>
 
 <script lang="ts">
-  import DemoPageConfig from './DemoPageConfig'
+  import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
   import DemoFile from '../../classes/Main/DemoFile'
 
   export default {
@@ -89,6 +89,9 @@
         type: DemoPageConfig,
         required: true,
       },
+    },
+    computed: {
+      DemoPageMode: () => DemoPageMode,
     },
   }
 </script>

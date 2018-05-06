@@ -19,10 +19,10 @@
   import DemoPageConfig from '../DemoPage/DemoPageConfig'
 
   export default {
+    name: 'VmSearchPanel',
     components: {
       VmFile,
     },
-    name: 'VmSearchPanel',
     props: {
       config: {
         type: DemoPageConfig,
