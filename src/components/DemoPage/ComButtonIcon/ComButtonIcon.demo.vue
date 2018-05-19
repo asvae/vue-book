@@ -1,8 +1,11 @@
 <template>
     <div class="demo-container">
         <div class="demo-container__item">
-            <com-button-icon type="coffee"/>
-            <com-button-icon type="server"/>
+            <com-button-icon
+                    @click.native="active = ! active"
+                    icon="server"
+                    :active="active"
+            />
         </div>
     </div>
 </template>
@@ -13,6 +16,11 @@
   export default {
     components: {
       ComButtonIcon,
+    },
+    data () {
+      return {
+        active: false,
+      }
     },
   }
 </script>

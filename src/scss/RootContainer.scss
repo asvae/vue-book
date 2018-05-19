@@ -19,7 +19,7 @@
     padding: 10px;
     overflow: auto;
     background-color: white;
-    border-right: solid 1px $border-color;
+    border-right: solid 1px $border-color--main;
   }
 
   #{&}__right-block {

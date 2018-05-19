@@ -1,5 +1,6 @@
-var path = require('path')
+const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const resolve = require('./blocks/resolve')
 const performance = require('./blocks/performance')
@@ -31,36 +32,23 @@ module.exports = {
     rules: [
       {
         test: /\.scss$/,
-        use: extractor.extract({
-          use: [
-            { loader: 'css-loader' },
-            { loader: 'sass-loader' },
-          ],
-          fallback: 'style-loader',
-        }),
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.css$/,
-        loader: extractor.extract({
-          use: [
-            { loader: 'css-loader' },
-          ],
-          fallback: 'style-loader',
-        }),
+        use: [
+          'vue-style-loader',
+          'css-loader',
+        ],
       },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          loaders: {
-            scss: extractor.extract({
-              use: [
-                { loader: 'css-loader' },
-                { loader: 'sass-loader' },
-              ],
-              fallback: isDevelop ? 'vue-style-loader' : 'style-loader',
-            }),
-          },
           options: {
             esModule: true,
           },
@@ -75,7 +63,6 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
         use: 'babel-loader',
       },
       {
@@ -106,6 +93,7 @@ module.exports = {
   },
   devtool: '#eval-source-map',
   plugins: [
+    new VueLoaderPlugin(),
     extractor,
   ],
 }

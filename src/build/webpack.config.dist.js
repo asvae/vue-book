@@ -1,5 +1,6 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const resolve = require('./blocks/resolve')
 const performance = require('./blocks/performance')
@@ -64,6 +65,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new VueLoaderPlugin(),
     new CleanWebpackPlugin(['dist'], { root: path.resolve(__dirname, '../..')}),
   ],
   devtool: '#source-map'

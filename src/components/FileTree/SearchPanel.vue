@@ -1,9 +1,10 @@
 <template>
-    <div>
-        <input ref="searchInput"
-               style="width: 100%"
-               v-model="config.searchText"
-        >
+    <div class="search-panel">
+        <com-input
+                ref="searchInput"
+                style="width: 100%"
+                v-model="config.searchText"
+        />
         <div v-for="file in filteredFiles"
              :key="file.path"
              @click="$emit('selected')"
@@ -17,10 +18,12 @@
   import DemoFile from '../../classes/Main/DemoFile'
   import VmFile from './File.vue'
   import DemoPageConfig from '../DemoPage/DemoPageConfig'
+  import ComInput from '../DemoPage/ComInput/ComInput.vue'
 
   export default {
     name: 'VmSearchPanel',
     components: {
+      ComInput,
       VmFile,
     },
     props: {
@@ -55,7 +58,7 @@
     },
     mounted () {
       const input = this.$refs.searchInput
-      input && input.focus()
+      input && input.$el.focus()
     },
   }
 </script>

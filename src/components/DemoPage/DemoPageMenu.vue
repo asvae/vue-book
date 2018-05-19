@@ -1,85 +1,62 @@
 <template>
-    <div>
-        <div style="text-align: right">
-            <div v-if="currentFile"
-                 class="button-icon"
-                 @click="$emit('next', true)"
-            >
-                    <span class="icon">
-                        <i class="fa fa-arrow-left"></i>
-                    </span>
-            </div>
+    <div class="demo-page-menu">
 
-            <div v-if="currentFile"
-                 class="button-icon"
-                 @click="$emit('next')"
-            >
-                    <span class="icon">
-                        <i class="fa fa-arrow-right"></i>
-                    </span>
-            </div>
+        <com-button-icon
+                class="demo-page-menu__icon"
+                @click.native="config.mode = DemoPageMode.Hidden"
+                title="Mode: Hidden"
+                icon="bars"
+                :active="config.mode === DemoPageMode.Hidden"
+        />
 
-            <div v-if="currentFile"
-                 class="button-icon"
-                 @click="$emit('openFolder')"
-            >
-                    <span class="icon">
-                        <i class="fa fa-dot-circle-o"></i>
-                    </span>
-            </div>
+        <com-button-icon
+                class="demo-page-menu__icon"
+                @click.native="config.mode = DemoPageMode.Tree"
+                title="Mode: Tree"
+                icon="server"
+                :active="config.mode === DemoPageMode.Tree"
+        />
 
-            <div class="button-icon"
-                 @click="$emit('collapseTree')"
-            >
-                    <span class="icon">
-                        <i class="fa fa-exchange"></i>
-                    </span>
-            </div>
-            &nbsp;
-            <div class="button-icon"
-                 :class="{'button-icon--active': config.mode === DemoPageMode.Hidden}"
-                 @click="config.mode = DemoPageMode.Hidden"
-            >
-                    <span class="icon">
-                        <i class="fa fa-bars"></i>
-                    </span>
-            </div>
+        <com-button-icon
+                class="demo-page-menu__icon"
+                @click.native="config.mode = DemoPageMode.Search"
+                title="Mode: Search"
+                icon="search"
+                :active="config.mode === DemoPageMode.Search"
+        />
 
-            <div class="button-icon"
-                 :class="{'button-icon--active': config.mode === DemoPageMode.Tree}"
-                 @click="config.mode = DemoPageMode.Tree"
-            >
-                        <span class="icon">
-                            <i class="fa fa-server"></i>
-                        </span>
-            </div>
-            <div class="button-icon"
-                 :class="{'button-icon--active': config.mode === DemoPageMode.Search}"
-                 @click="config.mode = DemoPageMode.Search"
-            >
-                    <span class="icon">
-                        <i class="fa fa-search"></i>
-                    </span>
-            </div>
+        <div class="demo-page-menu__filler">sdfsdf</div>
 
-            <div class="button-icon"
-                 :class="{'button-icon--active': config.isFlat}"
-                 @click="config.isFlat = !config.isFlat"
-            >
-                    <span class="icon">
-                        <i class="fa fa-arrows-v"></i>
-                    </span>
-            </div>
-        </div>
+        <template v-if="config.mode === DemoPageMode.Tree">
+            <com-button-icon
+                    class="demo-page-menu__icon"
+                    v-if="currentFile"
+                    @click.native="$emit('openFolder')"
+                    title="Expand from Current File"
+                    icon="dot-circle"
+            />
+            <com-button-icon
+                    class="demo-page-menu__icon"
+                    @click.native="$emit('collapseTree')"
+                    title="Collapse All"
+                    icon="exchange-alt"
+            />
+        </template>
     </div>
 </template>
 
 <script lang="ts">
   import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
   import DemoFile from '../../classes/Main/DemoFile'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+  import ComButtonIcon from './ComButtonIcon/ComButtonIcon.vue'
 
   export default {
     name: 'VmDemoPageMenu',
+    components: {
+      ComButtonIcon,
+      FontAwesomeIcon,
+    },
     props: {
       currentFile: {
         type: DemoFile,
@@ -95,4 +72,17 @@
     },
   }
 </script>
+
+<style type="scss">
+    .demo-page-menu {
+        display: flex;
+        &__icon {
+            height: 30px;
+            background-color: #b769d9;
+        }
+        &__filler {
+            flex: 1 0;
+        }
+    }
+</style>
 

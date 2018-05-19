@@ -1,6 +1,6 @@
 <template>
-    <div class="root-container">
-        <div class="root-container__file-list"
+    <div class="demo-page">
+        <div class="demo-page__left-block"
              :style="{'flex-basis': config.width + 'px'}"
         >
 
@@ -36,11 +36,11 @@
             </div>
         </div>
         <vm-resize-line v-model="config.width"/>
-        <div class="root-container__right-block">
-            <div class="root-container__component" v-if="! secondComponent">
+        <div class="demo-page__right-block">
+            <div class="demo-page__component" v-if="! secondComponent">
                 <component v-if="component" :is="component"/>
             </div>
-            <div class="root-container__component" v-if="secondComponent">
+            <div class="demo-page__component" v-if="secondComponent">
                 <div style="display: flex">
                     <div style="flex: 1 0 50%"
                          v-for="item in [component, secondComponent]">
@@ -169,3 +169,55 @@
     },
   }
 </script>
+
+<style lang="scss">
+    @import "../../scss/resources";
+
+    .demo-page {
+        // Reset
+        * {
+            box-sizing: border-box;
+        }
+
+        $root: &;
+
+        font-family: "Noto Sans", sans-serif;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        display: flex;
+        top: 0;
+        left: 0;
+
+        #{&}__left-block {
+            flex: 0 0;
+            padding: 10px;
+            overflow: auto;
+            background-color: white;
+            border-right: solid 1px $border-color--main;
+        }
+
+        #{&}__right-block {
+            flex: auto;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+            height: 100%;
+
+            #{$root}__component {
+                overflow: auto;
+                flex: auto;
+                padding: 10px;
+
+                // This is required for position: absolute children to function properly
+                width: 100%;
+                height: 100%;
+            }
+
+            #{$root}__info {
+                overflow: auto;
+                flex: 0 0;
+            }
+        }
+    }
+</style>

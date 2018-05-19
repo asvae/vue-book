@@ -6,13 +6,14 @@
             :to="file.path"
     >
         <div>
-            <i class="icon-folder"></i> <span>{{ file.getFilename() }}</span>
+            <font-awesome-icon icon="file"/> <span>{{ file.getFilename() }}</span>
         </div>
     </router-link>
 </template>
 
 <script lang="ts">
   import DemoFile from '../../classes/Main/DemoFile'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
   export default {
     name: 'VmFile',
@@ -20,6 +21,9 @@
       file: {
         type: DemoFile,
       }
+    },
+    components: {
+      FontAwesomeIcon,
     },
     computed: {
       isActive () {

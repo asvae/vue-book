@@ -2,13 +2,21 @@
     <div class="demo-folder">
         <div class="demo-folder__title" @click="folder.toggle()">
             <span class="icon">
-                <i class="fa fa-caret-down" v-if="folder.isOpen"></i>
-                <i class="fa fa-caret-right" v-else></i>
+                <font-awesome-icon
+                        v-if="folder.isOpen"
+                        icon="caret-down"
+                />
+                <font-awesome-icon
+                        v-else
+                        icon="caret-right"
+                />
             </span>
-            <i class="fa fa-folder"></i> <span>{{folder.name}}</span>
+            <font-awesome-icon icon="folder"/>
+            <span>{{folder.name}}</span>
         </div>
         <div class="demo-folder__insides"
-             v-if="folder.isOpen && ! folder.isEmpty()">
+             v-if="folder.isOpen && ! folder.isEmpty()"
+        >
             <vm-folder v-for="child in folder.folders"
                        :key="generateKey()"
                        :folder="child"
@@ -26,7 +34,8 @@
   import vmFile from './File.vue'
 
   import DemoFolder from '../../classes/Main/DemoFolder'
-  import {ObjectHelpers} from 'asva-helpers'
+  import { ObjectHelpers } from 'asva-helpers'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
   export default {
     name: 'VmFolder',
@@ -60,7 +69,20 @@
       },
     },
     components: {
+      FontAwesomeIcon,
       vmFile,
     },
   }
 </script>
+
+<style lang="scss">
+    .demo-folder {
+        &__title {
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        &__insides {
+            padding-left: 16px;
+        }
+    }
+</style>

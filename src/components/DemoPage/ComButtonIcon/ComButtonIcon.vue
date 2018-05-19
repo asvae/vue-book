@@ -1,6 +1,8 @@
 <template>
-    <div class="com-button-icon">
-        <font-awesome-icon :icon="type"/>
+    <div class="com-button-icon"
+         :class="{'com-button-icon--active': active}"
+    >
+        <font-awesome-icon :icon="icon"/>
     </div>
 </template>
 
@@ -13,9 +15,13 @@
       FontAwesomeIcon,
     },
     props: {
-      type: {
-        required: true,
+      icon: {
         type: String,
+        required: true,
+      },
+      active: {
+        type: Boolean,
+        required: false,
       },
     },
   }
@@ -25,14 +31,15 @@
     @import "../../../scss/resources";
 
     .com-button-icon {
-        width: 100px;
-        height: 100px;
-
         cursor: pointer;
         display: inline-flex;
         border-radius: 3px;
+        padding: 3px;
+        @include flexCenter();
 
         &--active {
+            padding: 2px;
+            border: $color--main solid 1px;
             background-color: #c7d6e1;
         }
     }
