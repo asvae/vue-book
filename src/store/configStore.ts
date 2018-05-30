@@ -5,12 +5,16 @@ const STORAGE_KEY = 'config'
 
 export default {
   _config: null,
-
+  
   get config (): DemoPageConfig {
     if (! this._config) {
       const data = storage.fetch(STORAGE_KEY) || new DemoPageConfig()
-      const config: DemoPageConfig = new DemoPageConfig(data.mode, data.isFlat, data.isShowingInfo, data.searchText, data.width)
-      this._config = config
+      this._config = new DemoPageConfig(
+        data.mode,
+        data.isFlat,
+        data.searchText,
+        data.width
+      )
     }
     return this._config
   },
