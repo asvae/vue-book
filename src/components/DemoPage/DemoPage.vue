@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <vm-resize-line v-model="config.width" value=""/>
+        <vm-resize-line v-model="config.width"/>
         <div class="root-container__right-block">
             <div class="root-container__component" v-if="! secondComponent">
                 <component v-if="component" :is="component"/>
