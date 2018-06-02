@@ -6,9 +6,7 @@ const optionsKey = '$componentTree'
 export const componentTreeDemo = Symbol('Component tree demo')
 
 export default class DemoFileOptions {
-  status: string
   component?: ComponentOptions<Vue>
-  description: ''
 
   constructor (data?) {
     Object.assign(this, data)
@@ -24,10 +22,7 @@ export default class DemoFileOptions {
     }
 
     return new this({
-      status: optionsData.status || 'default',
       component: optionsData.component || demoFile.guessComponent(),
-      // Remove line breaks from top and bottom.
-      description: description.replace(/^\s*[\n\r]|[\r\n]\s*$/g, ''),
     })
   }
 }

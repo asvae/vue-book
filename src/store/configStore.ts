@@ -4,7 +4,7 @@ import DemoPageConfig, {DemoPageMode} from '../components/DemoPage/DemoPageConfi
 const STORAGE_KEY = 'config'
 
 export default {
-  _config: null,
+  _config: <any>null,
 
   get config (): DemoPageConfig {
     if (! this._config) {
