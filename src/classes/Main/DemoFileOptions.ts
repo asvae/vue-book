@@ -12,17 +12,16 @@ export default class DemoFileOptions {
     Object.assign(this, data)
   }
 
-  static createFromDemoFile (demoFile: DemoFile) {
+  static createFromDemoFile (demoFile: DemoFile): DemoFileOptions {
     const optionsData = demoFile.component[optionsKey] || {}
-    const description = optionsData.description || ''
 
-    const component = optionsData.component || demoFile.guessComponent()
+    const component = optionsData.component
     if (component){
       component[componentTreeDemo] = demoFile
     }
 
     return new this({
-      component: optionsData.component || demoFile.guessComponent(),
+      component: optionsData.component,
     })
   }
 }

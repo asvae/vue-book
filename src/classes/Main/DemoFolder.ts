@@ -7,7 +7,7 @@ export default class DemoFolder {
 
   folders: Array<DemoFolder> = []
   files: Array<DemoFile> = []
-  parentFolder: DemoFolder = null
+  parentFolder: DemoFolder | null = null
 
   constructor (data?) {
     Object.assign(this, data)

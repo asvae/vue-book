@@ -16,7 +16,7 @@
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
   export default {
-    name: 'VmFile',
+    name: 'vm-file',
     props: {
       file: {
         type: DemoFile,
@@ -27,7 +27,9 @@
     },
     computed: {
       isActive () {
-        return this.$route.path === this.file.path
+        const self: any = this
+
+        return self.$route.path === self.file.path
       },
     },
   }

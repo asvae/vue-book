@@ -26,18 +26,19 @@
       },
     },
     methods: {
-      onDrag (event: DragEvent) {
+      onDrag (event: DragEvent): void {
+        const self: any = this
         // No idea how, but this works.
-        if (this.isHorizontal) {
+        if (self.isHorizontal) {
           if (event.screenY) {
             const totalHeight = document.documentElement.clientHeight
-            this.$emit('input', totalHeight - (event.clientY))
+            self.$emit('input', totalHeight - (event.clientY))
           }
           return
         }
 
         if (event.screenX) {
-          this.$emit('input', event.clientX - 22)
+          self.$emit('input', event.clientX - 22)
         }
       },
     }

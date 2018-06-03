@@ -38,26 +38,29 @@
     },
     computed: {
       filteredFiles () {
-        if (!this.config.searchText) {
-          return this.files
+        const self: any = this
+        if (!self.config.searchText) {
+          return self.files
         }
-        return this.files.filter(file => this.fileSelected(file))
+        return self.files.filter(file => self.fileSelected(file))
       },
     },
     methods: {
       fileSelected (file: DemoFile) {
+        const self: any = this
         const path = file.path.toUpperCase()
-        const text = this.config.searchText.toUpperCase()
+        const text = self.config.searchText.toUpperCase()
         const includesFull = path.includes(text)
         if (includesFull) {
           return includesFull
         }
         const upperCaseLetters = file.getFilename().replace(/[a-z.]/g, '')
-        return upperCaseLetters.includes(this.config.searchText)
+        return upperCaseLetters.includes(self.config.searchText)
       },
     },
     mounted () {
-      const input = this.$refs.searchInput
+      const self: any = this
+      const input = self.$refs.searchInput
       input && input.$el.focus()
     },
   }

@@ -1,6 +1,5 @@
 <template>
     <div class="demo-page-menu">
-
         <com-button-icon
                 class="demo-page-menu__icon"
                 @click.native="config.mode = DemoPageMode.Hidden"
@@ -25,7 +24,7 @@
                 :active="config.mode === DemoPageMode.Search"
         />
 
-        <div class="demo-page-menu__filler">sdfsdf</div>
+        <div class="demo-page-menu__filler"></div>
 
         <template v-if="config.mode === DemoPageMode.Tree">
             <com-button-icon

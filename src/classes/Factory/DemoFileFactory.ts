@@ -9,12 +9,8 @@ export default class DemoFileFactory {
     return new DemoNode({ path: '/short/short.path' })
   }
 
-  static getWithStatus (status): DemoNode {
-    const component = { status }
-    return new DemoNode({ path: `/${status}.path`, component })
-  }
-
   static getWithVariousStatuses (): Array<DemoNode> {
-    return ['wip', 'stable', 'unstable', 'hold'].map(DemoFileFactory.getWithStatus)
+    return ['wip', 'stable', 'unstable', 'hold']
+      .map(name => new DemoNode({ path: `/${status}.path` }))
   }
 }

@@ -1,0 +1,34 @@
+<template>
+  <div class="demo-container">
+    <div class="demo-container__item"
+         style="width: 300px"
+         v-for="(value, key) in valueList"
+    >
+      <div class="demo-container__header"
+           v-text="key"
+      />
+      <vm-file :file="value"/>
+      jdskfjdlfjskdf
+    </div>
+  </div>
+</template>
+
+<script>
+  import vmFile from './File.vue'
+  import DemoNode from '../../classes/Main/DemoFile'
+  import DemoFileFactory from "../../classes/Factory/DemoFileFactory";
+
+  export default {
+    data () {
+      return {
+        valueList: {
+          short: DemoFileFactory.getWithShortPath(),
+          long: DemoFileFactory.getWithLongPath(),
+        }
+      }
+    },
+    components: {
+      vmFile,
+    },
+  }
+</script>

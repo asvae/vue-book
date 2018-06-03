@@ -4,10 +4,8 @@ export default class DemoFile {
   path: string = ''
   component: any | null = null // demo component
   folder: DemoFolder | null = null
-  dependsOn: DemoFile[] = []
-  dependedBy: DemoFile[] = []
 
-  constructor (data: Partial<DemoFile>) {
+  constructor (data: Partial<DemoFile> = {}) {
     Object.assign(this, data)
   }
 

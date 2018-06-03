@@ -47,19 +47,20 @@
     },
     methods: {
       openSelected () {
+        const self: any = this
         const foldersChain = ObjectHelpers
-          .traverseBranch(this.folder, { path: this.$route.path })
+          .traverseBranch(self.folder, { path: self.$route.path })
           .filter(item => {
             return (item instanceof DemoFolder)
           })
 
         if (foldersChain.length) {
-          this.folder.isOpen = true
+          self.folder.isOpen = true
         }
 
         if (foldersChain.length > 1) {
           setTimeout(() => {
-            const folderComponent = this.$refs.folders.find(folderComponent => folderComponent.folder === foldersChain[1])
+            const folderComponent = self.$refs.folders.find(folderComponent => folderComponent.folder === foldersChain[1])
             folderComponent.openSelected()
           })
         }

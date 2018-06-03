@@ -14,7 +14,7 @@ export default {
     if (localStorage.getItem(STORAGE_KEY) === undefined) {
       return defaultItems
     }
-    const storedItems = JSON.parse(localStorage.getItem(STORAGE_KEY))
+    const storedItems = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
     return Object.assign(defaultItems, storedItems)
   },
   getDefault () {

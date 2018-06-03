@@ -5,10 +5,10 @@ import DemoFolderMapper from '../classes/Mapper/DemoFolderMapper'
 const STORAGE_KEY = 'openFolders'
 
 export default {
-  _openFolders: [],
+  _openFolders: <DemoFolder[]>[],
 
   get openFolders (): DemoFolder[] {
-    const data = storage.fetch(STORAGE_KEY) || []
+    const data = <any[]>storage.fetch(STORAGE_KEY) || []
     const folders = data.map(DemoFolderMapper.map)
 
     this._openFolders = folders

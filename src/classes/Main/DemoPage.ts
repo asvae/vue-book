@@ -9,6 +9,7 @@ import {RouterOptions} from 'vue-router'
  */
 export default class DemoPage {
   static create (requireContext, path) {
+
     const demoFilesCollection = new DemoFileCollection({
       demoFiles: requireContext.keys().map(key => {
         return new DemoFile({
@@ -16,7 +17,7 @@ export default class DemoPage {
           component: requireContext(key).default,
         })
       })
-    }).hydrateGhostDemoFiles().attachRelations()
+    })
 
     return {
       path: path + '*',

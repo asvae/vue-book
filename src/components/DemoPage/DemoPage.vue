@@ -30,9 +30,6 @@
                     </div>
                     <vm-folder v-else :folder="tree"/>
                 </div>
-                <div v-if="config.mode === 'Info' && currentFile">
-                    <vm-file-info-panel :file="currentFile"/>
-                </div>
             </div>
         </div>
         <vm-resize-line v-model="config.width"/>
@@ -73,9 +70,11 @@
   export default {
     name: 'VmDemoPage',
     data () {
+      const self: any = this
+
       return {
         configStore,
-        tree: this.renderTree(),
+        tree: self.renderTree(),
         mode: 'default', // 'search', 'info', 'hidden'
         secondComponent: null,
         searchText: '',
@@ -84,7 +83,9 @@
     },
     watch: {
       currentFile () {
-        this.secondComponent = null
+        const self: any = this
+
+        self.secondComponent = null
       },
       config: {
         deep: true,
@@ -131,41 +132,50 @@
         return configStore.config
       },
       component () {
-        return this.currentFile && this.currentFile.component
+        const self: any = this
+        return self.currentFile && self.currentFile.component
       },
       currentFile (): DemoFile | null {
-        return this.files.find(file => {
-          return this.$route.path === file.path
+        const self: any = this
+        return self.files.find(file => {
+          return self.$route.path === file.path
         }) || null
       },
       files () {
-        return this.$route.meta.demoFilesCollection.demoFiles
+        const self: any = this
+        return self.$route.meta.demoFilesCollection.demoFiles
       },
     },
     methods: {
       makeSecondComponent (file: DemoFile) {
-        this.secondComponent = file.component
+        const self: any = this
+        self.secondComponent = file.component
       },
       next (invert: Boolean = false) {
-        const index = this.files.indexOf(this.currentFile)
-        const file = this.files[index + (invert ? -1 : 1)]
+        const self: any = this
+
+        const index = self.files.indexOf(self.currentFile)
+        const file = self.files[index + (invert ? -1 : 1)]
         if (!file) {
           return
         }
-        this.$router.push(file.path)
+        self.$router.push(file.path)
         file.openFolder()
       },
       renderTree () {
+        const self: any = this
         const tree = new DemoFolder()
-        const files = this.$route.meta.demoFilesCollection.demoFiles
+        const files = self.$route.meta.demoFilesCollection.demoFiles
         files.forEach(node => tree.addDemoFile(node))
         return tree.folders[0]
       },
     },
     created () {
-      this.tree.fillParents()
-      this.tree.open()
-      this.tree.mergeWithFolders(foldersStore.openFolders)
+      const self: any = this
+
+      self.tree.fillParents()
+      self.tree.open()
+      self.tree.mergeWithFolders(foldersStore.openFolders)
     },
   }
 </script>
