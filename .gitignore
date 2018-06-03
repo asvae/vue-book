@@ -1,5 +1,4 @@
 /node_modules/
-/public/
 /dist/
 /coverage/
 
@@ -8,6 +7,7 @@
 .env.*.local
 
 # Log files
+inspect-result.js
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

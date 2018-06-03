@@ -8,7 +8,6 @@
            v-text="key"
       />
       <vm-file :file="value"/>
-      jdskfjdlfjskdf
     </div>
   </div>
 </template>
