@@ -71,7 +71,6 @@
   @import "../../../scss/resources";
 
   .com-input {
-    // Remove placeholder on focus
     &:focus::placeholder {
       opacity: 0;
     }

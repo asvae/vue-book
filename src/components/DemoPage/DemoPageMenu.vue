@@ -73,8 +73,8 @@
 </script>
 
 <style lang="scss">
-
-
+  @import "../../scss/resources";
+  
   .demo-page-menu {
     display: flex;
     &__filler {

@@ -1,11 +1,5 @@
 <template>
-  <div class="search-panel">
-    <com-input
-      class="search-panel__input"
-      ref="searchInput"
-      style="width: 100%"
-      v-model="config.searchText"
-    />
+  <div class="searchable-demo-file-list">
     <div v-for="file in filteredFiles"
          :key="file.path"
          @click="$emit('selected')"
@@ -22,12 +16,16 @@
   import ComInput from '../DemoPage/ComInput/ComInput.vue'
 
   export default {
-    name: 'VmSearchPanel',
+    name: 'searchable-demo-file-list',
     components: {
       ComInput,
       VmFile,
     },
     props: {
+      search: {
+        type: String,
+        required: true,
+      },
       config: {
         type: DemoPageConfig,
         required: true,
@@ -40,23 +38,35 @@
     computed: {
       filteredFiles () {
         const self: any = this
-        if (!self.config.searchText) {
+        if (!self.searchProxy) {
           return self.files
         }
         return self.files.filter(file => self.fileSelected(file))
       },
+      searchProxy: {
+        get () {
+          const self: any = this
+
+          return self.search
+        },
+        set (search) {
+          const self: any = this
+
+          self.$emit('update:search', search)
+        }
+      }
     },
     methods: {
       fileSelected (file: DemoFile) {
         const self: any = this
         const path = file.path.toUpperCase()
-        const text = self.config.searchText.toUpperCase()
+        const text = self.searchProxy.toUpperCase()
         const includesFull = path.includes(text)
         if (includesFull) {
           return includesFull
         }
         const upperCaseLetters = file.getFilename().replace(/[a-z.]/g, '')
-        return upperCaseLetters.includes(self.config.searchText)
+        return upperCaseLetters.includes(self.searchProxy)
       },
     },
     mounted () {
@@ -68,9 +78,9 @@
 </script>
 
 <style lang="scss">
-  .search-panel {
-    &__input {
-      margin-bottom: 6px;
-    }
+  @import '../../scss/resources';
+  
+  .searchable-demo-file-list {
+  
   }
 </style>

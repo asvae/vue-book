@@ -11,16 +11,24 @@
           @openFolder="currentFile.openFolder()"
           @next="next"
         />
-      </div>
-
-      <div>
-        <div v-if="config.mode === DemoPageMode.Search">
-          <vm-search-panel
-            :config="config"
-            :files="files"
-            @selected="config.mode === DemoPageMode.Tree"
+        <div class="demo-page__menu__search" v-if="config.mode === DemoPageMode.Search">
+          <com-input
+            class="demo-page__search-input"
+            ref="searchInput"
+            v-model="config.search"
+            placeholder="..."
           />
         </div>
+      </div>
+
+      <div class="demo-page__files">
+        <searchable-demo-file-list
+          v-if="config.mode === DemoPageMode.Search"
+          :search.sync="config.search"
+          :files="files"
+          @selected="config.mode === DemoPageMode.Tree"
+        />
+        
         <div v-if="config.mode === DemoPageMode.Tree">
           <div v-if="config.isFlat">
             <vm-file
@@ -60,17 +68,18 @@
 
   import DemoFolder from '../../classes/Main/DemoFolder'
   import DemoFile from '../../classes/Main/DemoFile'
-  import VmSearchPanel from '../FileTree/SearchPanel.vue'
+  import SearchableDemoFileList from '../FileTree/SearchableDemoFileList.vue'
   import VmResizeLine from '../Service/ResizeLine.vue'
   import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
   import VmDemoPageMenu from './DemoPageMenu.vue'
 
   import configStore from '../../store/configStore'
+  import ComInput from './ComInput/ComInput.vue'
 
   let lastUpdateTimestamp = 0
 
   export default {
-    name: 'VmDemoPage',
+    name: 'demo-page',
     data () {
       const self: any = this
 
@@ -82,6 +91,11 @@
         searchText: '',
         foldersStore,
       }
+    },
+    mounted () {
+      const self: any = this
+      const input = self.$refs.searchInput
+      input && input.$el.focus()
     },
     watch: {
       currentFile () {
@@ -122,9 +136,10 @@
       }
     },
     components: {
+      ComInput,
       VmDemoPageMenu,
       VmResizeLine,
-      VmSearchPanel,
+      SearchableDemoFileList,
       vmFolder,
       vmFile,
     },
@@ -194,7 +209,21 @@
     }
 
     &__menu {
-      margin-bottom: 6px;
+      &__search {
+        margin-top: 5px;
+      }
+      background-color: $color--main;
+      padding: 5px;
+    }
+  
+    &__search-input {
+      background-color: lighten($color--main, 50);
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    
+    &__files {
+      padding: 6px;
     }
 
     $root: &;
@@ -209,7 +238,6 @@
 
     #{&}__left-block {
       flex: 0 0;
-      padding: 10px;
       overflow: auto;
       background-color: white;
       border-right: solid 1px $border-color--main;
