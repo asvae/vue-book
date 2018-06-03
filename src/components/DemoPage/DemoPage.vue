@@ -1,52 +1,52 @@
 <template>
-    <div class="demo-page">
-        <div class="demo-page__left-block"
-             :style="{'flex-basis': config.width + 'px'}"
-        >
+  <div class="demo-page">
+    <div class="demo-page__left-block"
+         :style="{'flex-basis': config.width + 'px'}"
+    >
 
-            <vm-demo-page-menu
-                    :config="config"
-                    :currentFile="currentFile"
-                    @openFolder="currentFile.openFolder()"
-                    @next="next"
+      <vm-demo-page-menu
+        :config="config"
+        :currentFile="currentFile"
+        @openFolder="currentFile.openFolder()"
+        @next="next"
+      />
+
+      <div>
+        <div v-if="config.mode === DemoPageMode.Search">
+          <vm-search-panel
+            :config="config"
+            :files="files"
+            @selected="config.mode === DemoPageMode.Tree"
+          />
+        </div>
+        <div v-if="config.mode === DemoPageMode.Tree">
+          <div v-if="config.isFlat">
+            <vm-file
+              v-for="file in files"
+              @click.native.ctrl="makeSecondComponent(file)"
+              :key="file.path"
+              :file="file"
             />
-
-            <div>
-                <div v-if="config.mode === DemoPageMode.Search">
-                    <vm-search-panel
-                            :config="config"
-                            :files="files"
-                            @selected="config.mode === DemoPageMode.Tree"
-                    />
-                </div>
-                <div v-if="config.mode === DemoPageMode.Tree">
-                    <div v-if="config.isFlat">
-                        <vm-file
-                                v-for="file in files"
-                                @click.native.ctrl="makeSecondComponent(file)"
-                                :key="file.path"
-                                :file="file"
-                        />
-                    </div>
-                    <vm-folder v-else :folder="tree"/>
-                </div>
-            </div>
+          </div>
+          <vm-folder v-else :folder="tree"/>
         </div>
-        <vm-resize-line v-model="config.width"/>
-        <div class="demo-page__right-block">
-            <div class="demo-page__component" v-if="! secondComponent">
-                <component v-if="component" :is="component"/>
-            </div>
-            <div class="demo-page__component" v-if="secondComponent">
-                <div style="display: flex">
-                    <div style="flex: 1 0 50%"
-                         v-for="item in [component, secondComponent]">
-                        <component v-if="item" :is="item"/>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <vm-resize-line v-model="config.width"/>
+    <div class="demo-page__right-block">
+      <div class="demo-page__component" v-if="! secondComponent">
+        <component v-if="component" :is="component"/>
+      </div>
+      <div class="demo-page__component" v-if="secondComponent">
+        <div style="display: flex">
+          <div style="flex: 1 0 50%"
+               v-for="item in [component, secondComponent]">
+            <component v-if="item" :is="item"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 
@@ -181,53 +181,53 @@
 </script>
 
 <style lang="scss">
-    @import "../../scss/resources";
+  @import "../../scss/resources";
 
-    .demo-page {
-        // Reset
-        * {
-            box-sizing: border-box;
-        }
-
-        $root: &;
-
-        font-family: "Noto Sans", sans-serif;
-        height: 100%;
-        width: 100%;
-        position: fixed;
-        display: flex;
-        top: 0;
-        left: 0;
-
-        #{&}__left-block {
-            flex: 0 0;
-            padding: 10px;
-            overflow: auto;
-            background-color: white;
-            border-right: solid 1px $border-color--main;
-        }
-
-        #{&}__right-block {
-            flex: auto;
-            display: flex;
-            flex-direction: column;
-            overflow: auto;
-            height: 100%;
-
-            #{$root}__component {
-                overflow: auto;
-                flex: auto;
-                padding: 10px;
-
-                // This is required for position: absolute children to function properly
-                width: 100%;
-                height: 100%;
-            }
-
-            #{$root}__info {
-                overflow: auto;
-                flex: 0 0;
-            }
-        }
+  .demo-page {
+    // Reset
+    * {
+      box-sizing: border-box;
     }
+
+    $root: &;
+
+    font-family: "Noto Sans", sans-serif;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+
+    #{&}__left-block {
+      flex: 0 0;
+      padding: 10px;
+      overflow: auto;
+      background-color: white;
+      border-right: solid 1px $border-color--main;
+    }
+
+    #{&}__right-block {
+      flex: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      height: 100%;
+
+      #{$root}__component {
+        overflow: auto;
+        flex: auto;
+        padding: 10px;
+
+        // This is required for position: absolute children to function properly
+        width: 100%;
+        height: 100%;
+      }
+
+      #{$root}__info {
+        overflow: auto;
+        flex: 0 0;
+      }
+    }
+  }
 </style>

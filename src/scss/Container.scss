@@ -9,7 +9,7 @@
     padding: $gutter/2
   }
   &#{&}--full-width {
-    width: calc(100% + #{$gutter}/2);
+    width: calc(100% + #{$gutter} / 2);
   }
 
   &#{&}--column {

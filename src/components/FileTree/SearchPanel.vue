@@ -1,17 +1,17 @@
 <template>
-    <div class="search-panel">
-        <com-input
-                ref="searchInput"
-                style="width: 100%"
-                v-model="config.searchText"
-        />
-        <div v-for="file in filteredFiles"
-             :key="file.path"
-             @click="$emit('selected')"
-        >
-            <vm-file :file="file"/>
-        </div>
+  <div class="search-panel">
+    <com-input
+      ref="searchInput"
+      style="width: 100%"
+      v-model="config.searchText"
+    />
+    <div v-for="file in filteredFiles"
+         :key="file.path"
+         @click="$emit('selected')"
+    >
+      <vm-file :file="file"/>
     </div>
+  </div>
 </template>
 
 <script lang="ts">

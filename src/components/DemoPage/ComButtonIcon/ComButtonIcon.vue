@@ -1,9 +1,9 @@
 <template>
-    <div class="com-button-icon"
-         :class="{'com-button-icon--active': active}"
-    >
-        <font-awesome-icon :icon="icon"/>
-    </div>
+  <div class="com-button-icon"
+       :class="{'com-button-icon--active': active}"
+  >
+    <font-awesome-icon :icon="icon"/>
+  </div>
 </template>
 
 <script>
@@ -28,19 +28,19 @@
 </script>
 
 <style lang="scss">
-    @import "../../../scss/resources";
+  @import "../../../scss/resources";
 
-    .com-button-icon {
-        cursor: pointer;
-        display: inline-flex;
-        border-radius: 3px;
-        padding: 3px;
-        @include flexCenter();
+  .com-button-icon {
+    cursor: pointer;
+    display: inline-flex;
+    border-radius: 3px;
+    padding: 3px;
+    @include flexCenter();
 
-        &--active {
-            padding: 2px;
-            border: $color--main solid 1px;
-            background-color: #c7d6e1;
-        }
+    &--active {
+      padding: 2px;
+      border: $color--main solid 1px;
+      background-color: #c7d6e1;
     }
+  }
 </style>

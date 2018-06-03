@@ -1,3 +1,3 @@
 module.exports = {
-  hints: false
+  hints: false,
 }

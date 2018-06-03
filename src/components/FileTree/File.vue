@@ -1,14 +1,15 @@
 <template>
-    <router-link
-            tag="div"
-            class="demo-node"
-            :class="isActive && 'demo-node--active'"
-            :to="file.path"
-    >
-        <div>
-            <font-awesome-icon icon="file"/> <span>{{ file.getFilename() }}</span>
-        </div>
-    </router-link>
+  <router-link
+    tag="div"
+    class="demo-node"
+    :class="isActive && 'demo-node--active'"
+    :to="file.path"
+  >
+    <div>
+      <font-awesome-icon icon="file"/>
+      <span>{{ file.getFilename() }}</span>
+    </div>
+  </router-link>
 </template>
 
 <script lang="ts">
@@ -20,7 +21,7 @@
     props: {
       file: {
         type: DemoFile,
-      }
+      },
     },
     components: {
       FontAwesomeIcon,

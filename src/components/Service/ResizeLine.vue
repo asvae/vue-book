@@ -1,9 +1,9 @@
 <template>
-    <div class="resize-line"
-         :class="{'resize-line--is-horizontal': isHorizontal}"
-         draggable
-         @drag="onDrag"
-    />
+  <div class="resize-line"
+       :class="{'resize-line--is-horizontal': isHorizontal}"
+       draggable
+       @drag="onDrag"
+  />
 </template>
 
 <script lang="ts">
@@ -41,7 +41,7 @@
           self.$emit('input', event.clientX - 22)
         }
       },
-    }
+    },
   }
 </script>
 

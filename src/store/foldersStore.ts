@@ -16,7 +16,7 @@ export default {
   },
   set openFolders (folders: DemoFolder[]) {
     this._openFolders = folders
-    
+
     const data = folders.map(DemoFolderMapper.transform)
     storage.store(STORAGE_KEY, data)
   },

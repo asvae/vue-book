@@ -1,12 +1,12 @@
 <template>
-    <input
-            class="com-input"
-            v-model="valueProxy"
-            :name="name"
-            :placeholder="placeholder"
-            :type="type"
-            autocomplete="off"
-    >
+  <input
+    class="com-input"
+    v-model="valueProxy"
+    :name="name"
+    :placeholder="placeholder"
+    :type="type"
+    autocomplete="off"
+  >
 </template>
 
 <script>
@@ -68,16 +68,16 @@
 </script>
 
 <style lang="scss">
-    @import "../../../scss/resources";
+  @import "../../../scss/resources";
 
-    .com-input {
-        // Remove placeholder on focus
-        &:focus::placeholder {
-            opacity: 0;
-        }
-        border-radius: $border-radius--input;
-        border: 1px solid $border-color--main;
-        padding: 4px 5px;
-        width: 100%;
+  .com-input {
+    // Remove placeholder on focus
+    &:focus::placeholder {
+      opacity: 0;
     }
+    border-radius: $border-radius--input;
+    border: 1px solid $border-color--main;
+    padding: 4px 5px;
+    width: 100%;
+  }
 </style>

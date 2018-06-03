@@ -1,13 +1,13 @@
 <template>
-    <div class="demo-container">
-        <div class="demo-container__item">
-            <com-button-icon
-                    @click.native="active = ! active"
-                    icon="server"
-                    :active="active"
-            />
-        </div>
+  <div class="demo-container">
+    <div class="demo-container__item">
+      <com-button-icon
+        @click.native="active = ! active"
+        icon="server"
+        :active="active"
+      />
     </div>
+  </div>
 </template>
 
 <script>

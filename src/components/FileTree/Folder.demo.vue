@@ -1,26 +1,26 @@
 <template>
-    <div class="demo-container">
-        <div style="width: 250px">
-            <div class="demo-container__item demo-container--config">
-                <div class="demo-container__header"
-                     v-text="'type'"
-                />
-                <div v-for="(value, key) in valueList"
-                     class="selectable-item is-small"
-                     :class="{active: valueSelected === key}"
-                     @click="valueSelected = key"
-                     v-text="key"
-                />
-            </div>
-        </div>
-
-        <div class="demo-container__item" style="width: 250px">
-            <div class="demo-container__header"
-                 v-text="valueSelected"
-            />
-            <vm-folder :folder="valueList[valueSelected]"/>
-        </div>
+  <div class="demo-container">
+    <div style="width: 250px">
+      <div class="demo-container__item demo-container--config">
+        <div class="demo-container__header"
+             v-text="'type'"
+        />
+        <div v-for="(value, key) in valueList"
+             class="selectable-item is-small"
+             :class="{active: valueSelected === key}"
+             @click="valueSelected = key"
+             v-text="key"
+        />
+      </div>
     </div>
+
+    <div class="demo-container__item" style="width: 250px">
+      <div class="demo-container__header"
+           v-text="valueSelected"
+      />
+      <vm-folder :folder="valueList[valueSelected]"/>
+    </div>
+  </div>
 </template>
 
 <script>

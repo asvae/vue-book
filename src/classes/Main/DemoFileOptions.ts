@@ -1,5 +1,5 @@
 import DemoFile from './DemoFile'
-import Vue, {ComponentOptions} from 'vue'
+import Vue, { ComponentOptions } from 'vue'
 
 const optionsKey = '$componentTree'
 
@@ -16,7 +16,7 @@ export default class DemoFileOptions {
     const optionsData = demoFile.component[optionsKey] || {}
 
     const component = optionsData.component
-    if (component){
+    if (component) {
       component[componentTreeDemo] = demoFile
     }
 

@@ -46,7 +46,7 @@ export default class DemoFolder {
     if (foundFolder) {
       return foundFolder
     }
-    const folder = new DemoFolder({name})
+    const folder = new DemoFolder({ name })
     this.folders.push(folder)
     return folder
   }

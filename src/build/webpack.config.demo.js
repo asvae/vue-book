@@ -26,15 +26,15 @@ module.exports = function () {
               { loader: 'css-loader' },
               { loader: 'sass-loader' },
             ],
-            fallback: 'style-loader'
-          })
+            fallback: 'style-loader',
+          }),
         },
         {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             use: 'css-loader',
-            fallback: 'style-loader'
-          })
+            fallback: 'style-loader',
+          }),
         },
         {
           test: /\.vue$/,
@@ -44,28 +44,28 @@ module.exports = function () {
           test: /\.ts$/,
           loader: 'ts-loader',
           options: {
-            appendTsSuffixTo: [/\.vue$/]
-          }
+            appendTsSuffixTo: [/\.vue$/],
+          },
         },
         {
           test: /\.js$/,
           use: 'babel-loader',
-          exclude: /node_modules/
+          exclude: /node_modules/,
         },
         {
           test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
           use: 'url-loader?limit=100000&name=[name].[ext]',
           exclude: path.resolve('./src/assets/svg'),
-        }
-      ]
+        },
+      ],
     },
     plugins: [
-      new CleanWebpackPlugin(['public'], { root: path.resolve(__dirname, '../..')}),
+      new CleanWebpackPlugin(['public'], { root: path.resolve(__dirname, '../..') }),
       new HtmlWebpackPlugin({
-        template: './demo/index.html'
+        template: './demo/index.html',
       }),
       new ExtractTextPlugin('app.css'),
     ],
-    devtool: '#source-map'
+    devtool: '#source-map',
   }
 }

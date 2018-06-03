@@ -1,9 +1,9 @@
 <template>
-    <div class="demo-container">
-        <div class="demo-container__item">
-            <demo-page-menu style="width: 300px" :config="config"/>
-        </div>
+  <div class="demo-container">
+    <div class="demo-container__item">
+      <demo-page-menu style="width: 300px" :config="config"/>
     </div>
+  </div>
 </template>
 
 <script lang="ts">

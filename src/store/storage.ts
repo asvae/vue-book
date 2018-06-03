@@ -18,7 +18,6 @@ export default {
     return Object.assign(defaultItems, storedItems)
   },
   getDefault () {
-    return {
-    }
-  }
+    return {}
+  },
 }
