@@ -4,12 +4,14 @@
          :style="{'flex-basis': config.width + 'px'}"
     >
 
-      <vm-demo-page-menu
-        :config="config"
-        :currentFile="currentFile"
-        @openFolder="currentFile.openFolder()"
-        @next="next"
-      />
+      <div class="demo-page__menu">
+        <vm-demo-page-menu
+          :config="config"
+          :currentFile="currentFile"
+          @openFolder="currentFile.openFolder()"
+          @next="next"
+        />
+      </div>
 
       <div>
         <div v-if="config.mode === DemoPageMode.Search">
@@ -183,10 +185,16 @@
 <style lang="scss">
   @import "../../scss/resources";
 
+
+
   .demo-page {
     // Reset
     * {
       box-sizing: border-box;
+    }
+
+    &__menu {
+      margin-bottom: 6px;
     }
 
     $root: &;

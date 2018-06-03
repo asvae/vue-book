@@ -1,6 +1,7 @@
 <template>
   <div class="search-panel">
     <com-input
+      class="search-panel__input"
       ref="searchInput"
       style="width: 100%"
       v-model="config.searchText"
@@ -65,3 +66,11 @@
     },
   }
 </script>
+
+<style lang="scss">
+  .search-panel {
+    &__input {
+      margin-bottom: 6px;
+    }
+  }
+</style>

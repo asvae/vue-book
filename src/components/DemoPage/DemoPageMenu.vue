@@ -72,13 +72,11 @@
   }
 </script>
 
-<style type="scss">
+<style lang="scss">
+
+
   .demo-page-menu {
     display: flex;
-    &__icon {
-      height: 30px;
-      background-color: #b769d9;
-    }
     &__filler {
       flex: 1 0;
     }
