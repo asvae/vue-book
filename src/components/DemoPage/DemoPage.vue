@@ -15,7 +15,7 @@
             class="demo-page__search-input"
             ref="searchInput"
             v-model="config.search"
-            placeholder="..."
+            placeholder="Search..."
           />
         </div>
       </div>
@@ -197,9 +197,6 @@ export default {
 
 .demo-page {
   // Reset
-  * {
-    box-sizing: border-box;
-  }
   &__menu {
     &__search {
       margin-top: 5px;
@@ -232,6 +229,10 @@ export default {
   left: 0;
 
   #{&}__left-block {
+    * {
+      box-sizing: border-box;
+    }
+
     height: 100%;
     flex: 0 0;
     background-color: white;
