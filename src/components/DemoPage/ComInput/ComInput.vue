@@ -74,7 +74,7 @@
     &:focus::placeholder {
       opacity: 0;
     }
-    border-radius: $border-radius--input;
+    border-radius: $border-radius--main;
     border: 1px solid $border-color--main;
     padding: 4px 5px;
     width: 100%;

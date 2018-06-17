@@ -36,6 +36,7 @@
     border-radius: 3px;
     padding: 3px;
     @include flexCenter();
+    color: #3f506e;
 
     &--active {
       padding: 2px;

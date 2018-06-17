@@ -7,17 +7,20 @@
       <div class="demo-container__header"
            v-text="key"
       />
-      <vm-file :file="value"/>
+      <book-component-list-item :file="value"/>
     </div>
   </div>
 </template>
 
 <script>
-  import vmFile from './File.vue'
+  import BookComponentListItem from './BookComponentListItem'
   import DemoNode from '../../classes/Main/DemoFile'
   import DemoFileFactory from "../../classes/Factory/DemoFileFactory";
 
   export default {
+    components: {
+      BookComponentListItem,
+    },
     data () {
       return {
         valueList: {
@@ -25,9 +28,6 @@
           long: DemoFileFactory.getWithLongPath(),
         }
       }
-    },
-    components: {
-      vmFile,
     },
   }
 </script>

@@ -1,17 +1,18 @@
 <template>
   <div class="searchable-demo-file-list">
-    <div v-for="file in filteredFiles"
+    <div class="searchable-demo-file-list__node"
+         v-for="file in filteredFiles"
          :key="file.path"
          @click="$emit('selected')"
     >
-      <vm-file :file="file"/>
+      <book-component-list-item :file="file"/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
   import DemoFile from '../../classes/Main/DemoFile'
-  import VmFile from './File.vue'
+  import BookComponentListItem from './BookComponentListItem.vue'
   import DemoPageConfig from '../DemoPage/DemoPageConfig'
   import ComInput from '../DemoPage/ComInput/ComInput.vue'
 
@@ -19,7 +20,7 @@
     name: 'searchable-demo-file-list',
     components: {
       ComInput,
-      VmFile,
+      BookComponentListItem,
     },
     props: {
       search: {
@@ -79,8 +80,13 @@
 
 <style lang="scss">
   @import '../../scss/resources';
-  
+
   .searchable-demo-file-list {
-  
+    height: 100%;
+    background-color: $color--white;
+    overflow: auto;
+    &__node {
+
+    }
   }
 </style>

@@ -18,13 +18,13 @@
       <div class="demo-container__header"
            v-text="valueSelected"
       />
-      <vm-folder :folder="valueList[valueSelected]"/>
+      <book-component-list-folder :folder="valueList[valueSelected]"/>
     </div>
   </div>
 </template>
 
 <script>
-  import vmFolder from './Folder.vue'
+  import BookComponentListFolder from './BookComponentListFolder.vue'
   import DemoNode from '../../classes/Main/DemoFile'
   import DemoFolder from '../../classes/Main/DemoFolder'
   import DemoFolderFactory from '../../classes/Factory/DemoFolderFactory'
@@ -42,7 +42,7 @@
       }
     },
     components: {
-      vmFolder,
+      BookComponentListFolder,
     },
   }
 </script>

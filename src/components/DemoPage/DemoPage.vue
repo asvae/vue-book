@@ -1,9 +1,8 @@
 <template>
   <div class="demo-page">
     <div class="demo-page__left-block"
-         :style="{'flex-basis': config.width + 'px'}"
+         :style="{'flex-basis': config.width + 'px', 'width': config.width + 'px'}"
     >
-
       <div class="demo-page__menu">
         <vm-demo-page-menu
           :config="config"
@@ -24,22 +23,16 @@
       <div class="demo-page__files">
         <searchable-demo-file-list
           v-if="config.mode === DemoPageMode.Search"
-          :search.sync="config.search"
+          :search="config.search"
           :files="files"
+          :config="config"
           @selected="config.mode === DemoPageMode.Tree"
         />
-        
-        <div v-if="config.mode === DemoPageMode.Tree">
-          <div v-if="config.isFlat">
-            <vm-file
-              v-for="file in files"
-              @click.native.ctrl="makeSecondComponent(file)"
-              :key="file.path"
-              :file="file"
-            />
-          </div>
-          <vm-folder v-else :folder="tree"/>
-        </div>
+
+        <tree-demo-file-list
+          v-if="config.mode === DemoPageMode.Tree"
+          :folder="tree"
+        />
       </div>
     </div>
     <vm-resize-line v-model="config.width"/>
@@ -61,209 +54,214 @@
 
 
 <script lang="ts">
-  import foldersStore from '../../store/foldersStore'
+import foldersStore from '../../store/foldersStore'
 
-  import vmFolder from '../FileTree/Folder.vue'
-  import vmFile from '../FileTree/File.vue'
+import BookComponentListFolder from '../FileTree/BookComponentListFolder.vue'
+import BookComponentListItem from '../FileTree/BookComponentListItem.vue'
 
-  import DemoFolder from '../../classes/Main/DemoFolder'
-  import DemoFile from '../../classes/Main/DemoFile'
-  import SearchableDemoFileList from '../FileTree/SearchableDemoFileList.vue'
-  import VmResizeLine from '../Service/ResizeLine.vue'
-  import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
-  import VmDemoPageMenu from './DemoPageMenu.vue'
+import DemoFolder from '../../classes/Main/DemoFolder'
+import DemoFile from '../../classes/Main/DemoFile'
+import SearchableDemoFileList from '../FileTree/SearchableDemoFileList.vue'
+import VmResizeLine from '../Service/ComResizeLine.vue'
+import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
+import VmDemoPageMenu from './DemoPageMenu.vue'
 
-  import configStore from '../../store/configStore'
-  import ComInput from './ComInput/ComInput.vue'
+import configStore from '../../store/configStore'
+import ComInput from './ComInput/ComInput.vue'
+import TreeDemoFileList from '../FileTree/TreeDemoFileList.vue'
 
-  let lastUpdateTimestamp = 0
+let lastUpdateTimestamp = 0
 
-  export default {
-    name: 'demo-page',
-    data () {
+export default {
+  name: 'demo-page',
+  components: {
+    TreeDemoFileList,
+    ComInput,
+    VmDemoPageMenu,
+    VmResizeLine,
+    SearchableDemoFileList,
+    BookComponentListFolder,
+    BookComponentListItem,
+  },
+  data () {
+    const self: any = this
+
+    return {
+      configStore,
+      tree: self.renderTree(),
+      mode: 'default', // 'search', 'info', 'hidden'
+      secondComponent: null,
+      searchText: '',
+      foldersStore,
+    }
+  },
+  mounted () {
+    const self: any = this
+    const input = self.$refs.searchInput
+    input && input.$el.focus()
+  },
+  watch: {
+    currentFile () {
       const self: any = this
 
-      return {
-        configStore,
-        tree: self.renderTree(),
-        mode: 'default', // 'search', 'info', 'hidden'
-        secondComponent: null,
-        searchText: '',
-        foldersStore,
-      }
+      self.secondComponent = null
     },
-    mounted () {
-      const self: any = this
-      const input = self.$refs.searchInput
-      input && input.$el.focus()
-    },
-    watch: {
-      currentFile () {
-        const self: any = this
-
-        self.secondComponent = null
-      },
-      config: {
-        deep: true,
-        handler (value: DemoPageConfig, oldValue: DemoPageConfig) {
-          if (value !== oldValue) {
-            // Updated from local storage.
-            return
-          }
-          const update = () => {
-            if (lastUpdateTimestamp < Math.floor(Date.now()) - 200) {
-              configStore.setConfig(value)
-              lastUpdateTimestamp = Math.floor(Date.now())
-            }
-          }
-          update()
-        },
-      },
-      tree: {
-        deep: true,
-        handler (value: DemoFolder, oldValue) {
-          if (value !== oldValue) {
-            // Updated from local storage.
-            return
-          }
-          foldersStore.openFolders = value.getOpenFolders()
-        },
-      },
-    },
-    provide () {
-      return {
-        foldersStore,
-      }
-    },
-    components: {
-      ComInput,
-      VmDemoPageMenu,
-      VmResizeLine,
-      SearchableDemoFileList,
-      vmFolder,
-      vmFile,
-    },
-    computed: {
-      DemoPageMode: () => DemoPageMode,
-      config () {
-        return configStore.config
-      },
-      component () {
-        const self: any = this
-        return self.currentFile && self.currentFile.component
-      },
-      currentFile (): DemoFile | null {
-        const self: any = this
-        return self.files.find(file => {
-          return self.$route.path === file.path
-        }) || null
-      },
-      files () {
-        const self: any = this
-        return self.$route.meta.demoFilesCollection.demoFiles
-      },
-    },
-    methods: {
-      makeSecondComponent (file: DemoFile) {
-        const self: any = this
-        self.secondComponent = file.component
-      },
-      next (invert: Boolean = false) {
-        const self: any = this
-
-        const index = self.files.indexOf(self.currentFile)
-        const file = self.files[index + (invert ? -1 : 1)]
-        if (!file) {
+    config: {
+      deep: true,
+      handler (value: DemoPageConfig, oldValue: DemoPageConfig) {
+        if (value !== oldValue) {
+          // Updated from local storage.
           return
         }
-        self.$router.push(file.path)
-        file.openFolder()
-      },
-      renderTree () {
-        const self: any = this
-        const tree = new DemoFolder()
-        const files = self.$route.meta.demoFilesCollection.demoFiles
-        files.forEach(node => tree.addDemoFile(node))
-        return tree.folders[0]
+        const update = () => {
+          if (lastUpdateTimestamp < Math.floor(Date.now()) - 200) {
+            configStore.setConfig(value)
+            lastUpdateTimestamp = Math.floor(Date.now())
+          }
+        }
+        update()
       },
     },
-    created () {
+    tree: {
+      deep: true,
+      handler (value: DemoFolder, oldValue) {
+        if (value !== oldValue) {
+          // Updated from local storage.
+          return
+        }
+        foldersStore.openFolders = value.getOpenFolders()
+      },
+    },
+  },
+  provide () {
+    return {
+      foldersStore,
+    }
+  },
+  computed: {
+    DemoPageMode: () => DemoPageMode,
+    config () {
+      return configStore.config
+    },
+    component () {
+      const self: any = this
+      return self.currentFile && self.currentFile.component
+    },
+    currentFile (): DemoFile | null {
+      const self: any = this
+      return self.files.find(file => {
+        return self.$route.path === file.path
+      }) || null
+    },
+    files () {
+      const self: any = this
+      return self.$route.meta.demoFilesCollection.demoFiles
+    },
+  },
+  methods: {
+    makeSecondComponent (file: DemoFile) {
+      const self: any = this
+      self.secondComponent = file.component
+    },
+    next (invert: Boolean = false) {
       const self: any = this
 
-      self.tree.fillParents()
-      self.tree.open()
-      self.tree.mergeWithFolders(foldersStore.openFolders)
+      const index = self.files.indexOf(self.currentFile)
+      const file = self.files[index + (invert ? -1 : 1)]
+      if (!file) {
+        return
+      }
+      self.$router.push(file.path)
+      file.openFolder()
     },
-  }
+    renderTree () {
+      const self: any = this
+      const tree = new DemoFolder()
+      const files = self.$route.meta.demoFilesCollection.demoFiles
+      files.forEach(node => tree.addDemoFile(node))
+      return tree.folders[0]
+    },
+  },
+  created () {
+    const self: any = this
+
+    self.tree.fillParents()
+    self.tree.open()
+    self.tree.mergeWithFolders(foldersStore.openFolders)
+  },
+}
 </script>
 
 <style lang="scss">
-  @import "../../scss/resources";
+@import "../../scss/resources";
 
-
-
-  .demo-page {
-    // Reset
-    * {
-      box-sizing: border-box;
+.demo-page {
+  // Reset
+  * {
+    box-sizing: border-box;
+  }
+  &__menu {
+    &__search {
+      margin-top: 5px;
     }
+    background-color: $color--main;
+    padding: 5px 0 5px 5px;
+  }
 
-    &__menu {
-      &__search {
-        margin-top: 5px;
-      }
-      background-color: $color--main;
-      padding: 5px;
-    }
-  
-    &__search-input {
-      background-color: lighten($color--main, 50);
-      margin-bottom: 10px;
-      border-radius: 4px;
-    }
-    
-    &__files {
-      padding: 6px;
-    }
+  &__search-input {
+    background-color: lighten($color--main, 50);
+    margin-bottom: 5px;
+    border-radius: 4px;
+  }
 
-    $root: &;
+  &__files {
+    background-color: $color--main;
+    padding: 0 0 5px 5px;
+    flex: 1 0;
+    height: 300px;
+  }
 
-    font-family: "Noto Sans", sans-serif;
+  $root: &;
+
+  font-family: "Noto Sans", sans-serif;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+
+  #{&}__left-block {
     height: 100%;
-    width: 100%;
-    position: fixed;
-    display: flex;
-    top: 0;
-    left: 0;
+    flex: 0 0;
+    background-color: white;
+    border-right: solid 1px $border-color--main;
 
-    #{&}__left-block {
-      flex: 0 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #{&}__right-block {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 100%;
+
+    #{$root}__component {
       overflow: auto;
-      background-color: white;
-      border-right: solid 1px $border-color--main;
+      flex: auto;
+      padding: 10px;
+
+      // This is required for position: absolute children to function properly
+      width: 100%;
+      height: 100%;
     }
 
-    #{&}__right-block {
-      flex: auto;
-      display: flex;
-      flex-direction: column;
+    #{$root}__info {
       overflow: auto;
-      height: 100%;
-
-      #{$root}__component {
-        overflow: auto;
-        flex: auto;
-        padding: 10px;
-
-        // This is required for position: absolute children to function properly
-        width: 100%;
-        height: 100%;
-      }
-
-      #{$root}__info {
-        overflow: auto;
-        flex: 0 0;
-      }
+      flex: 0 0;
     }
   }
+}
 </style>

@@ -1,8 +1,0 @@
-.resize-line {
-  flex: 0 0 4px;
-  background-color: $border-color--main;
-  cursor: col-resize;
-  &--is-horizontal {
-    cursor: row-resize;
-  }
-}

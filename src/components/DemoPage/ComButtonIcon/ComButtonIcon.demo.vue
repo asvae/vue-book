@@ -6,6 +6,11 @@
         icon="server"
         :active="active"
       />
+      <com-button-icon
+        @click.native="active = ! active"
+        icon="server"
+        :active="! active"
+      />
     </div>
   </div>
 </template>

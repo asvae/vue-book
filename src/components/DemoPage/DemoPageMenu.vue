@@ -2,14 +2,6 @@
   <div class="demo-page-menu">
     <com-button-icon
       class="demo-page-menu__icon"
-      @click.native="config.mode = DemoPageMode.Hidden"
-      title="Mode: Hidden"
-      icon="bars"
-      :active="config.mode === DemoPageMode.Hidden"
-    />
-
-    <com-button-icon
-      class="demo-page-menu__icon"
       @click.native="config.mode = DemoPageMode.Tree"
       title="Mode: Tree"
       icon="server"
@@ -33,12 +25,6 @@
         @click.native="$emit('openFolder')"
         title="Expand from Current File"
         icon="dot-circle"
-      />
-      <com-button-icon
-        class="demo-page-menu__icon"
-        @click.native="$emit('collapseTree')"
-        title="Collapse All"
-        icon="exchange-alt"
       />
     </template>
   </div>
