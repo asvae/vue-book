@@ -1,6 +1,6 @@
 <template>
   <input
-    class="com-input"
+    class="vue-book-input"
     v-model="valueProxy"
     :name="name"
     :placeholder="placeholder"
@@ -11,7 +11,7 @@
 
 <script>
   export default {
-    name: 'com-input',
+    name: 'vue-book-input',
     data () {
       return {
         temporaryValue: '',
@@ -70,7 +70,7 @@
 <style lang="scss">
   @import "../../../scss/resources";
 
-  .com-input {
+  .vue-book-input {
     &:focus::placeholder {
       opacity: 0;
     }

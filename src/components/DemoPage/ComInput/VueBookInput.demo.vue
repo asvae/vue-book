@@ -1,7 +1,7 @@
 <template>
   <div class="demo-container">
     <div class="demo-container__item">
-      <com-input
+      <vue-book-input
         v-model="normal"
         placeholder="Normal"
       />
@@ -10,11 +10,11 @@
 </template>
 
 <script>
-  import ComInput from './ComInput.vue'
+  import VueBookInput from './VueBookInput.vue'
 
   export default {
     components: {
-      ComInput,
+      VueBookInput,
     },
     data () {
       return {

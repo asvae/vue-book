@@ -14,7 +14,7 @@
   import DemoFile from '../../classes/Main/DemoFile'
   import BookComponentListItem from './BookComponentListItem.vue'
   import DemoPageConfig from '../DemoPage/DemoPageConfig'
-  import ComInput from '../DemoPage/ComInput/ComInput.vue'
+  import ComInput from '../DemoPage/ComInput/VueBookInput.vue'
 
   export default {
     name: 'searchable-demo-file-list',

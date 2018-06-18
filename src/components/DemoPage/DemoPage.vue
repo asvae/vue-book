@@ -67,7 +67,7 @@ import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
 import VmDemoPageMenu from './DemoPageMenu.vue'
 
 import configStore from '../../store/configStore'
-import ComInput from './ComInput/ComInput.vue'
+import ComInput from './ComInput/VueBookInput.vue'
 import TreeDemoFileList from '../FileTree/TreeDemoFileList.vue'
 
 let lastUpdateTimestamp = 0
