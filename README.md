@@ -62,7 +62,7 @@ You don't have to keep demos in production. Use webpack [define-plugin](https://
 
 ```javascript
 if (process.env.NODE_ENV !== 'production') {
-  import VueBook from 'vue-book'
+  const VueBook = require('vue-book').default
 
   routes.push({
     path: '/demo',
