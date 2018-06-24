@@ -15,6 +15,7 @@
   import BookComponentListItem from './BookComponentListItem.vue'
   import DemoPageConfig from '../DemoPage/DemoPageConfig'
   import ComInput from '../DemoPage/ComInput/VueBookInput.vue'
+  import { ListCursor } from './ListCursor'
 
   export default {
     name: 'searchable-demo-file-list',
@@ -23,6 +24,9 @@
       BookComponentListItem,
     },
     props: {
+      cursor: {
+        type: ListCursor,
+      },
       search: {
         type: String,
         required: true,
@@ -44,18 +48,6 @@
         }
         return self.files.filter(file => self.fileSelected(file))
       },
-      searchProxy: {
-        get () {
-          const self: any = this
-
-          return self.search
-        },
-        set (search) {
-          const self: any = this
-
-          self.$emit('update:search', search)
-        }
-      }
     },
     methods: {
       fileSelected (file: DemoFile) {
