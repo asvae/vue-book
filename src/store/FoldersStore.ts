@@ -4,8 +4,8 @@ import DemoFolderMapper from '../classes/Mapper/DemoFolderMapper'
 
 const STORAGE_KEY = 'openFolders'
 
-export default {
-  _openFolders: <DemoFolder[]>[],
+export class FoldersStore {
+  protected _openFolders: DemoFolder[] = []
 
   get openFolders (): DemoFolder[] {
     const data = <any[]>storage.fetch(STORAGE_KEY) || []
@@ -13,11 +13,14 @@ export default {
 
     this._openFolders = folders
     return this._openFolders
-  },
+  }
+
   set openFolders (folders: DemoFolder[]) {
     this._openFolders = folders
 
     const data = folders.map(DemoFolderMapper.transform)
     storage.store(STORAGE_KEY, data)
-  },
+  }
 }
+
+export const foldersStoreInstance = new FoldersStore()

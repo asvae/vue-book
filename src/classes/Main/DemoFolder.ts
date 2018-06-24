@@ -9,14 +9,14 @@ export default class DemoFolder {
   files: Array<DemoFile> = []
   parentFolder: DemoFolder | null = null
 
-  constructor (data?) {
+  constructor (data: Partial<DemoFolder> = {}) {
     Object.assign(this, data)
   }
 
   addFile (node: DemoFile, relativePath: string): void {
     if (relativePath) {
       const folderNameArray = relativePath.split('/')
-      const folderName = folderNameArray.shift()
+      const folderName = <string>folderNameArray.shift()
       this.findOrCreateFolder(folderName)
         .addFile(node, folderNameArray.join('/'))
       return
@@ -41,7 +41,7 @@ export default class DemoFolder {
     this.isOpen ? this.close() : this.open()
   }
 
-  findOrCreateFolder (name): DemoFolder {
+  findOrCreateFolder (name: string): DemoFolder {
     const foundFolder = this.folders.find(folder => folder.name === name)
     if (foundFolder) {
       return foundFolder

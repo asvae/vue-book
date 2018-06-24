@@ -17,6 +17,6 @@ import {
 
 library.add(faServer, faFolder, faSearch, faBars, faExchangeAlt, faDotCircle, faCaretDown, faCaretRight, faFile, faArrowsAltV)
 
-export default function (requireContext, path) {
+export default function (requireContext: any, path: string | RegExp) {
   return DemoPage.create(requireContext, path)
 }

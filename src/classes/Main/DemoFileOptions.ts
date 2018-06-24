@@ -8,7 +8,7 @@ export const componentTreeDemo = Symbol('Component tree demo')
 export default class DemoFileOptions {
   component?: ComponentOptions<Vue>
 
-  constructor (data?) {
+  constructor (data: Partial<DemoFileOptions> = {}) {
     Object.assign(this, data)
   }
 

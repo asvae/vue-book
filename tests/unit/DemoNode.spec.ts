@@ -1,4 +1,3 @@
-import {} from 'jasmine'
 import DemoNode from '../../src/classes/Main/DemoFile'
 
 describe('DemoNode', () => {

@@ -9,61 +9,64 @@
   >
 </template>
 
-<script>
-export default {
-  name: 'vue-book-input',
-  data () {
-    return {
-      temporaryValue: '',
+<script lang="ts">
+// input: HTMLInputElement
+
+import { Component, Prop, Vue } from 'vue-property-decorator'
+
+@Component
+export default class VueBookInput extends Vue {
+  temporaryValue: string = ''
+
+  @Prop({
+    type: String,
+    default: 'default',
+  })
+  type!: string
+
+  @Prop({
+    type: String,
+    default: 'default',
+  })
+  name!: string
+
+  @Prop({
+    type: String,
+    default: '',
+  })
+  value!: string
+
+  @Prop({
+    type: String,
+    default: '',
+  })
+  placeholder!: string
+
+  @Prop({
+    type: String,
+    default: '',
+  })
+  tooltip!: string
+
+  get valueProxy () {
+    if (this.value !== this.temporaryValue) {
+      this.temporaryValue = this.value
     }
-  },
-  props: {
-    type: {
-      type: String,
-      default: 'default',
-    },
-    type: {
-      type: String,
-      default: 'text',
-    },
-    name: {
-      type: String,
-      default: '',
-    },
-    value: {
-      default: '',
-    },
-    placeholder: {
-      type: String,
-      default: '',
-    },
-    tooltip: {
-      type: String,
-      default: '',
-    },
-  },
-  computed: {
-    valueProxy: {
-      get () {
-        if (this.value !== this.temporaryValue) {
-          this.temporaryValue = this.value
-        }
 
-        return this.temporaryValue
-      },
-      set (value) {
-        this.temporaryValue = value
+    return this.temporaryValue
+  }
 
-        this.$nextTick(() => {
-          if (this.value !== this.temporaryValue) {
-            this.temporaryValue = this.value
-          }
-        })
+  set valueProxy (value) {
+    this.temporaryValue = value
 
-        this.$emit('input', value)
-      },
-    },
-  },
+    this.$nextTick(() => {
+      if (this.value !== this.temporaryValue) {
+        this.temporaryValue = this.value
+      }
+    })
+
+    this.$emit('input', value)
+  }
 }
 </script>
 

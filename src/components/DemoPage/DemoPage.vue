@@ -8,10 +8,9 @@
           :config="config"
           :currentFile="currentFile"
           @openFolder="currentFile.openFolder()"
-          @next="next"
         />
         <div class="demo-page__menu__search" v-if="config.mode === DemoPageMode.Search">
-          <com-input
+          <vue-book-input
             class="demo-page__search-input"
             ref="searchInput"
             v-model="config.search"
@@ -27,11 +26,13 @@
           :files="files"
           :config="config"
           @selected="config.mode === DemoPageMode.Tree"
+          :listCursor="listCursor"
         />
 
         <tree-demo-file-list
           v-if="config.mode === DemoPageMode.Tree"
           :folder="tree"
+          :listCursor="listCursor"
         />
       </div>
     </div>
@@ -52,9 +53,9 @@
   </div>
 </template>
 
-
 <script lang="ts">
-import foldersStore from '../../store/foldersStore'
+import { foldersStoreInstance } from '../../store/FoldersStore'
+import { configStoreInstance } from '../../store/configStore'
 
 import BookComponentListFolder from '../FileTree/BookComponentListFolder.vue'
 import BookComponentListItem from '../FileTree/BookComponentListItem.vue'
@@ -66,129 +67,110 @@ import VmResizeLine from '../Service/ComResizeLine.vue'
 import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
 import VmDemoPageMenu from './DemoPageMenu.vue'
 
-import configStore from '../../store/configStore'
-import ComInput from './ComInput/VueBookInput.vue'
+import VueBookInput from './ComInput/VueBookInput.vue'
 import TreeDemoFileList from '../FileTree/TreeDemoFileList.vue'
+import { ListCursor } from '../FileTree/ListCursor'
+import { Component, Provide, Vue, Watch } from 'vue-property-decorator'
+import DemoFileCollection from '../../classes/Main/DemoFileCollection'
 
 let lastUpdateTimestamp = 0
 
-export default {
-  name: 'demo-page',
+@Component({
   components: {
     TreeDemoFileList,
-    ComInput,
+    VueBookInput,
     VmDemoPageMenu,
     VmResizeLine,
     SearchableDemoFileList,
     BookComponentListFolder,
     BookComponentListItem,
   },
-  data () {
-    const self: any = this
+})
+export default class DemoPage extends Vue {
+  listCursor: ListCursor = new ListCursor()
+  configStoreInstance = configStoreInstance
+  tree: DemoFolder = this.renderTree()
+  foldersStoreInstance = foldersStoreInstance
 
-    return {
-      configStore,
-      tree: self.renderTree(),
-      mode: 'default', // 'search', 'info', 'hidden'
-      secondComponent: null,
-      searchText: '',
-      foldersStore,
+  $refs!: {
+    searchInput: VueBookInput,
+  }
+
+  @Watch('config', { deep: true })
+  onConfigChanged (value: DemoPageConfig, oldValue: DemoPageConfig) {
+    if (value !== oldValue) {
+      // Updated from local storage.
+      return
     }
-  },
-  mounted () {
-    const self: any = this
-    const input = self.$refs.searchInput
-    input && input.$el.focus()
-  },
-  watch: {
-    currentFile () {
-      const self: any = this
-
-      self.secondComponent = null
-    },
-    config: {
-      deep: true,
-      handler (value: DemoPageConfig, oldValue: DemoPageConfig) {
-        if (value !== oldValue) {
-          // Updated from local storage.
-          return
-        }
-        const update = () => {
-          if (lastUpdateTimestamp < Math.floor(Date.now()) - 200) {
-            configStore.setConfig(value)
-            lastUpdateTimestamp = Math.floor(Date.now())
-          }
-        }
-        update()
-      },
-    },
-    tree: {
-      deep: true,
-      handler (value: DemoFolder, oldValue) {
-        if (value !== oldValue) {
-          // Updated from local storage.
-          return
-        }
-        foldersStore.openFolders = value.getOpenFolders()
-      },
-    },
-  },
-  provide () {
-    return {
-      foldersStore,
-    }
-  },
-  computed: {
-    DemoPageMode: () => DemoPageMode,
-    config () {
-      return configStore.config
-    },
-    component () {
-      const self: any = this
-      return self.currentFile && self.currentFile.component
-    },
-    currentFile (): DemoFile | null {
-      const self: any = this
-      return self.files.find(file => {
-        return self.$route.path === file.path
-      }) || null
-    },
-    files () {
-      const self: any = this
-      return self.$route.meta.demoFilesCollection.demoFiles
-    },
-  },
-  methods: {
-    makeSecondComponent (file: DemoFile) {
-      const self: any = this
-      self.secondComponent = file.component
-    },
-    next (invert: Boolean = false) {
-      const self: any = this
-
-      const index = self.files.indexOf(self.currentFile)
-      const file = self.files[index + (invert ? -1 : 1)]
-      if (!file) {
-        return
+    const update = () => {
+      if (lastUpdateTimestamp < Math.floor(Date.now()) - 200) {
+        configStoreInstance.setConfig(value)
+        lastUpdateTimestamp = Math.floor(Date.now())
       }
-      self.$router.push(file.path)
-      file.openFolder()
-    },
-    renderTree () {
-      const self: any = this
-      const tree = new DemoFolder()
-      const files = self.$route.meta.demoFilesCollection.demoFiles
-      files.forEach(node => tree.addDemoFile(node))
-      return tree.folders[0]
-    },
-  },
-  created () {
-    const self: any = this
+    }
+    update()
+  }
 
-    self.tree.fillParents()
-    self.tree.open()
-    self.tree.mergeWithFolders(foldersStore.openFolders)
-  },
+  @Watch('tree', { deep: true })
+  onTreeChanged (value: DemoFolder, oldValue: DemoFolder) {
+    if (value !== oldValue) {
+      // Updated from local storage.
+      return
+    }
+    foldersStoreInstance.openFolders = value.getOpenFolders()
+  }
+
+  @Provide()
+  foldersStore = foldersStoreInstance
+
+  get DemoPageMode () {
+    return DemoPageMode
+  }
+
+  get config () {
+    return configStoreInstance.config
+  }
+
+  get component () {
+    return this.currentFile && this.currentFile.component
+  }
+
+  get currentFile (): DemoFile | null {
+    return this.files.find(file => {
+      return this.$route.path === file.path
+    }) || null
+  }
+
+  get files () {
+    return this.demoFilesCollection.demoFiles
+  }
+
+  renderTree () {
+    const tree = new DemoFolder()
+
+    const files = this.demoFilesCollection.demoFiles
+    files.forEach(node => tree.addDemoFile(node))
+    return tree.folders[0]
+  }
+
+  get demoFilesCollection (): DemoFileCollection {
+    const demoFilesCollection = this.$route.meta.demoFilesCollection
+    if (!(demoFilesCollection instanceof DemoFileCollection)){
+      throw new Error('No DemoFileCollection found for current route')
+    }
+    return demoFilesCollection
+  }
+
+  mounted () {
+    const input = this.$refs.searchInput
+    input && input.$el.focus()
+  }
+
+  created () {
+    this.tree.fillParents()
+    this.tree.open()
+    this.tree.mergeWithFolders(foldersStoreInstance.openFolders)
+  }
 }
 </script>
 

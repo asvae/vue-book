@@ -4,15 +4,18 @@
       <div class="book-component-list-folder__header__caret">
         <font-awesome-icon
           v-if="folder.isOpen"
-          icon="caret-down"
+          :icon="icons.faCaretDown"
         />
         <font-awesome-icon
           v-else
-          icon="caret-right"
+          :icon="icons.faCaretRight"
         />
       </div>
 
-      <font-awesome-icon class="book-component-list-folder__header__icon" icon="folder"/>
+      <font-awesome-icon
+        class="book-component-list-folder__header__icon"
+        :icon="icons.faFolder"
+      />
 
       <div class="book-component-list-folder__title">
         <span>{{folder.name}}</span>
@@ -22,10 +25,11 @@
     <div class="book-component-list-folder__insides"
          v-if="folder.isOpen && ! folder.isEmpty()"
     >
-      <book-component-list-folder v-for="child in folder.folders"
-                                  :key="generateKey()"
-                                  :folder="child"
-                                  ref="folders"
+      <book-component-list-folder
+        v-for="child in folder.folders"
+        :key="generateKey()"
+        :folder="child"
+        ref="folders"
       />
       <vm-file v-for="file in folder.files"
                :key="generateKey()"
@@ -41,43 +45,64 @@ import vmFile from './BookComponentListItem.vue'
 import DemoFolder from '../../classes/Main/DemoFolder'
 import { ObjectHelpers } from 'asva-helpers'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import {
+  faCaretDown,
+  faCaretRight,
+  faFolder,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons'
+import { Component, Inject, Prop, Vue } from 'vue-property-decorator'
+import { FoldersStore } from '../../store/FoldersStore'
 
-export default {
-  name: 'BookComponentListFolder',
-  inject: ['foldersStore'],
-  props: {
-    folder: {
-      type: DemoFolder,
-    },
-  },
-  methods: {
-    openSelected () {
-      const self: any = this
-      const foldersChain = ObjectHelpers
-        .traverseBranch(self.folder, { path: self.$route.path })
-        .filter(item => {
-          return (item instanceof DemoFolder)
-        })
-
-      if (foldersChain.length) {
-        self.folder.isOpen = true
-      }
-
-      if (foldersChain.length > 1) {
-        setTimeout(() => {
-          const folderComponent = self.$refs.folders.find(folderComponent => folderComponent.folder === foldersChain[1])
-          folderComponent.openSelected()
-        })
-      }
-    },
-    generateKey () {
-      return Math.floor(Math.random() * 1e8)
-    },
-  },
+@Component({
   components: {
     FontAwesomeIcon,
     vmFile,
   },
+})
+export default class BookComponentListFolder extends Vue {
+  @Prop({ type: DemoFolder, required: true })
+  folder!: DemoFolder
+
+  @Inject('foldersStoreInstance')
+  foldersStore!: FoldersStore
+
+  get icons (): { [name: string]: IconDefinition } {
+    return {
+      faFolder,
+      faCaretDown,
+      faCaretRight,
+    }
+  }
+
+  public $refs!: {
+    folders: BookComponentListFolder[],
+  }
+
+  openSelected (): void {
+    const foldersChain = ObjectHelpers
+      .traverseBranch(this.folder, { path: this.$route.path })
+      .filter(item => {
+        return (item instanceof DemoFolder)
+      })
+
+    if (foldersChain.length) {
+      this.folder.isOpen = true
+    }
+
+    if (foldersChain.length > 1) {
+      setTimeout(() => {
+        const folderComponent = this.$refs.folders.find(
+          folderComponent => folderComponent.folder === foldersChain[1],
+        )
+        folderComponent && folderComponent.openSelected()
+      })
+    }
+  }
+
+  generateKey (): number {
+    return Math.floor(Math.random() * 1e8)
+  }
 }
 </script>
 

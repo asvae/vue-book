@@ -5,7 +5,7 @@
     :class="isActive && 'book-component-list-item--active'"
     :to="file.path"
   >
-    <font-awesome-icon class="book-component-list-item__icon" icon="file"/>
+    <font-awesome-icon class="book-component-list-item__icon" :icon="faFile"/>
     <span class="book-component-list-item__file-name">{{ file.getFilename() }}</span>
   </router-link>
 </template>
@@ -13,24 +13,25 @@
 <script lang="ts">
 import DemoFile from '../../classes/Main/DemoFile'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faFile } from '@fortawesome/free-solid-svg-icons'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
-export default {
-  name: 'book-component-list-item',
-  props: {
-    file: {
-      type: DemoFile,
-    },
-  },
+@Component({
   components: {
     FontAwesomeIcon,
   },
-  computed: {
-    isActive () {
-      const self: any = this
+})
+export default class BookComponentListItem extends Vue {
+  @Prop({ type: DemoFile, required: true })
+  file!: DemoFile
 
-      return self.$route.path === self.file.path
-    },
-  },
+  get faFile () {
+    return faFile
+  }
+
+  get isActive () {
+    return this.$route.path === this.file.path
+  }
 }
 </script>
 
