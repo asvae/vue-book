@@ -11,74 +11,74 @@
 </template>
 
 <script lang="ts">
-  import DemoFile from '../../classes/Main/DemoFile'
-  import BookComponentListItem from './BookComponentListItem.vue'
-  import DemoPageConfig from '../DemoPage/DemoPageConfig'
-  import ComInput from '../DemoPage/ComInput/VueBookInput.vue'
-  import { ListCursor } from './ListCursor'
+import DemoFile from '../../classes/Main/DemoFile'
+import BookComponentListItem from './BookComponentListItem.vue'
+import DemoPageConfig from '../DemoPage/DemoPageConfig'
+import ComInput from '../DemoPage/ComInput/VueBookInput.vue'
+import { ListCursor } from './ListCursor'
 
-  export default {
-    name: 'searchable-demo-file-list',
-    components: {
-      ComInput,
-      BookComponentListItem,
+export default {
+  name: 'searchable-demo-file-list',
+  components: {
+    ComInput,
+    BookComponentListItem,
+  },
+  props: {
+    cursor: {
+      type: ListCursor,
     },
-    props: {
-      cursor: {
-        type: ListCursor,
-      },
-      search: {
-        type: String,
-        required: true,
-      },
-      config: {
-        type: DemoPageConfig,
-        required: true,
-      },
-      files: {
-        type: Array,
-        required: true,
-      },
+    search: {
+      type: String,
+      required: true,
     },
-    computed: {
-      filteredFiles () {
-        const self: any = this
-        if (!self.searchProxy) {
-          return self.files
-        }
-        return self.files.filter(file => self.fileSelected(file))
-      },
+    config: {
+      type: DemoPageConfig,
+      required: true,
     },
-    methods: {
-      fileSelected (file: DemoFile) {
-        const self: any = this
-        const path = file.path.toUpperCase()
-        const text = self.searchProxy.toUpperCase()
-        const includesFull = path.includes(text)
-        if (includesFull) {
-          return includesFull
-        }
-        const upperCaseLetters = file.getFilename().replace(/[a-z.]/g, '')
-        return upperCaseLetters.includes(self.searchProxy)
-      },
+    files: {
+      type: Array,
+      required: true,
     },
-    mounted () {
+  },
+  computed: {
+    filteredFiles () {
       const self: any = this
-      const input = self.$refs.searchInput
-      input && input.$el.focus()
+      if (!self.searchProxy) {
+        return self.files
+      }
+      return self.files.filter(file => self.fileSelected(file))
     },
-  }
+  },
+  methods: {
+    fileSelected (file: DemoFile) {
+      const self: any = this
+      const path = file.path.toUpperCase()
+      const text = self.searchProxy.toUpperCase()
+      const includesFull = path.includes(text)
+      if (includesFull) {
+        return includesFull
+      }
+      const upperCaseLetters = file.getFilename().replace(/[a-z.]/g, '')
+      return upperCaseLetters.includes(self.searchProxy)
+    },
+  },
+  mounted () {
+    const self: any = this
+    const input = self.$refs.searchInput
+    input && input.$el.focus()
+  },
+}
 </script>
 
 <style lang="scss">
-  @import '../../scss/resources';
+@import '../../scss/resources';
 
-  .searchable-demo-file-list {
-    height: 100%;
-    background-color: $color--white;
-    overflow: auto;
-    &__node {
+.searchable-demo-file-list {
+  height: 100%;
+  background-color: $color--white;
+  overflow: auto;
+  &__node {
 
-    }
   }
+}
 </style>

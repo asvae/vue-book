@@ -7,17 +7,17 @@
 </template>
 
 <script lang="ts">
-  import DemoPageMenu from './DemoPageMenu.vue'
-  import DemoPageConfig from './DemoPageConfig'
+import DemoPageMenu from './DemoPageMenu.vue'
+import DemoPageConfig from './DemoPageConfig'
 
-  export default {
-    components: {
-      DemoPageMenu,
-    },
-    data () {
-      return {
-        config: new DemoPageConfig(),
-      }
-    },
-  }
+export default {
+  components: {
+    DemoPageMenu,
+  },
+  data () {
+    return {
+      config: new DemoPageConfig(),
+    }
+  },
+}
 </script>

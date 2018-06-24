@@ -24,25 +24,25 @@
 </template>
 
 <script>
-  import BookComponentListFolder from './BookComponentListFolder.vue'
-  import DemoNode from '../../classes/Main/DemoFile'
-  import DemoFolder from '../../classes/Main/DemoFolder'
-  import DemoFolderFactory from '../../classes/Factory/DemoFolderFactory'
+import BookComponentListFolder from './BookComponentListFolder.vue'
+import DemoNode from '../../classes/Main/DemoFile'
+import DemoFolder from '../../classes/Main/DemoFolder'
+import DemoFolderFactory from '../../classes/Factory/DemoFolderFactory'
 
-  export default {
-    data () {
-      return {
-        valueList: {
-          empty: DemoFolderFactory.getEmpty(),
-          withFolders: DemoFolderFactory.getWithFolders(),
-          withFiles: DemoFolderFactory.getWithFiles(),
-          withFilesAndFolders: DemoFolderFactory.getWithFoldersAndFiles(),
-        },
-        valueSelected: 'empty',
-      }
-    },
-    components: {
-      BookComponentListFolder,
-    },
-  }
+export default {
+  data () {
+    return {
+      valueList: {
+        empty: DemoFolderFactory.getEmpty(),
+        withFolders: DemoFolderFactory.getWithFolders(),
+        withFiles: DemoFolderFactory.getWithFiles(),
+        withFilesAndFolders: DemoFolderFactory.getWithFoldersAndFiles(),
+      },
+      valueSelected: 'empty',
+    }
+  },
+  components: {
+    BookComponentListFolder,
+  },
+}
 </script>

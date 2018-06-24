@@ -16,16 +16,16 @@
 </template>
 
 <script>
-  import ComButtonIcon from './ComButtonIcon.vue'
+import ComButtonIcon from './ComButtonIcon.vue'
 
-  export default {
-    components: {
-      ComButtonIcon,
-    },
-    data () {
-      return {
-        active: false,
-      }
-    },
-  }
+export default {
+  components: {
+    ComButtonIcon,
+  },
+  data () {
+    return {
+      active: false,
+    }
+  },
+}
 </script>

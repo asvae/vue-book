@@ -7,41 +7,41 @@
 </template>
 
 <script>
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-  export default {
-    name: 'com-button-icon',
-    components: {
-      FontAwesomeIcon,
+export default {
+  name: 'com-button-icon',
+  components: {
+    FontAwesomeIcon,
+  },
+  props: {
+    icon: {
+      type: String,
+      required: true,
     },
-    props: {
-      icon: {
-        type: String,
-        required: true,
-      },
-      active: {
-        type: Boolean,
-        required: false,
-      },
+    active: {
+      type: Boolean,
+      required: false,
     },
-  }
+  },
+}
 </script>
 
 <style lang="scss">
-  @import "../../../scss/resources";
+@import "../../../scss/resources";
 
-  .com-button-icon {
-    cursor: pointer;
-    display: inline-flex;
-    border-radius: 3px;
-    padding: 3px;
-    @include flexCenter();
-    color: #3f506e;
+.com-button-icon {
+  cursor: pointer;
+  display: inline-flex;
+  border-radius: 3px;
+  padding: 3px;
+  @include flexCenter();
+  color: #3f506e;
 
-    &--active {
-      padding: 2px;
-      border: $color--main solid 1px;
-      background-color: #c7d6e1;
-    }
+  &--active {
+    padding: 2px;
+    border: $color--main solid 1px;
+    background-color: #c7d6e1;
   }
+}
 </style>

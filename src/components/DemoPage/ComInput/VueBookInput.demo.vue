@@ -10,16 +10,16 @@
 </template>
 
 <script>
-  import VueBookInput from './VueBookInput.vue'
+import VueBookInput from './VueBookInput.vue'
 
-  export default {
-    components: {
-      VueBookInput,
-    },
-    data () {
-      return {
-        normal: '',
-      }
-    },
-  }
+export default {
+  components: {
+    VueBookInput,
+  },
+  data () {
+    return {
+      normal: '',
+    }
+  },
+}
 </script>

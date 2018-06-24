@@ -13,21 +13,21 @@
 </template>
 
 <script>
-  import BookComponentListItem from './BookComponentListItem'
-  import DemoNode from '../../classes/Main/DemoFile'
-  import DemoFileFactory from "../../classes/Factory/DemoFileFactory";
+import BookComponentListItem from './BookComponentListItem'
+import DemoNode from '../../classes/Main/DemoFile'
+import DemoFileFactory from "../../classes/Factory/DemoFileFactory";
 
-  export default {
-    components: {
-      BookComponentListItem,
-    },
-    data () {
-      return {
-        valueList: {
-          short: DemoFileFactory.getWithShortPath(),
-          long: DemoFileFactory.getWithLongPath(),
-        }
+export default {
+  components: {
+    BookComponentListItem,
+  },
+  data () {
+    return {
+      valueList: {
+        short: DemoFileFactory.getWithShortPath(),
+        long: DemoFileFactory.getWithLongPath(),
       }
-    },
-  }
+    }
+  },
+}
 </script>
