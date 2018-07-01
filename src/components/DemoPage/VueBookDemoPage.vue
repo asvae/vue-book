@@ -1,17 +1,17 @@
 <template>
-  <div class="demo-page">
-    <div class="demo-page__left-block"
+  <div class="vue-book-demo-page">
+    <div class="vue-book-demo-page__left-block"
          :style="{'flex-basis': config.width + 'px', 'width': config.width + 'px'}"
     >
-      <div class="demo-page__menu">
-        <vm-demo-page-menu
+      <div class="vue-book-demo-page__menu">
+        <vue-book-menu
           :config="config"
           :currentFile="currentFile"
           @openFolder="currentFile.openFolder()"
         />
-        <div class="demo-page__menu__search" v-if="config.mode === DemoPageMode.Search">
+        <div class="vue-book-demo-page__menu__search" v-if="config.mode === DemoPageMode.Search">
           <vue-book-input
-            class="demo-page__search-input"
+            class="vue-book-demo-page__search-input"
             ref="searchInput"
             v-model="config.search"
             placeholder="Search..."
@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <div class="demo-page__files">
+      <div class="vue-book-demo-page__files">
         <searchable-demo-file-list
           v-if="config.mode === DemoPageMode.Search"
           :search="config.search"
@@ -35,27 +35,20 @@
           :listCursor="listCursor"
         />
       </div>
+      <vue-book-resize-line
+        class="vue-book-demo-page__left-block__resize-line"
+        v-model="config.width"
+      />
     </div>
-    <vm-resize-line v-model="config.width"/>
-    <div class="demo-page__right-block">
-      <div class="demo-page__component" v-if="! secondComponent">
-        <component v-if="component" :is="component"/>
-      </div>
-      <div class="demo-page__component" v-if="secondComponent">
-        <div style="display: flex">
-          <div style="flex: 1 0 50%"
-               v-for="item in [component, secondComponent]">
-            <component v-if="item" :is="item"/>
-          </div>
-        </div>
-      </div>
+    <div class="vue-book-demo-page__right-block">
+      <component v-if="component" :is="component"/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { foldersStoreInstance } from '../../store/FoldersStore'
-import { configStoreInstance } from '../../store/configStore'
+import { ConfigStore, configStoreInstance } from '../../store/configStore'
 
 import BookComponentListFolder from '../FileTree/BookComponentListFolder.vue'
 import BookComponentListItem from '../FileTree/BookComponentListItem.vue'
@@ -63,9 +56,9 @@ import BookComponentListItem from '../FileTree/BookComponentListItem.vue'
 import DemoFolder from '../../classes/Main/DemoFolder'
 import DemoFile from '../../classes/Main/DemoFile'
 import SearchableDemoFileList from '../FileTree/SearchableDemoFileList.vue'
-import VmResizeLine from '../Service/ComResizeLine.vue'
+import VueBookResizeLine from '../Service/VueBookResizeLine.vue'
 import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
-import VmDemoPageMenu from './DemoPageMenu.vue'
+import VueBookMenu from './VueBookMenu.vue'
 
 import VueBookInput from './ComInput/VueBookInput.vue'
 import TreeDemoFileList from '../FileTree/TreeDemoFileList.vue'
@@ -79,17 +72,17 @@ let lastUpdateTimestamp = 0
   components: {
     TreeDemoFileList,
     VueBookInput,
-    VmDemoPageMenu,
-    VmResizeLine,
+    VueBookMenu,
+    VueBookResizeLine,
     SearchableDemoFileList,
     BookComponentListFolder,
     BookComponentListItem,
   },
 })
-export default class DemoPage extends Vue {
+export default class DemoPageComponent extends Vue {
   listCursor: ListCursor = new ListCursor()
-  configStoreInstance = configStoreInstance
-  tree: DemoFolder = this.renderTree()
+  configStoreInstance: ConfigStore = configStoreInstance
+  tree: DemoFolder | null = null
   foldersStoreInstance = foldersStoreInstance
 
   $refs!: {
@@ -104,7 +97,7 @@ export default class DemoPage extends Vue {
     }
     const update = () => {
       if (lastUpdateTimestamp < Math.floor(Date.now()) - 200) {
-        configStoreInstance.setConfig(value)
+        this.configStoreInstance.setConfig(value)
         lastUpdateTimestamp = Math.floor(Date.now())
       }
     }
@@ -128,7 +121,7 @@ export default class DemoPage extends Vue {
   }
 
   get config () {
-    return configStoreInstance.config
+    return this.configStoreInstance.config
   }
 
   get component () {
@@ -145,7 +138,7 @@ export default class DemoPage extends Vue {
     return this.demoFilesCollection.demoFiles
   }
 
-  renderTree () {
+  renderTree (): DemoFolder {
     const tree = new DemoFolder()
 
     const files = this.demoFilesCollection.demoFiles
@@ -155,9 +148,10 @@ export default class DemoPage extends Vue {
 
   get demoFilesCollection (): DemoFileCollection {
     const demoFilesCollection = this.$route.meta.demoFilesCollection
-    if (!(demoFilesCollection instanceof DemoFileCollection)){
+    if (!(demoFilesCollection instanceof DemoFileCollection)) {
       throw new Error('No DemoFileCollection found for current route')
     }
+
     return demoFilesCollection
   }
 
@@ -167,6 +161,7 @@ export default class DemoPage extends Vue {
   }
 
   created () {
+    this.tree = this.renderTree()
     this.tree.fillParents()
     this.tree.open()
     this.tree.mergeWithFolders(foldersStoreInstance.openFolders)
@@ -177,14 +172,13 @@ export default class DemoPage extends Vue {
 <style lang="scss">
 @import "../../scss/resources";
 
-.demo-page {
+.vue-book-demo-page {
   // Reset
   &__menu {
     &__search {
       margin-top: 5px;
     }
-    background-color: $color--main;
-    padding: 5px 0 5px 5px;
+    padding: 5px;
   }
 
   &__search-input {
@@ -195,7 +189,7 @@ export default class DemoPage extends Vue {
 
   &__files {
     background-color: $color--main;
-    padding: 0 0 5px 5px;
+    padding: 0 5px 5px 5px;
     flex: 1 0;
     height: 300px;
   }
@@ -210,21 +204,27 @@ export default class DemoPage extends Vue {
   top: 0;
   left: 0;
 
-  #{&}__left-block {
+  &__left-block {
+    position: relative;
+    &__resize-line {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
     * {
       box-sizing: border-box;
     }
-
+    background-color: $color--main;
     height: 100%;
     flex: 0 0;
-    background-color: white;
     border-right: solid 1px $border-color--main;
 
     display: flex;
     flex-direction: column;
   }
 
-  #{&}__right-block {
+  &__right-block {
     flex: auto;
     display: flex;
     flex-direction: column;

@@ -1,7 +1,7 @@
 <template>
-  <div class="demo-page-menu">
+  <div class="vue-book-menu">
     <com-button-icon
-      class="demo-page-menu__icon"
+      class="vue-book-menu__icon"
       @click.native="config.mode = DemoPageMode.Tree"
       title="Mode: Tree"
       icon="server"
@@ -9,18 +9,18 @@
     />
 
     <com-button-icon
-      class="demo-page-menu__icon"
+      class="vue-book-menu__icon"
       @click.native="config.mode = DemoPageMode.Search"
       title="Mode: Search"
       icon="search"
       :active="config.mode === DemoPageMode.Search"
     />
 
-    <div class="demo-page-menu__filler"></div>
+    <div class="vue-book-menu__filler"></div>
 
     <template v-if="config.mode === DemoPageMode.Tree">
       <com-button-icon
-        class="demo-page-menu__icon"
+        class="vue-book-menu__icon"
         v-if="currentFile"
         @click.native="$emit('openFolder')"
         title="Expand from Current File"
@@ -37,7 +37,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ComButtonIcon from './ComButtonIcon/ComButtonIcon.vue'
 
 export default {
-  name: 'VmDemoPageMenu',
+  name: 'vue-book-menu',
   components: {
     ComButtonIcon,
     FontAwesomeIcon,
@@ -61,7 +61,7 @@ export default {
 <style lang="scss">
 @import "../../scss/resources";
 
-.demo-page-menu {
+.vue-book-menu {
   display: flex;
   &__filler {
     flex: 1 0;

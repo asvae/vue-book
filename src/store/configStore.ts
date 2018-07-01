@@ -3,8 +3,8 @@ import DemoPageConfig from '../components/DemoPage/DemoPageConfig'
 
 const STORAGE_KEY = 'config'
 
-export class ConfigStore{
-  protected _config: any
+export class ConfigStore {
+  protected _config: DemoPageConfig | null = null
 
   get config (): DemoPageConfig {
     if (!this._config) {

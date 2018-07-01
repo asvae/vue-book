@@ -1,6 +1,6 @@
 import DemoFile from './DemoFile'
 
-import VmDemoPage from '../../components/DemoPage/DemoPage.vue'
+import VueBookDemoPage from '../../components/DemoPage/VueBookDemoPage.vue'
 import DemoFileCollection from './DemoFileCollection'
 import { RouterOptions } from 'vue-router'
 
@@ -21,7 +21,7 @@ export default class DemoPage {
 
     return {
       path: path + '*',
-      component: VmDemoPage,
+      component: VueBookDemoPage,
       meta: { demoFilesCollection },
     } as RouterOptions
   }
