@@ -25,6 +25,7 @@
       "es2015",
       "dom",
       "dom.iterable",
+      "es7",
       "scripthost"
     ]
   },

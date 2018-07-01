@@ -31,7 +31,7 @@ export default class VueBookResizeLine extends Vue {
     }
 
     if (event.screenX) {
-      this.$emit('input', event.clientX - 22)
+      this.$emit('input', event.clientX)
     }
   }
 }

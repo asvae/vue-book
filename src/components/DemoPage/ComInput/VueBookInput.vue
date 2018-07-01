@@ -5,7 +5,12 @@
     :name="name"
     :placeholder="placeholder"
     :type="type"
+    @keyup.up.stop="$emit('up')"
+    @keyup.down.stop="$emit('down')"
+    @keyup.enter="$emit('enter')"
     autocomplete="off"
+    @focus="$emit('focus')"
+    @blur="$emit('blur')"
   >
 </template>
 

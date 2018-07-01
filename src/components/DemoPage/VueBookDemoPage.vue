@@ -13,8 +13,12 @@
           <vue-book-input
             class="vue-book-demo-page__search-input"
             ref="searchInput"
-            v-model="config.search"
+            v-model="config.searchText"
             placeholder="Search..."
+            @up="moveCursor(-1)"
+            @down="moveCursor(1)"
+            @enter="selectFileUnderCursor()"
+            @blur="listCursor.clean()"
           />
         </div>
       </div>
@@ -22,10 +26,7 @@
       <div class="vue-book-demo-page__files">
         <searchable-demo-file-list
           v-if="config.mode === DemoPageMode.Search"
-          :search="config.search"
-          :files="files"
-          :config="config"
-          @selected="config.mode === DemoPageMode.Tree"
+          :files="filteredFiles"
           :listCursor="listCursor"
         />
 
@@ -138,6 +139,33 @@ export default class DemoPageComponent extends Vue {
     return this.demoFilesCollection.demoFiles
   }
 
+  get demoFilesCollection (): DemoFileCollection {
+    const demoFilesCollection = this.$route.meta.demoFilesCollection
+    if (!(demoFilesCollection instanceof DemoFileCollection)) {
+      throw new Error('No DemoFileCollection found for current route')
+    }
+
+    return demoFilesCollection
+  }
+
+  get filteredFiles (): DemoFile[] {
+    if (!this.config.searchText) {
+      return this.files
+    }
+    return this.files.filter(file => this.fileSelected(file))
+  }
+
+  fileSelected (file: DemoFile): boolean {
+    const path = file.path.toUpperCase()
+    const text = this.config.searchText.toUpperCase()
+    const includesFull = path.includes(text)
+    if (includesFull) {
+      return includesFull
+    }
+    const upperCaseLetters = file.getFilename().replace(/[a-z.]/g, '')
+    return upperCaseLetters.includes(this.config.searchText)
+  }
+
   renderTree (): DemoFolder {
     const tree = new DemoFolder()
 
@@ -146,13 +174,45 @@ export default class DemoPageComponent extends Vue {
     return tree.folders[0]
   }
 
-  get demoFilesCollection (): DemoFileCollection {
-    const demoFilesCollection = this.$route.meta.demoFilesCollection
-    if (!(demoFilesCollection instanceof DemoFileCollection)) {
-      throw new Error('No DemoFileCollection found for current route')
+  moveCursor (delta: number) {
+    const files = this.filteredFiles
+
+    if (!this.listCursor.preSelectedItem) {
+      this.listCursor.preSelectedItem = files[0]
+      return
     }
 
-    return demoFilesCollection
+    const fileIndex = files.indexOf(this.listCursor.preSelectedItem)
+    if (fileIndex === -1) {
+      this.listCursor.preSelectedItem = files[0]
+      return
+    }
+    const nextFileIndex = fileIndex + delta
+    if (nextFileIndex === -1) {
+      this.listCursor.preSelectedItem = files[0]
+      return
+    }
+    if (nextFileIndex === files.length) {
+      this.listCursor.preSelectedItem = files[files.length - 1]
+      return
+    }
+    this.listCursor.preSelectedItem = files[nextFileIndex]
+  }
+
+  selectFileUnderCursor () {
+    const fileUnderCursor = this.listCursor.preSelectedItem
+
+    if (!fileUnderCursor) {
+      return
+    }
+
+    console.log('this.filteredFiles.includes(fileUnderCursor)', this.filteredFiles.includes(fileUnderCursor))
+
+    if (!this.filteredFiles.includes(fileUnderCursor)) {
+      return
+    }
+    console.log('fileUnderCursor', fileUnderCursor)
+    this.$router.push(fileUnderCursor.path)
   }
 
   mounted () {

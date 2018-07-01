@@ -6,4 +6,8 @@ export class ListCursor {
   constructor (data: Partial<ListCursor> = {}) {
     Object.assign(this, data)
   }
+
+  clean (): void {
+    this.preSelectedItem = null
+  }
 }
