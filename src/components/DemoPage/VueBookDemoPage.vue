@@ -187,6 +187,9 @@ export default class DemoPageComponent extends Vue {
     border-radius: 4px;
   }
 
+  /*1243*/
+  /*244 957*/
+
   &__files {
     background-color: $color--main;
     padding: 0 5px 5px 5px;
@@ -218,7 +221,6 @@ export default class DemoPageComponent extends Vue {
     background-color: $color--main;
     height: 100%;
     flex: 0 0;
-    border-right: solid 1px $border-color--main;
 
     display: flex;
     flex-direction: column;
@@ -239,11 +241,6 @@ export default class DemoPageComponent extends Vue {
       // This is required for position: absolute children to function properly
       width: 100%;
       height: 100%;
-    }
-
-    #{$root}__info {
-      overflow: auto;
-      flex: 0 0;
     }
   }
 }
