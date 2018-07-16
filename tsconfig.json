@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noImplicitThis": false,
     "rootDir": "./src",
     "target": "esnext",
     "module": "esnext",
