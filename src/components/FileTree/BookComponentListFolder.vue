@@ -53,56 +53,55 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { Component, Inject, Prop, Vue } from 'vue-property-decorator'
 import { FoldersStore } from '../../store/FoldersStore'
+import { foldersStoreInstance} from '../../store/FoldersStore'
 
-@Component({
-  components: {
+export default {
+  name: 'book-component-list-folder',
+  components:{
     FontAwesomeIcon,
     vmFile,
   },
-})
-export default class BookComponentListFolder extends Vue {
-  @Prop({ type: DemoFolder, required: true })
-  folder!: DemoFolder
-
-  @Inject('foldersStoreInstance')
-  foldersStore!: FoldersStore
-
-  get icons (): { [name: string]: IconDefinition } {
-    return {
-      faFolder,
-      faCaretDown,
-      faCaretRight,
+  inject:['foldersStoreInstance'],
+  props:{
+    folder:{
+      type: DemoFolder,
+      required: true
     }
-  }
+  },
+  methods:{
+    openSelected (): void {
+      const foldersChain = ObjectHelpers
+        .traverseBranch(this.folder, { path: this.$route.path })
+        .filter(item => {
+          return (item instanceof DemoFolder)
+        })
 
-  public $refs!: {
-    folders: BookComponentListFolder[],
-  }
+      if (foldersChain.length) {
+        this.folder.isOpen = true
+      }
 
-  openSelected (): void {
-    const foldersChain = ObjectHelpers
-      .traverseBranch(this.folder, { path: this.$route.path })
-      .filter(item => {
-        return (item instanceof DemoFolder)
-      })
-
-    if (foldersChain.length) {
-      this.folder.isOpen = true
+      if (foldersChain.length > 1) {
+        setTimeout(() => {
+          const folderComponent = this.$refs.folders.find(
+            (folderComponent:any) => folderComponent.folder === foldersChain[1],
+          )
+          folderComponent && folderComponent.openSelected()
+        })
+      }
+    },
+    generateKey (): number {
+      return Math.floor(Math.random() * 1e8)
     }
-
-    if (foldersChain.length > 1) {
-      setTimeout(() => {
-        const folderComponent = this.$refs.folders.find(
-          folderComponent => folderComponent.folder === foldersChain[1],
-        )
-        folderComponent && folderComponent.openSelected()
-      })
+  },
+  computed:{
+    icons (): { [name: string]: IconDefinition } {
+      return {
+        faFolder,
+        faCaretDown,
+        faCaretRight,
+      }
     }
-  }
-
-  generateKey (): number {
-    return Math.floor(Math.random() * 1e8)
-  }
+  },
 }
 </script>
 
