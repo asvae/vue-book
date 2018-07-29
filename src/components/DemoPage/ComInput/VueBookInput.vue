@@ -54,14 +54,14 @@ export default {
         }
         return this.temporaryValue
       },
-      set () {
-        this.temporaryValue = this.value
+      set (value: string) {
+        this.temporaryValue = value
         this.$nextTick(() => {
           if (this.value !== this.temporaryValue) {
             this.temporaryValue = this.value
           }
         })
-        this.$emit('input', this.value)
+        this.$emit('input', value)
       },
     },
   },
