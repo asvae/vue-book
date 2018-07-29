@@ -51,24 +51,21 @@ import {
   faFolder,
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons'
-import { Component, Inject, Prop, Vue } from 'vue-property-decorator'
-import { FoldersStore } from '../../store/FoldersStore'
-import { foldersStoreInstance} from '../../store/FoldersStore'
 
 export default {
   name: 'book-component-list-folder',
-  components:{
+  components: {
     FontAwesomeIcon,
     vmFile,
   },
-  inject:['foldersStoreInstance'],
-  props:{
-    folder:{
+  inject: ['foldersStoreInstance'],
+  props: {
+    folder: {
       type: DemoFolder,
-      required: true
-    }
+      required: true,
+    },
   },
-  methods:{
+  methods: {
     openSelected (): void {
       const foldersChain = ObjectHelpers
         .traverseBranch(this.folder, { path: this.$route.path })
@@ -83,7 +80,7 @@ export default {
       if (foldersChain.length > 1) {
         setTimeout(() => {
           const folderComponent = this.$refs.folders.find(
-            (folderComponent:any) => folderComponent.folder === foldersChain[1],
+            (folderComponent: any) => folderComponent.folder === foldersChain[1],
           )
           folderComponent && folderComponent.openSelected()
         })
@@ -91,16 +88,16 @@ export default {
     },
     generateKey (): number {
       return Math.floor(Math.random() * 1e8)
-    }
+    },
   },
-  computed:{
+  computed: {
     icons (): { [name: string]: IconDefinition } {
       return {
         faFolder,
         faCaretDown,
         faCaretRight,
       }
-    }
+    },
   },
 }
 </script>

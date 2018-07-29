@@ -1,12 +1,12 @@
 <template>
-    <div>
-        I am {{$options.name}}
-    </div>
+  <div>
+    I am {{$options.name}}
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'VmChildWithoutDemo2',
-  }
+export default {
+  name: 'VmChildWithoutDemo2',
+}
 </script>
 
