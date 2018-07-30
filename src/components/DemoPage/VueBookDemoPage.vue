@@ -152,9 +152,7 @@ export default {
 
       return demoFilesCollection
     },
-
     filteredFiles (): DemoFile[] {
-      console.log('ConfigSearchText', this.config.searchText)
       if (!this.config.searchText) {
         return this.files
       }
@@ -213,12 +211,9 @@ export default {
         return
       }
 
-      console.log('this.filteredFiles.includes(fileUnderCursor)', this.filteredFiles.includes(fileUnderCursor))
-
       if (!this.filteredFiles.includes(fileUnderCursor)) {
         return
       }
-      console.log('fileUnderCursor', fileUnderCursor)
       this.$router.push(fileUnderCursor.path)
     },
   },
