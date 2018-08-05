@@ -3,20 +3,19 @@ import DemoFolderMapper from '../Mapper/DemoFolderMapper'
 
 export default class DemoFolder {
   name: string = ''
-  isOpen: Boolean = false
+  isOpen: boolean = false
+  folders: DemoFolder[] = []
+  files: DemoFile[] = []
+  parentFolder: DemoFolder | null = null
 
-  folders: Array<DemoFolder> = []
-  files: Array<DemoFile> = []
-  parentFolder: DemoFolder = null
-
-  constructor (data?) {
+  constructor (data: Partial<DemoFolder> = {}) {
     Object.assign(this, data)
   }
 
   addFile (node: DemoFile, relativePath: string): void {
     if (relativePath) {
       const folderNameArray = relativePath.split('/')
-      const folderName = folderNameArray.shift()
+      const folderName = <string>folderNameArray.shift()
       this.findOrCreateFolder(folderName)
         .addFile(node, folderNameArray.join('/'))
       return
@@ -41,12 +40,12 @@ export default class DemoFolder {
     this.isOpen ? this.close() : this.open()
   }
 
-  findOrCreateFolder (name): DemoFolder {
+  findOrCreateFolder (name: string): DemoFolder {
     const foundFolder = this.folders.find(folder => folder.name === name)
     if (foundFolder) {
       return foundFolder
     }
-    const folder = new DemoFolder({name})
+    const folder = new DemoFolder({ name })
     this.folders.push(folder)
     return folder
   }

@@ -1,7 +1,9 @@
+// Couple of utility global classes.
+// Are supposed to be used in demos.
+
 .demo-container {
   display: flex;
   flex-wrap: wrap;
-  margin: -5px;
   align-items: flex-start;
   &__item {
     margin: 5px;

@@ -1,25 +1,24 @@
 import storage from './storage'
-import DemoPageConfig, { DemoPageMode } from '../components/DemoPage/DemoPageConfig'
+import DemoPageConfig from '../components/DemoPage/DemoPageConfig'
 
 const STORAGE_KEY = 'config'
 
-export default {
-  _config: null,
+export class ConfigStore {
+  protected _config: DemoPageConfig | null = null
 
   get config (): DemoPageConfig {
     if (!this._config) {
       const data = storage.fetch(STORAGE_KEY) || new DemoPageConfig()
-      this._config = new DemoPageConfig(
-        data.mode,
-        data.isFlat,
-        data.searchText,
-        data.width,
-      )
+      const config: DemoPageConfig = new DemoPageConfig(data)
+      this._config = config
     }
     return this._config
-  },
+  }
+
   setConfig (config: DemoPageConfig) {
     this._config = config
     storage.store(STORAGE_KEY, config)
-  },
+  }
 }
+
+export const configStoreInstance = new ConfigStore()

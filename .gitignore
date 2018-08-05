@@ -1,7 +1,17 @@
-/.idea/
 /node_modules/
-/public/
 /dist/
 /coverage/
-/npm-debug.log
-/yarn-error.log
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+inspect-result.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+/.idea/
+/.vscode/

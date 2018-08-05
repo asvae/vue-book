@@ -1,5 +1,6 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const resolve = require('./blocks/resolve')
 const performance = require('./blocks/performance')
@@ -13,7 +14,7 @@ module.exports = {
     path: path.resolve(__dirname, '../../dist'),
     filename: 'js/app.js',
     library: 'VueComponentTree',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
   },
   stats: 'minimal',
   module: {
@@ -31,7 +32,7 @@ module.exports = {
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader' },
-        ]
+        ],
       },
       {
         test: /\.vue$/,
@@ -41,30 +42,31 @@ module.exports = {
         test: /\.ts$/,
         loader: 'ts-loader',
         options: {
-          appendTsSuffixTo: [/\.vue$/]
-        }
+          appendTsSuffixTo: [/\.vue$/],
+        },
       },
       {
         test: /\.js$/,
         use: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(png|jpg|gif)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]'
-        }
+          name: '[name].[ext]?[hash]',
+        },
       },
       {
         test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
         use: 'url-loader?limit=100000&name=[name].[ext]',
         exclude: path.resolve('./src/assets/svg'),
-      }
-    ]
+      },
+    ],
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'], { root: path.resolve(__dirname, '../..')}),
+    new VueLoaderPlugin(),
+    new CleanWebpackPlugin(['dist'], { root: path.resolve(__dirname, '../..') }),
   ],
-  devtool: '#source-map'
+  devtool: '#source-map',
 }

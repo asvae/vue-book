@@ -1,6 +1,18 @@
-import DemoPage from './classes/Main/DemoPage'
+import VueBookRouteFactory from './classes/Main/VueBookRouteFactory'
 import './scss/app.scss'
+import './font-awesome-config'
+import { VueBookConfig } from '@/classes/Main/VueBookConfig'
 
-export default function (requireContext, path)  {
-  return DemoPage.create(requireContext, path)
+export function createRoute (options: Partial<VueBookConfig>) {
+  const config = new VueBookConfig(options)
+
+  return VueBookRouteFactory.create(config)
+}
+
+/** @deprecated use VueBook.createRoute instead */
+export default function (requireContext: any, path: string | RegExp) {
+  return createRoute(new VueBookConfig({
+    requireContext,
+    path,
+  }))
 }
