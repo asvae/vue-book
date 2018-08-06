@@ -21,7 +21,6 @@ export class DemoFolder {
     files.forEach((node: any) => folderTemporary.addDemoFile(node))
 
     const rootFolder = folderTemporary.folders[0]
-    console.log('rootFolder', rootFolder)
 
     // Bind nodes to folders.
     rootFolder.fillParents()
