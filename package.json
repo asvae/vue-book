@@ -1,6 +1,6 @@
 {
   "name": "vue-book",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Tree view for your demo components",
   "main": "index.js",
   "private": false,
