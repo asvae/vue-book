@@ -1,6 +1,7 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const resolve = require('./blocks/resolve')
 const performance = require('./blocks/performance')
@@ -17,6 +18,9 @@ module.exports = {
     libraryTarget: 'umd',
   },
   stats: 'minimal',
+  externals: {
+    vue: 'vue'
+  },
   module: {
     rules: [
       {
@@ -67,6 +71,7 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new CleanWebpackPlugin(['dist'], { root: path.resolve(__dirname, '../..') }),
+    // new BundleAnalyzerPlugin(),
   ],
   devtool: '#source-map',
 }
