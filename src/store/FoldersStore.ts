@@ -1,24 +1,21 @@
 import storage from './storage'
-import DemoFolder from '../classes/Main/DemoFolder'
+import { DemoFolder } from '../classes/Main/DemoFolder'
 import DemoFolderMapper from '../classes/Mapper/DemoFolderMapper'
 
 const STORAGE_KEY = 'openFolders'
 
 export class FoldersStore {
-  protected _openFolders: DemoFolder[] = []
+  public openFolders: DemoFolder[] = []
 
-  get openFolders (): DemoFolder[] {
+  load (): void {
     const data = <any[]>storage.fetch(STORAGE_KEY) || []
     const folders = data.map(DemoFolderMapper.map)
 
-    this._openFolders = folders
-    return this._openFolders
+    this.openFolders = folders
   }
 
-  set openFolders (folders: DemoFolder[]) {
-    this._openFolders = folders
-
-    const data = folders.map(DemoFolderMapper.transform)
+  save (): void {
+    const data = this.openFolders.map(DemoFolderMapper.transform)
     storage.store(STORAGE_KEY, data)
   }
 }

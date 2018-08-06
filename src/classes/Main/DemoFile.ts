@@ -1,4 +1,4 @@
-import DemoFolder from './DemoFolder'
+import { DemoFolder } from './DemoFolder'
 
 export default class DemoFile {
   path: string = ''
@@ -16,6 +16,10 @@ export default class DemoFile {
   // returns `ComponentDemo.vue`
   getFilename (): string {
     return this.path.split('/').pop() || ''
+  }
+
+  getFilenameWithoutExtension(): string {
+    return this.getFilename().split('.')[0]
   }
 
   getParentFolderPath (): string {

@@ -10,10 +10,12 @@ const router = new Router({
     createRoute({
       requireContext: require.context('./tree', true, /.vue$/),
       path: '/demo',
+      hideFileExtensions: true,
     }),
     createRoute({
       requireContext: require.context('./../src', true, /.demo.vue$/),
       path: '/src',
+      hideFileExtensions: true,
     }),
   ],
 })

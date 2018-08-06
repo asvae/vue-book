@@ -1,7 +1,8 @@
 import DemoFile from './DemoFile'
 import DemoFolderMapper from '../Mapper/DemoFolderMapper'
+import DemoFileCollection from '@/classes/Main/DemoFileCollection'
 
-export default class DemoFolder {
+export class DemoFolder {
   name: string = ''
   isOpen: boolean = false
   folders: DemoFolder[] = []
@@ -10,6 +11,24 @@ export default class DemoFolder {
 
   constructor (data: Partial<DemoFolder> = {}) {
     Object.assign(this, data)
+  }
+
+  static createFromDemoFileCollection (demoFileCollection: DemoFileCollection) {
+    const folderTemporary = new DemoFolder()
+
+    // Add all files to temporary folder.
+    const files = demoFileCollection.demoFiles
+    files.forEach((node: any) => folderTemporary.addDemoFile(node))
+
+    const rootFolder = folderTemporary.folders[0]
+    console.log('rootFolder', rootFolder)
+
+    // Bind nodes to folders.
+    rootFolder.fillParents()
+    // Open topmost folder for convenience.
+    rootFolder.open()
+
+    return rootFolder
   }
 
   addFile (node: DemoFile, relativePath: string): void {

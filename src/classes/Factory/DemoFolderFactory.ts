@@ -1,4 +1,4 @@
-import DemoFolder from '../Main/DemoFolder'
+import { DemoFolder } from '../Main/DemoFolder'
 import DemoFileFactory from './DemoFileFactory'
 
 export default class DemoFolderFactory {

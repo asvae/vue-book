@@ -3,7 +3,8 @@ import DemoFile from './DemoFile'
 import VueBookDemoPage from '../../components/DemoPage/VueBookDemoPage.vue'
 import DemoFileCollection from './DemoFileCollection'
 import { RouteConfig } from 'vue-router'
-import { VueBookConfig } from '@/classes/Main/VueBookConfig'
+import { VueBookConfig } from './VueBookConfig'
+import { DemoFolder } from './DemoFolder'
 
 /**
  * Creates route for vue-router with all necessary boilerplate.
@@ -13,7 +14,7 @@ export default class VueBookRouteFactory {
     const requireContext = vueBookConfig.requireContext
     const path = vueBookConfig.path
 
-    const demoFilesCollection = new DemoFileCollection({
+    const demoFileCollection = new DemoFileCollection({
       demoFiles: requireContext.keys().map((key: string) => {
         return new DemoFile({
           path: path + key.substr(1),
@@ -26,9 +27,11 @@ export default class VueBookRouteFactory {
       path: path + '*',
       component: VueBookDemoPage,
       meta: {
-        demoFilesCollection,
+        demoFolder: DemoFolder.createFromDemoFileCollection(demoFileCollection),
+        demoFileCollection,
         hideFileExtensions: vueBookConfig.hideFileExtensions,
       },
     }
   }
+
 }

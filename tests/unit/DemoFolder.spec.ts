@@ -1,4 +1,4 @@
-import DemoFolder from '../../src/classes/Main/DemoFolder'
+import { DemoFolder } from '../../src/classes/Main/DemoFolder'
 import DemoFile from '../../src/classes/Main/DemoFile'
 
 describe('DemoFolder', () => {

@@ -33,7 +33,7 @@
 
         <tree-demo-file-list
           v-if="config.mode === DemoPageMode.Tree"
-          :folder="tree"
+          :folder="demoFolder"
           :listCursor="listCursor"
         />
       </div>
@@ -55,11 +55,11 @@ import { configStoreInstance } from '../../store/configStore'
 import BookComponentListFolder from '../FileTree/BookComponentListFolder.vue'
 import BookComponentListItem from '../FileTree/BookComponentListItem.vue'
 
-import DemoFolder from '../../classes/Main/DemoFolder'
+import { DemoFolder } from '../../classes/Main/DemoFolder'
 import DemoFile from '../../classes/Main/DemoFile'
 import SearchableDemoFileList from '../FileTree/SearchableDemoFileList.vue'
 import VueBookResizeLine from '../Service/VueBookResizeLine.vue'
-import { DemoPageMode } from './DemoPageConfig'
+import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
 import VueBookMenu from './VueBookMenu.vue'
 
 import VueBookInput from './ComInput/VueBookInput.vue'
@@ -68,7 +68,6 @@ import { ListCursor } from '../FileTree/ListCursor'
 import DemoFileCollection from '../../classes/Main/DemoFileCollection'
 
 let lastUpdateTimestamp = 0
-
 
 export default {
   components: {
@@ -82,36 +81,30 @@ export default {
   },
   data () {
     return {
+      demoFolder: null,
       listCursor: new ListCursor(),
       configStoreInstance: configStoreInstance,
-      tree: null,
       foldersStoreInstance: foldersStoreInstance,
     }
   },
   watch: {
     'config': {
-      handler (value: DemoFolder, oldValue: DemoFolder) {
-        if (value !== oldValue) {
-          // Updated from local storage.
-          return
-        }
+      handler (value: DemoPageConfig) {
         const update = () => {
           if (lastUpdateTimestamp < Math.floor(Date.now()) - 200) {
-            this.configStoreInstance.setConfig(value)
+            configStoreInstance.config = value
+            configStoreInstance.save()
             lastUpdateTimestamp = Math.floor(Date.now())
           }
-        }
+         }
         update()
       },
       deep: true,
     },
-    'tree': {
-      handler (value: DemoFolder, oldValue: DemoFolder) {
-        if (value !== oldValue) {
-          // Updated from local storage.
-          return
-        }
+    'demoFolder': {
+      handler (value: DemoFolder) {
         foldersStoreInstance.openFolders = value.getOpenFolders()
+        foldersStoreInstance.save()
       },
       deep: true,
     },
@@ -141,16 +134,16 @@ export default {
     },
 
     files () {
-      return this.demoFilesCollection.demoFiles
+      return this.demoFileCollection.demoFiles
     },
 
-    demoFilesCollection (): DemoFileCollection {
-      const demoFilesCollection = this.$route.meta.demoFilesCollection
-      if (!(demoFilesCollection instanceof DemoFileCollection)) {
-        throw new Error('No DemoFileCollection found for current route')
+    demoFileCollection (): DemoFileCollection {
+      const demoFileCollection = this.$route.meta.demoFileCollection
+      if (!(demoFileCollection instanceof DemoFileCollection)) {
+        throw new Error('No demoFileCollection found for current route')
       }
 
-      return demoFilesCollection
+      return demoFileCollection
     },
     filteredFiles (): DemoFile[] {
       if (!this.config.searchText) {
@@ -160,6 +153,14 @@ export default {
     },
   },
   methods: {
+    getDemoFolder (): DemoFolder {
+      const demoFolder = this.$route.meta.demoFolder
+      if (!(demoFolder instanceof DemoFolder)) {
+        throw new Error('No demoFolder found for current route')
+      }
+
+      return demoFolder
+    },
     fileSelected (file: DemoFile): boolean {
       const path = file.path.toUpperCase()
       const text = this.config.searchText.toUpperCase()
@@ -170,15 +171,6 @@ export default {
       const upperCaseLetters = file.getFilename().replace(/[a-z.]/g, '')
       return upperCaseLetters.includes(this.config.searchText)
     },
-
-    renderTree (): DemoFolder {
-      const tree = new DemoFolder()
-
-      const files = this.demoFilesCollection.demoFiles
-      files.forEach((node: any) => tree.addDemoFile(node))
-      return tree.folders[0]
-    },
-
     moveCursor (delta: number) {
       const files = this.filteredFiles
 
@@ -203,7 +195,6 @@ export default {
       }
       this.listCursor.preSelectedItem = files[nextFileIndex]
     },
-
     selectFileUnderCursor () {
       const fileUnderCursor = this.listCursor.preSelectedItem
 
@@ -221,12 +212,12 @@ export default {
     const input = this.$refs.searchInput
     input && input.$el.focus()
   },
-
   created () {
-    this.tree = this.renderTree()
-    this.tree.fillParents()
-    this.tree.open()
-    this.tree.mergeWithFolders(foldersStoreInstance.openFolders)
+    foldersStoreInstance.load()
+    configStoreInstance.load()
+    const demoFolder = this.getDemoFolder()
+    demoFolder.mergeWithFolders(foldersStoreInstance.openFolders)
+    this.demoFolder = demoFolder
   },
 }
 </script>

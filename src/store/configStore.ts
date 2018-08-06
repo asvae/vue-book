@@ -4,20 +4,15 @@ import DemoPageConfig from '../components/DemoPage/DemoPageConfig'
 const STORAGE_KEY = 'config'
 
 export class ConfigStore {
-  protected _config: DemoPageConfig | null = null
+  public config: DemoPageConfig | null = null
 
-  get config (): DemoPageConfig {
-    if (!this._config) {
-      const data = storage.fetch(STORAGE_KEY) || new DemoPageConfig()
-      const config: DemoPageConfig = new DemoPageConfig(data)
-      this._config = config
-    }
-    return this._config
+  load (): void {
+    const data = storage.fetch(STORAGE_KEY) || new DemoPageConfig()
+    this.config = new DemoPageConfig(data)
   }
 
-  setConfig (config: DemoPageConfig) {
-    this._config = config
-    storage.store(STORAGE_KEY, config)
+  save (): void {
+    storage.store(STORAGE_KEY, this.config)
   }
 }
 

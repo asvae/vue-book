@@ -48,7 +48,8 @@ const router = new Router({
   routes: [
     createRoute({
       requireContext: require.context('./..', true, /.demo.vue$/), 
-      path: '/demo'
+      path: '/demo',
+      hideFileExtensions: true, // optional, hides file extensions in list.
     }),
   ]
 })
@@ -73,7 +74,7 @@ if (process.env.NODE_ENV !== 'production') {
     children: [
       createRoute({
         requireContext: require.context('./..', true, /.demo.vue$/), 
-        path: '/demo'
+        path: '/demo',
       }),
     ],
   })

@@ -42,7 +42,7 @@
 <script lang="ts">
 import vmFile from './BookComponentListItem.vue'
 
-import DemoFolder from '../../classes/Main/DemoFolder'
+import { DemoFolder } from '../../classes/Main/DemoFolder'
 import { ObjectHelpers } from 'asva-helpers'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
@@ -58,7 +58,6 @@ export default {
     FontAwesomeIcon,
     vmFile,
   },
-  inject: ['foldersStoreInstance'],
   props: {
     folder: {
       type: DemoFolder,

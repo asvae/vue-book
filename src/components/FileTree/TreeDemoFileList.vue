@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import BookComponentListFolder from './BookComponentListFolder.vue'
-import DemoFolder from '../../classes/Main/DemoFolder'
+import { DemoFolder } from '../../classes/Main/DemoFolder'
 
 export default {
   name: 'tree-demo-file-list',
@@ -14,6 +14,7 @@ export default {
   props: {
     folder: {
       type: DemoFolder,
+      required: true,
     },
   },
 }

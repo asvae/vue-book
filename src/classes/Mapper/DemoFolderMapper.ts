@@ -1,4 +1,4 @@
-import DemoFolder from '../Main/DemoFolder'
+import { DemoFolder } from '../Main/DemoFolder'
 import DemoFileMapper from './DemoFileMapper'
 
 export default class DemoFolderMapper {

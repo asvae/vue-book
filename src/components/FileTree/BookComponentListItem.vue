@@ -5,10 +5,13 @@
     :class="isActive && 'book-component-list-item--active'"
     :to="file.path"
   >
-    <font-awesome-icon class="book-component-list-item__icon"
-                       :icon="faFile"/>
-    <span class="book-component-list-item__file-name">{{ file.getFilename()
-            }}</span>
+    <font-awesome-icon
+      class="book-component-list-item__icon"
+      :icon="faFile"
+    />
+    <span class="book-component-list-item__file-name">
+      {{ name }}
+    </span>
   </router-link>
 </template>
 
@@ -28,6 +31,12 @@ export default {
     },
   },
   computed: {
+    name () {
+      if (this.$route.meta.hideFileExtensions) {
+        return this.file.getFilenameWithoutExtension()
+      }
+      return this.file.getFilename()
+    },
     faFile () {
       return faFile
     },
