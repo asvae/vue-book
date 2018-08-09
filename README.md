@@ -60,6 +60,8 @@ So, about arguments.
 * `./../tree` is path to your demo folder. Works the same as require/import.
 * `/demo` is root route for vue-router.
 
+Here's the vue-cli3 [demo project](https://github.com/asvae/vue-book-demo) if something doesn't work for you.
+
 ### Production
 
 You don't have to keep demos in production. Use webpack [define-plugin](https://webpack.js.org/plugins/define-plugin/) and exclude them from bundle.
@@ -97,4 +99,4 @@ Also remember: Stars fuel package development!
 MIT
 
 [circleci-badge]: https://img.shields.io/circleci/project/github/asvae/vue-book/master.svg?style=flat-square
-[circleci-url]: https://circleci.com/gh/asvae/vue-book
+[circleci-url]: https://circleci.com/gh/asvae/vue-book 
