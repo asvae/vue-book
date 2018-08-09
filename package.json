@@ -8,7 +8,6 @@
   "license": "MIT",
   "scripts": {
     "dist": "webpack --progress --hide-modules --config src/build/webpack.config.dist.js",
-    "demo": "webpack --progress --hide-modules --config src/build/webpack.config.demo.js",
     "dev": "webpack-dev-server --hot --config src/build/webpack.config.dev.js",
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
