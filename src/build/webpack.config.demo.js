@@ -2,6 +2,7 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const resolve = require('./blocks/resolve')
 const performance = require('./blocks/performance')
@@ -11,10 +12,10 @@ module.exports = function () {
     mode: 'development',
     resolve,
     performance,
-    entry: './demo/app.ts',
+    entry: './demo/main.ts',
     output: {
       path: path.resolve(__dirname, '../../public'),
-      filename: 'app.js',
+      filename: 'main.js',
     },
     stats: 'minimal',
     module: {
@@ -60,6 +61,7 @@ module.exports = function () {
       ],
     },
     plugins: [
+      new VueLoaderPlugin(),
       new CleanWebpackPlugin(['public'], { root: path.resolve(__dirname, '../..') }),
       new HtmlWebpackPlugin({
         template: './demo/index.html',

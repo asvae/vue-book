@@ -16,11 +16,11 @@ module.exports = {
   mode: 'development',
   resolve,
   performance,
-  entry: './demo/app.ts',
+  entry: './demo/main.ts',
   output: {
     path: path.resolve(__dirname, '../public/app/js'),
     publicPath: '/',
-    filename: 'app.js',
+    filename: 'main.js',
   },
   stats: {
     colors: true,

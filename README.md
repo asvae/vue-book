@@ -2,7 +2,7 @@
 
 # vue-book
 
-Tree view for your demo components. [Demo](http://vue-book-demo.asva.by/#/Demo/ContactComponent.vue).
+Tree view for your demo components. [Demo](http://vue-book.asva.by/#/Demo/ContactComponent.vue).
 
 ![Interface](docs/main.gif)
 

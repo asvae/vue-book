@@ -12,9 +12,10 @@ module.exports = {
   performance,
   entry: './src/app.ts',
   output: {
-    path: path.resolve(__dirname, '../../dist'),
-    filename: 'js/app.js',
-    library: 'VueComponentTree',
+    path: path.resolve(__dirname, '../../dist/js'),
+    publicPath: '/',
+    filename: 'app.js',
+    library: 'VueBook',
     libraryTarget: 'umd',
   },
   stats: 'minimal',
