@@ -7,33 +7,40 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
 
-@Component({})
-export default class VueBookResizeLine extends Vue {
-  startValue: number = 0
-  startCoordinate: number = 0
-
-  @Prop({ type: Number, required: true })
-  value!: number
-
-  @Prop({ type: Boolean, default: false })
-  isHorizontal!: boolean
-
-  onDrag (event: DragEvent): void {
-    // No idea how, but this works.
-    if (this.isHorizontal) {
-      if (event.screenY) {
-        const totalHeight = document.documentElement.clientHeight
-        this.$emit('input', totalHeight - (event.clientY))
+export default {
+  data () {
+    return {
+      startValue: 0,
+      startCoordinate: 0,
+    }
+  },
+  props: {
+    value: {
+      type: Number,
+      required: true,
+    },
+    isHorizontal: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  methods: {
+    onDrag (event: DragEvent): void {
+      // No idea how, but this works.
+      if (this.isHorizontal) {
+        if (event.screenY) {
+          const totalHeight = document.documentElement.clientHeight
+          this.$emit('input', totalHeight - (event.clientY))
+        }
+        return
       }
-      return
-    }
 
-    if (event.screenX) {
-      this.$emit('input', event.clientX)
-    }
-  }
+      if (event.screenX) {
+        this.$emit('input', event.clientX)
+      }
+    },
+  },
 }
 </script>
 
