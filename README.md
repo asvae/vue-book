@@ -1,5 +1,3 @@
-[![Build status][circleci-badge]][circleci-url]
-
 # vue-book
 
 Tree view for your demo components. [Demo](http://vue-book.asva.by/#/Demo/ContactComponent.vue).
