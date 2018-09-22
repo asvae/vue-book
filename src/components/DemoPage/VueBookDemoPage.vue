@@ -249,7 +249,6 @@ export default {
 
   $root: &;
 
-  font-family: "Noto Sans", sans-serif;
   height: 100%;
   width: 100%;
   position: fixed;
@@ -258,6 +257,7 @@ export default {
   left: 0;
 
   &__left-block {
+    font-family: "Noto Sans", sans-serif;
     position: relative;
     &__resize-line {
       position: absolute;

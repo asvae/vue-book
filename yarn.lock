@@ -1184,8 +1184,8 @@ astral-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-1.0.0.tgz#6c8c3fb827dd43ee3918f27b82782ab7658a6fd9"
 
 asva-executors@^0.1.9:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/asva-executors/-/asva-executors-0.1.9.tgz#f84b5ebe05627937fff34582478c68e837a359c0"
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/asva-executors/-/asva-executors-0.1.12.tgz#46a5488f84dbc0b7fc0dad0b04d637e23bece86f"
 
 asva-helpers@^0.1.0:
   version "0.1.1"
