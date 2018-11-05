@@ -1,9 +1,9 @@
 <template>
-  <router-link
+  <div
     tag="div"
     class="book-component-list-item"
     :class="isActive && 'book-component-list-item--active'"
-    :to="file.path"
+    @click="select()"
   >
     <font-awesome-icon
       class="book-component-list-item__icon"
@@ -12,36 +12,59 @@
     <span class="book-component-list-item__file-name">
       {{ name }}
     </span>
-  </router-link>
+  </div>
 </template>
 
 <script lang="ts">
-import DemoFile from '../../classes/Main/DemoFile'
+import { TreeFile } from '../../classes/Main/TreeFile'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faFile } from '@fortawesome/free-solid-svg-icons'
+import {
+  VueBookTreeOptions,
+  VueBookTreeOptionsInterface,
+} from '../DemoPage/VueBookTreeOptions'
+
 
 export default {
   components: {
     FontAwesomeIcon,
   },
+  inject: [
+    VueBookTreeOptionsInterface,
+  ],
   props: {
     file: {
-      type: DemoFile,
+      type: TreeFile,
       required: true,
     },
   },
   computed: {
-    name () {
-      if (this.$route.meta.hideFileExtensions) {
-        return this.file.getFilenameWithoutExtension()
-      }
-      return this.file.getFilename()
+    vueBookTreeOptions () {
+      return this[VueBookTreeOptionsInterface] as VueBookTreeOptions
     },
-    faFile () {
-      return faFile
+    name () {
+      if (this.vueBookTreeOptions.hideFileExtensions) {
+        return (this.file as TreeFile).getFilenameWithoutExtension()
+      }
+      return (this.file as TreeFile).getFilename()
     },
     isActive () {
+      if (this.vueBookTreeOptions.noRouter) {
+        return this.vueBookTreeOptions.selectedTreeFile === this.file
+      }
+
       return this.$route.path === this.file.path
+    },
+    faFile: () => faFile,
+  },
+  methods: {
+    select (): void {
+      if (this.vueBookTreeOptions.noRouter) {
+        this.vueBookTreeOptions.selectedTreeFile = this.file as TreeFile
+        return
+      }
+
+      this.$router.push(this.file.path)
     },
   },
 }

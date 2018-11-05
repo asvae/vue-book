@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import { createRoute } from '../src/app.ts'
+import { createComponent, createRoute } from '../src/app'
+import SeveralInstances from './SeveralInstances'
 
 Vue.use(Router)
 
@@ -12,6 +13,17 @@ const router = new Router({
       path: '/demo',
       hideFileExtensions: true,
     }),
+    {
+      path: '/component-mode',
+      component: createComponent({
+        requireContext: require.context('./tree', true, /.vue$/),
+        hideFileExtensions: true,
+      }),
+    },
+    {
+      path: '/several-instances',
+      component: SeveralInstances,
+    },
     createRoute({
       requireContext: require.context('./../src', true, /.demo.vue$/),
       path: '/src',

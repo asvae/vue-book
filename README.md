@@ -87,6 +87,19 @@ if (process.env.NODE_ENV !== 'production') {
  * `yarn demo` - compile assets;
  * `yarn dist` - compile assets;
  * `npm publish` - publish to npm.
+ 
+ 
+### Production
+
+You can use `vue-book` without router if you don't need it.
+
+```javascript
+if (process.env.NODE_ENV !== 'production') {
+  import { getComponent } from 'vue-book'
+  const DemoView = getComponent(
+    require.context('./..', true, /.demo.vue$/)
+  )
+}
 
 ## Feedback | Support
 Leave an issue if something doesn't work for you.

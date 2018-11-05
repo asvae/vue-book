@@ -14,8 +14,7 @@
 
 <script>
 import BookComponentListItem from './BookComponentListItem'
-import DemoNode from '../../classes/Main/DemoFile'
-import DemoFileFactory from "../../classes/Factory/DemoFileFactory";
+import { TreeFileFactory } from "../../classes/Factory/TreeFileFactory";
 
 export default {
   components: {
@@ -24,8 +23,8 @@ export default {
   data () {
     return {
       valueList: {
-        short: DemoFileFactory.getWithShortPath(),
-        long: DemoFileFactory.getWithLongPath(),
+        short: TreeFileFactory.getWithShortPath(),
+        long: TreeFileFactory.getWithLongPath(),
       }
     }
   },

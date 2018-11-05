@@ -1,22 +1,22 @@
-import { DemoFolder } from '../Main/DemoFolder'
-import DemoFileMapper from './DemoFileMapper'
+import { TreeFolder } from '../Main/TreeFolder'
+import { TreeFileMapper } from './TreeFileMapper'
 
 export default class DemoFolderMapper {
-  static map ({ name = '', isOpen = false, files = [], folders = [] } = {}): DemoFolder {
-    return new DemoFolder({
+  static map ({ name = '', isOpen = false, files = [], folders = [] } = {}): TreeFolder {
+    return new TreeFolder({
       name,
       isOpen,
-      files: files.map(DemoFileMapper.map),
+      files: files.map(TreeFileMapper.toClass),
       folders: folders.map(DemoFolderMapper.map),
     })
   }
 
-  static transform (demoFolder: DemoFolder): any {
+  static transform (treeFolder: TreeFolder): any {
     return {
-      name: demoFolder.name,
-      isOpen: demoFolder.isOpen,
-      files: demoFolder.files.map(DemoFileMapper.transform),
-      folders: demoFolder.folders.map(DemoFolderMapper.transform),
+      name: treeFolder.name,
+      isOpen: treeFolder.isOpen,
+      files: treeFolder.files.map(TreeFileMapper.toComponent),
+      folders: treeFolder.folders.map(DemoFolderMapper.transform),
     }
   }
 }

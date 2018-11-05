@@ -1,23 +1,23 @@
-import { DemoFolder } from '../Main/DemoFolder'
-import DemoFileFactory from './DemoFileFactory'
+import { TreeFolder } from '../Main/TreeFolder'
+import { TreeFileFactory } from './TreeFileFactory'
 
 export default class DemoFolderFactory {
 
-  static getEmpty (): DemoFolder {
-    return new DemoFolder({
+  static getEmpty (): TreeFolder {
+    return new TreeFolder({
       name: 'name',
     })
   }
 
-  static getWithFiles (): DemoFolder {
-    return new DemoFolder({
-      files: DemoFileFactory.getWithVariousStatuses(),
+  static getWithFiles (): TreeFolder {
+    return new TreeFolder({
+      files: TreeFileFactory.getWithVariousStatuses(),
       name: 'name',
     })
   }
 
-  static getWithFolders (): DemoFolder {
-    return new DemoFolder({
+  static getWithFolders (): TreeFolder {
+    return new TreeFolder({
       folders: [
         DemoFolderFactory.getEmpty(),
         DemoFolderFactory.getEmpty(),
@@ -26,15 +26,14 @@ export default class DemoFolderFactory {
     })
   }
 
-  static getWithFoldersAndFiles (): DemoFolder {
-    return new DemoFolder({
+  static getWithFoldersAndFiles (): TreeFolder {
+    return new TreeFolder({
       folders: [
         DemoFolderFactory.getEmpty(),
         DemoFolderFactory.getEmpty(),
       ],
-      files: DemoFileFactory.getWithVariousStatuses(),
+      files: TreeFileFactory.getWithVariousStatuses(),
       name: 'name',
     })
   }
-
 }

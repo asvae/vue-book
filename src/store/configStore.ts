@@ -3,6 +3,7 @@ import DemoPageConfig from '../components/DemoPage/DemoPageConfig'
 
 const STORAGE_KEY = 'config'
 
+
 export class ConfigStore {
   public config: DemoPageConfig | null = null
 
@@ -15,5 +16,3 @@ export class ConfigStore {
     storage.store(STORAGE_KEY, this.config)
   }
 }
-
-export const configStoreInstance = new ConfigStore()

@@ -1,11 +1,11 @@
 import storage from './storage'
-import { DemoFolder } from '../classes/Main/DemoFolder'
+import { TreeFolder } from '../classes/Main/TreeFolder'
 import DemoFolderMapper from '../classes/Mapper/DemoFolderMapper'
 
 const STORAGE_KEY = 'openFolders'
 
 export class FoldersStore {
-  public openFolders: DemoFolder[] = []
+  public openFolders: TreeFolder[] = []
 
   load (): void {
     const data = <any[]>storage.fetch(STORAGE_KEY) || []
@@ -19,5 +19,3 @@ export class FoldersStore {
     storage.store(STORAGE_KEY, data)
   }
 }
-
-export const foldersStoreInstance = new FoldersStore()

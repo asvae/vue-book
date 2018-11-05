@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
-import DemoFile from '../../classes/Main/DemoFile'
+import { TreeFile } from '../../classes/Main/TreeFile'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ComButtonIcon from './ComButtonIcon/ComButtonIcon.vue'
 
@@ -44,7 +44,7 @@ export default {
   },
   props: {
     currentFile: {
-      type: DemoFile,
+      type: TreeFile,
       required: false,
     },
     config: {

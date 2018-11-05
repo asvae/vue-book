@@ -1,20 +1,20 @@
-import DemoNode from '../../src/classes/Main/DemoFile'
+import { TreeFile } from '../../src/classes/Main/TreeFile'
 
-describe('DemoNode', () => {
+describe('TreeFile', () => {
   it('is initialized', () => {
-    const node = new DemoNode()
+    const node = new TreeFile()
     expect(node.path).toBe('')
   })
   it('getParentFolder', () => {
-    const node = new DemoNode({ path: 'one/two/file.js' })
-    expect(node.getParentFolderPath()).toBe('one/two')
-    const rootNode = new DemoNode({ path: 'file.js' })
-    expect(rootNode.getParentFolderPath()).toBe('')
+    const treeFile = new TreeFile({ path: 'one/two/file.js' })
+    expect(treeFile.getParentFolderPath()).toBe('one/two')
+    const rootTreeFile = new TreeFile({ path: 'file.js' })
+    expect(rootTreeFile.getParentFolderPath()).toBe('')
   })
   it('getFileName', () => {
-    const node = new DemoNode({ path: 'one/two/file.js' })
-    expect(node.getFilename()).toBe('file.js')
-    const rootNode = new DemoNode({ path: 'file.js' })
-    expect(rootNode.getFilename()).toBe('file.js')
+    const treeFile = new TreeFile({ path: 'one/two/file.js' })
+    expect(treeFile.getFilename()).toBe('file.js')
+    const rootTreeFile = new TreeFile({ path: 'file.js' })
+    expect(rootTreeFile.getFilename()).toBe('file.js')
   })
 })
