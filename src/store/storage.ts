@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'vue-component-tree'
+const STORAGE_KEY = 'vue-book'
 
 export default {
   store (key: string, value: any): void {
