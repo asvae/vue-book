@@ -192,7 +192,6 @@ export default {
   },
   methods: {
     getNoRouter (): boolean {
-      console.log('this.treeFolderDefault', this.treeFolderDefault)
       return !!(this.treeFolderDefault && this.treeFileCollectionDefault)
     },
     getHideFileExtensions (): boolean {

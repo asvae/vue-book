@@ -105,7 +105,6 @@ export default {
 @import "../../scss/resources";
 
 .book-component-list-folder {
-
   &__header {
     cursor: pointer;
     display: flex;

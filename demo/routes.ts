@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import { createComponent, createRoute } from '../src/app'
-import SeveralInstances from './SeveralInstances'
+import SeveralInstances from './SeveralInstances.vue'
 
 Vue.use(Router)
 

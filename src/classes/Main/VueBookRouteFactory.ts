@@ -28,7 +28,7 @@ export default class VueBookRouteFactory {
       path: path + '*',
       component: VueBookRoot,
       meta: {
-        treeFolderDefault: TreeFolder.createFromDemoFileCollection(treeFileCollection),
+        treeFolder: TreeFolder.createFromDemoFileCollection(treeFileCollection),
         treeFileCollection,
         hideFileExtensions: vueBookConfig.hideFileExtensions
       }
