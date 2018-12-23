@@ -16,9 +16,13 @@ export default class VueBookRouteFactory {
 
     const demoFileCollection = new DemoFileCollection({
       demoFiles: requireContext.keys().map((key: string) => {
+        // requireContext(key).default - webpack 4
+        // requireContext(key) - webpack 2
+        const component = requireContext(key).default || requireContext(key)
+
         return new DemoFile({
           path: path + key.substr(1),
-          component: requireContext(key).default,
+          component,
         })
       }),
     })
