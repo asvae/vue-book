@@ -16,6 +16,5 @@ export default function (requireContext: any, path: string | RegExp) {
   return createRoute(new VueBookConfig({
     requireContext,
     path,
-    hideFileExtensions: false
   }))
 }

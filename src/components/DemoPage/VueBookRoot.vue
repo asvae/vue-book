@@ -1,7 +1,9 @@
 <template>
   <div class="vue-book-root">
-    <div class="vue-book-root__left-block"
-         :style="{'flex-basis': config.width + 'px', 'width': config.width + 'px'}"
+    <div
+      v-if="!getHideNavigation()"
+      class="vue-book-root__left-block"
+      :style="{'flex-basis': config.width + 'px', 'width': config.width + 'px'}"
     >
       <div class="vue-book-root__menu">
         <vue-book-menu
@@ -43,6 +45,7 @@
         v-model="config.width"
       />
     </div>
+
     <div class="vue-book-root__right-block">
       <component v-if="component" :is="component"/>
     </div>
@@ -106,6 +109,10 @@ export default {
       type: TreeFileCollection,
     },
     hideFileExtensionsDefault: {
+      type: Boolean,
+      default: false,
+    },
+    hideNavigationDefault: {
       type: Boolean,
       default: false,
     },
@@ -200,6 +207,13 @@ export default {
       }
 
       return this.$route.meta.hideFileExtensions
+    },
+    getHideNavigation (): boolean {
+      if (this.noRouter) {
+        return this.hideNavigationDefault
+      }
+
+      return this.$route.meta.hideNavigation
     },
     getDemoFolder (): TreeFolder {
       let treeFolder = this.treeFolderDefault

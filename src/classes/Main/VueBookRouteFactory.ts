@@ -5,7 +5,7 @@ import { TreeFileCollection } from './TreeFileCollection'
 import { RouteConfig } from 'vue-router'
 import { VueBookConfig } from './VueBookConfig'
 import { TreeFolder } from './TreeFolder'
-import { Component, ComponentOptions, CreateElement } from 'vue'
+import { Component, CreateElement } from 'vue'
 
 /**
  * Creates route for vue-router with all necessary boilerplate.
@@ -19,9 +19,9 @@ export default class VueBookRouteFactory {
       treeFiles: requireContext.keys().map((key: string) => {
         return new TreeFile({
           path: path + key.substr(1),
-          component: requireContext(key).default
+          component: requireContext(key).default,
         })
-      })
+      }),
     })
 
     return {
@@ -30,8 +30,9 @@ export default class VueBookRouteFactory {
       meta: {
         treeFolder: TreeFolder.createFromDemoFileCollection(treeFileCollection),
         treeFileCollection,
-        hideFileExtensions: vueBookConfig.hideFileExtensions
-      }
+        hideFileExtensions: vueBookConfig.hideFileExtensions,
+        hideNavigation: vueBookConfig.hideNavigation,
+      },
     }
   }
 
@@ -43,9 +44,9 @@ export default class VueBookRouteFactory {
       treeFiles: requireContext.keys().map((key: string) => {
         return new TreeFile({
           path: path + key.substr(1),
-          component: requireContext(key).default
+          component: requireContext(key).default,
         })
-      })
+      }),
     })
 
     return {
@@ -56,11 +57,12 @@ export default class VueBookRouteFactory {
             props: {
               treeFolderDefault: TreeFolder.createFromDemoFileCollection(treeFileCollection),
               treeFileCollectionDefault: treeFileCollection,
-              hideFileExtensionsDefault: vueBookConfig.hideFileExtensions
-            }
-          }
+              hideFileExtensionsDefault: vueBookConfig.hideFileExtensions,
+              hideNavigationDefault: vueBookConfig.hideNavigation,
+            },
+          },
         )
-      }
+      },
     }
   }
 }
