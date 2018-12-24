@@ -48,6 +48,7 @@ const router = new Router({
       requireContext: require.context('./..', true, /.demo.vue$/), 
       path: '/demo',
       hideFileExtensions: true, // optional, hides file extensions in list.
+      hideNavigation: true, // optional, hides navigation panel. Intended to be used with visual recognition library.
     }),
   ]
 })
@@ -68,16 +69,12 @@ You don't have to keep demos in production. Use webpack [define-plugin](https://
 if (process.env.NODE_ENV !== 'production') {
   const createRoute = require('vue-book').createRoute
   
-  routes.push({
-    path: '/demo',
-    component: App,
-    children: [
-      createRoute({
-        requireContext: require.context('./..', true, /.demo.vue$/), 
-        path: '/demo',
-      }),
-    ],
-  })
+  routes.push([
+    createRoute({
+      requireContext: require.context('./..', true, /.demo.vue$/), 
+      path: '/demo',
+    }),
+  ])
 }
 ```
 
@@ -89,17 +86,19 @@ if (process.env.NODE_ENV !== 'production') {
  * `npm publish` - publish to npm.
  
  
-### Production
+### Use as component
 
 You can use `vue-book` without router if you don't need it.
 
 ```javascript
-if (process.env.NODE_ENV !== 'production') {
-  import { getComponent } from 'vue-book'
-  const DemoView = getComponent(
-    require.context('./..', true, /.demo.vue$/)
-  )
-}
+const getComponent = require('vue-book').getComponent
+
+const DemoView = getComponent({
+  requireContext: require.context('./..', true, /.demo.vue$/),
+})
+````
+
+You can handle resulting `DemoView` the same as any other vue component.
 
 ## Feedback | Support
 Leave an issue if something doesn't work for you.
