@@ -1,7 +1,7 @@
-import DemoFile from '../../classes/Main/DemoFile'
+import { TreeFile } from '../../classes/Main/TreeFile'
 
 export class ListCursor {
-  preSelectedItem: DemoFile | null = null
+  preSelectedItem: TreeFile | null = null
 
   constructor (data: Partial<ListCursor> = {}) {
     Object.assign(this, data)

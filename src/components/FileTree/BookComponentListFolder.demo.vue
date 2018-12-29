@@ -25,8 +25,8 @@
 
 <script>
 import BookComponentListFolder from './BookComponentListFolder.vue'
-import DemoNode from '../../classes/Main/DemoFile'
-import { DemoFolder } from '../../classes/Main/DemoFolder'
+import DemoNode from '../../classes/Main/TreeFile'
+import { TreeFolder } from '../../classes/Main/TreeFolder'
 import DemoFolderFactory from '../../classes/Factory/DemoFolderFactory'
 
 export default {

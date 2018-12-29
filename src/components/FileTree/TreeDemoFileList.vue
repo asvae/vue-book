@@ -6,14 +6,14 @@
 
 <script lang="ts">
 import BookComponentListFolder from './BookComponentListFolder.vue'
-import { DemoFolder } from '../../classes/Main/DemoFolder'
+import { TreeFolder } from '../../classes/Main/TreeFolder'
 
 export default {
   name: 'tree-demo-file-list',
   components: { BookComponentListFolder },
   props: {
     folder: {
-      type: DemoFolder,
+      type: TreeFolder,
       required: true,
     },
   },

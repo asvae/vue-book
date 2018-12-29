@@ -42,7 +42,7 @@
 <script lang="ts">
 import vmFile from './BookComponentListItem.vue'
 
-import { DemoFolder } from '../../classes/Main/DemoFolder'
+import { TreeFolder } from '../../classes/Main/TreeFolder'
 import { ObjectHelpers } from 'asva-helpers'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
@@ -60,7 +60,7 @@ export default {
   },
   props: {
     folder: {
-      type: DemoFolder,
+      type: TreeFolder,
       required: true,
     },
   },
@@ -69,7 +69,7 @@ export default {
       const foldersChain = ObjectHelpers
         .traverseBranch(this.folder, { path: this.$route.path })
         .filter(item => {
-          return (item instanceof DemoFolder)
+          return (item instanceof TreeFolder)
         })
 
       if (foldersChain.length) {
@@ -105,7 +105,6 @@ export default {
 @import "../../scss/resources";
 
 .book-component-list-folder {
-
   &__header {
     cursor: pointer;
     display: flex;

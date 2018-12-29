@@ -1,26 +1,28 @@
-import DemoFile from './DemoFile'
+import { TreeFile } from './TreeFile'
 
-import VueBookDemoPage from '../../components/DemoPage/VueBookDemoPage.vue'
-import DemoFileCollection from './DemoFileCollection'
+import VueBookRoot from '../../components/DemoPage/VueBookRoot.vue'
+import { TreeFileCollection } from './TreeFileCollection'
 import { RouteConfig } from 'vue-router'
 import { VueBookConfig } from './VueBookConfig'
-import { DemoFolder } from './DemoFolder'
+import { TreeFolder } from './TreeFolder'
+import { Component, CreateElement } from 'vue'
 
 /**
  * Creates route for vue-router with all necessary boilerplate.
  */
 export default class VueBookRouteFactory {
-  static create (vueBookConfig: VueBookConfig): RouteConfig {
+  static createRoute (vueBookConfig: VueBookConfig): RouteConfig {
     const requireContext = vueBookConfig.requireContext
     const path = vueBookConfig.path
 
-    const demoFileCollection = new DemoFileCollection({
-      demoFiles: requireContext.keys().map((key: string) => {
+    const treeFileCollection = new TreeFileCollection({
+      treeFiles: requireContext.keys().map((key: string) => {
+
         // requireContext(key).default - webpack 4
         // requireContext(key) - webpack 2
         const component = requireContext(key).default || requireContext(key)
 
-        return new DemoFile({
+        return new TreeFile({
           path: path + key.substr(1),
           component,
         })
@@ -29,13 +31,47 @@ export default class VueBookRouteFactory {
 
     return {
       path: path + '*',
-      component: VueBookDemoPage,
+      component: VueBookRoot,
       meta: {
-        demoFolder: DemoFolder.createFromDemoFileCollection(demoFileCollection),
-        demoFileCollection,
+        treeFolder: TreeFolder.createFromDemoFileCollection(treeFileCollection),
+        treeFileCollection,
         hideFileExtensions: vueBookConfig.hideFileExtensions,
+        hideNavigation: vueBookConfig.hideNavigation,
       },
     }
   }
 
+  static createComponent (vueBookConfig: VueBookConfig): Component {
+    const requireContext = vueBookConfig.requireContext
+    const path = vueBookConfig.path
+
+    const treeFileCollection = new TreeFileCollection({
+      treeFiles: requireContext.keys().map((key: string) => {
+        // requireContext(key).default - webpack 4
+        // requireContext(key) - webpack 2
+        const component = requireContext(key).default || requireContext(key)
+
+        return new TreeFile({
+          path: path + key.substr(1),
+          component,
+        })
+      }),
+    })
+
+    return {
+      render: (createElement: CreateElement) => {
+        return createElement(
+          VueBookRoot,
+          {
+            props: {
+              treeFolderDefault: TreeFolder.createFromDemoFileCollection(treeFileCollection),
+              treeFileCollectionDefault: treeFileCollection,
+              hideFileExtensionsDefault: vueBookConfig.hideFileExtensions,
+              hideNavigationDefault: vueBookConfig.hideNavigation,
+            },
+          },
+        )
+      },
+    }
+  }
 }

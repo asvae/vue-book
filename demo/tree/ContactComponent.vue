@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Vue component tree</h2>
-    <a href="https://github.com/asvae/vue-component-tree">Repo</a>
+    <a href="https://github.com/asvae/vue-book">Repo</a>
     <ul>
       <li>Display your components as a tree or flat list.</li>
       <li>Preview components on the page.</li>

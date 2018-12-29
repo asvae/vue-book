@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import DemoFile from '../../classes/Main/DemoFile'
+import { TreeFile } from '../../classes/Main/TreeFile'
 import { ListCursor } from './ListCursor'
 import BookComponentListItem from './BookComponentListItem.vue'
 
@@ -31,7 +31,7 @@ export default {
     },
   },
   methods: {
-    filePreSelected (file: DemoFile): boolean {
+    filePreSelected (file: TreeFile): boolean {
       return this.listCursor.preSelectedItem === file
     },
   },

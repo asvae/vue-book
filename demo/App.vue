@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import router from './routes.js'
+import router from './routes'
 
 export default {
   data () {

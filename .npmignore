@@ -1,4 +1,8 @@
-!/dist/
-/docs/
-/demo/
-/test/
+!/dist
+/docs
+/demo
+/test
+
+.idea
+.vscode
+

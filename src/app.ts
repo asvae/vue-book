@@ -3,17 +3,18 @@ import './scss/app.scss'
 import './font-awesome-config'
 import { VueBookConfig } from './classes/Main/VueBookConfig'
 
-export function createRoute (options: Partial<VueBookConfig>) {
-  const config = new VueBookConfig(options)
+export const createRoute =
+  (options: Partial<VueBookConfig>) =>
+    VueBookRouteFactory.createRoute(new VueBookConfig(options))
 
-  return VueBookRouteFactory.create(config)
-}
+export const createComponent =
+  (options: Partial<VueBookConfig>) =>
+    VueBookRouteFactory.createComponent(new VueBookConfig(options))
 
 /** @deprecated use createRoute instead */
 export default function (requireContext: any, path: string | RegExp) {
   return createRoute(new VueBookConfig({
     requireContext,
     path,
-    hideFileExtensions: false,
   }))
 }

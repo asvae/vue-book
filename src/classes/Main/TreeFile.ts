@@ -1,11 +1,11 @@
-import { DemoFolder } from './DemoFolder'
+import { TreeFolder } from './TreeFolder'
 
-export default class DemoFile {
+export class TreeFile {
   path: string = ''
   component: any | null = null // demo component
-  folder: DemoFolder | null = null
+  folder: TreeFolder | null = null
 
-  constructor (data: Partial<DemoFile> = {}) {
+  constructor (data: Partial<TreeFile> = {}) {
     Object.assign(this, data)
   }
 
