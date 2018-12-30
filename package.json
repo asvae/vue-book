@@ -1,6 +1,6 @@
 {
   "name": "vue-book",
-  "version": "0.1.0-alpha.7",
+  "version": "0.1.0-alpha.9",
   "description": "Tree view for your demo components",
   "main": "dist/js/app.js",
   "private": false,
@@ -11,7 +11,9 @@
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "inspect": "vue inspect > inspect-result.js"
+    "inspect": "vue inspect > inspect-result.js",
+    "publish": "yarn run dist & npm publish --tag=next",
+    "publish-production": "yarn run dist & npm publish --tag=latest"
   },
   "keywords": [
     "vue",
