@@ -12,8 +12,8 @@
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "inspect": "vue inspect > inspect-result.js",
-    "publish": "yarn run dist & npm publish --tag=next",
-    "publish-production": "yarn run dist & npm publish --tag=latest"
+    "push": "yarn dist & npm publish --tag=next",
+    "push-production": "yarn dist & npm publish --tag=latest"
   },
   "keywords": [
     "vue",
