@@ -1,6 +1,6 @@
 {
   "name": "vue-book",
-  "version": "0.1.0-alpha.6",
+  "version": "0.1.0-alpha.7",
   "description": "Tree view for your demo components",
   "main": "dist/js/app.js",
   "private": false,
@@ -8,7 +8,6 @@
   "license": "MIT",
   "scripts": {
     "dist": "webpack --progress --hide-modules --config src/build/webpack.config.dist.js",
-    "dev": "webpack-dev-server --hot --config src/build/webpack.config.dev.js",
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",

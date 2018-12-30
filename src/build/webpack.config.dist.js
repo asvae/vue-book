@@ -3,13 +3,17 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const resolve = require('./blocks/resolve')
-const performance = require('./blocks/performance')
-
 module.exports = {
   mode: 'development',
-  resolve,
-  performance,
+  resolve: {
+    extensions: ['.ts', '.js'],
+    alias: {
+      'vue$': 'vue/dist/vue.common.js',
+    },
+  },
+  performance: {
+    hints: false,
+  },
   entry: './src/app.ts',
   output: {
     path: path.resolve(__dirname, '../../dist/js'),

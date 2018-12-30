@@ -7,7 +7,7 @@
   >
     <font-awesome-icon
       class="book-component-list-item__icon"
-      :icon="faFile"
+      icon="file"
     />
     <span class="book-component-list-item__file-name">
       {{ name }}
@@ -18,7 +18,6 @@
 <script lang="ts">
 import { TreeFile } from '../../classes/Main/TreeFile'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faFile } from '@fortawesome/free-solid-svg-icons'
 import {
   VueBookTreeOptions,
   VueBookTreeOptionsInterface,
@@ -55,7 +54,6 @@ export default {
 
       return this.$route.path === this.file.path
     },
-    faFile: () => faFile,
   },
   methods: {
     select (): void {

@@ -1,0 +1,31 @@
+<template>
+  <div
+    class="VbDemo"
+    :class="computedClass"
+  >
+    <slot/>
+  </div>
+</template>
+
+<script lang="ts">
+export default {
+  name: 'VbDemo',
+  computed: {
+    computedClass () {
+      return {
+
+      }
+    }
+  },
+}
+</script>
+
+<style lang="scss">
+.VbDemo {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  background-color: #eeeeee;
+}
+</style>

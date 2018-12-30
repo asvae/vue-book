@@ -11,6 +11,7 @@ import {
   faFolder,
   faSearch,
   faServer,
+  faSync,
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faServer, faFolder, faSearch, faBars, faExchangeAlt, faDotCircle, faCaretDown, faCaretRight, faFile, faArrowsAltV)
+library.add(faServer, faFolder, faSearch, faBars, faExchangeAlt, faDotCircle, faCaretDown, faCaretRight, faFile, faArrowsAltV, faSync)

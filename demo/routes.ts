@@ -30,6 +30,10 @@ const router = new Router({
       path: '/src',
       hideFileExtensions: true,
     }),
+    {
+      path: '/*',
+      redirect: '/demo'
+    }
   ],
 })
 
