@@ -4,17 +4,17 @@
       <div class="book-component-list-folder__header__caret">
         <font-awesome-icon
           v-if="folder.isOpen"
-          :icon="icons.faCaretDown"
+          icon="caret-down"
         />
         <font-awesome-icon
           v-else
-          :icon="icons.faCaretRight"
+          icon="caret-right"
         />
       </div>
 
       <font-awesome-icon
         class="book-component-list-folder__header__icon"
-        :icon="icons.faFolder"
+        icon="folder"
       />
 
       <div class="book-component-list-folder__title">
@@ -31,9 +31,10 @@
         :folder="child"
         ref="folders"
       />
-      <vm-file v-for="file in folder.files"
-               :key="generateKey()"
-               :file="file"
+      <vm-file
+        v-for="file in folder.files"
+        :key="generateKey()"
+        :file="file"
       />
     </div>
   </div>
@@ -45,12 +46,6 @@ import vmFile from './BookComponentListItem.vue'
 import { TreeFolder } from '../../classes/Main/TreeFolder'
 import { ObjectHelpers } from 'asva-helpers'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import {
-  faCaretDown,
-  faCaretRight,
-  faFolder,
-  IconDefinition,
-} from '@fortawesome/free-solid-svg-icons'
 
 export default {
   name: 'book-component-list-folder',
@@ -89,15 +84,6 @@ export default {
       return Math.floor(Math.random() * 1e8)
     },
   },
-  computed: {
-    icons (): { [name: string]: IconDefinition } {
-      return {
-        faFolder,
-        faCaretDown,
-        faCaretRight,
-      }
-    },
-  },
 }
 </script>
 
@@ -115,6 +101,7 @@ export default {
       width: 14px;
       @include flexCenter();
     }
+
     &__icon {
       flex: 0 0 18px;
       height: 18px;
@@ -124,6 +111,7 @@ export default {
       margin-left: 3px;
       margin-right: 3px;
     }
+
     &__title {
 
     }
