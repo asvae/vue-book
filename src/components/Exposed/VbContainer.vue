@@ -22,6 +22,7 @@
     <div
       class="VbContainer__content"
       ref="content"
+      :style="contentStyle"
     >
       <slot v-if="show"/>
     </div>
@@ -36,6 +37,10 @@ export default {
   components: { FontAwesomeIcon },
   data: () => ({
     show: true,
+    contentStyle: {
+      width: undefined,
+      height: undefined,
+    },
   }),
   props: {
     noPadding: Boolean,
@@ -53,8 +58,14 @@ export default {
   },
   methods: {
     doRefresh () {
+      const computedStyle = window.getComputedStyle(this.$refs.content)
+      this.contentStyle.width = computedStyle.width
+      this.contentStyle.height = computedStyle.height
       this.show = false
+
       setTimeout(() => {
+        this.contentStyle.width = undefined
+        this.contentStyle.height = undefined
         this.show = true
       })
     },

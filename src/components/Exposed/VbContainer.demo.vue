@@ -16,7 +16,10 @@
       With title and refresh
     </VbContainer>
     <VbContainer refresh>
-      With refresh
+      <div>With refresh</div>
+      <div>With refresh</div>
+      <div>With refresh</div>
+      <div>With refresh</div>
     </VbContainer>
   </VbDemo>
 </template>

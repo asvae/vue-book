@@ -23,6 +23,7 @@ export default {
 <style lang="scss">
 .VbDemo {
   height: 100%;
+  overflow: auto;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
