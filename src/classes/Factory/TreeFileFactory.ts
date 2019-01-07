@@ -6,7 +6,7 @@ export class TreeFileFactory {
   }
 
   static getWithLongPath (): TreeFile {
-    return new TreeFile({ path: '/short/short.path' })
+    return new TreeFile({ path: '/long/long/long/long/long.path' })
   }
 
   static getWithVariousStatuses (): Array<TreeFile> {

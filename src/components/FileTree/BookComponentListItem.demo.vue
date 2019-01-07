@@ -7,7 +7,7 @@
       <div class="demo-container__header"
            v-text="key"
       />
-      <book-component-list-item :file="value"/>
+      <BookComponentListItem :file="value"/>
     </div>
   </div>
 </template>

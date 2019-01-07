@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import { createComponent, createRoute } from '../src/app'
+import { createComponent, createRoute, VueBookComponents } from '../src/app'
 import SeveralInstances from './SeveralInstances.vue'
 
 Vue.use(Router)
+Vue.use(VueBookComponents)
 
 const router = new Router({
   routes: [
@@ -28,6 +29,11 @@ const router = new Router({
     createRoute({
       requireContext: require.context('./../src', true, /.demo.vue$/),
       path: '/src',
+      hideFileExtensions: true,
+    }),
+    createRoute({
+      requireContext: require.context('./../src', true, /.demos.vue$/),
+      path: '/empty',
       hideFileExtensions: true,
     }),
     {

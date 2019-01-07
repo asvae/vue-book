@@ -1,6 +1,6 @@
 <template>
-  <div class="tree-demo-file-list">
-    <book-component-list-folder :folder="folder"/>
+  <div class="TreeDemoFileList">
+    <BookComponentListFolder :folder="folder"/>
   </div>
 </template>
 
@@ -9,7 +9,7 @@ import BookComponentListFolder from './BookComponentListFolder.vue'
 import { TreeFolder } from '../../classes/Main/TreeFolder'
 
 export default {
-  name: 'tree-demo-file-list',
+  name: 'TreeDemoFileList',
   components: { BookComponentListFolder },
   props: {
     folder: {
@@ -23,7 +23,7 @@ export default {
 <style lang="scss">
 @import "../../scss/resources";
 
-.tree-demo-file-list {
+.TreeDemoFileList {
   height: 100%;
   background-color: $color--white;
   overflow: auto;

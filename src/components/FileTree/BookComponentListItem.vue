@@ -1,15 +1,15 @@
 <template>
   <div
     tag="div"
-    class="book-component-list-item"
-    :class="isActive && 'book-component-list-item--active'"
+    class="BookComponentListItem"
+    :class="isActive && 'BookComponentListItem--active'"
     @click="select()"
   >
     <font-awesome-icon
-      class="book-component-list-item__icon"
+      class="BookComponentListItem__icon"
       icon="file"
     />
-    <span class="book-component-list-item__file-name">
+    <span class="BookComponentListItem__file-name">
       {{ name }}
     </span>
   </div>
@@ -23,8 +23,8 @@ import {
   VueBookTreeOptionsInterface,
 } from '../DemoPage/VueBookTreeOptions'
 
-
 export default {
+  name: 'BookComponentListItem',
   components: {
     FontAwesomeIcon,
   },
@@ -71,7 +71,7 @@ export default {
 <style lang="scss">
 @import "../../scss/resources";
 
-.book-component-list-item {
+.BookComponentListItem {
   padding-top: 2px;
   padding-bottom: 1px;
   @include flexCenter();

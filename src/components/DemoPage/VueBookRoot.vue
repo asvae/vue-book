@@ -1,21 +1,25 @@
 <template>
-  <div class="vue-book-root">
+  <div class="VueBookRoot">
+    <div v-if="!files.length">
+      <p>You provided no files in requireContext.</p>
+      <p>Please check your path and masks.</p>
+    </div>
     <div
-      v-if="!getHideNavigation()"
-      class="vue-book-root__left-block"
+      v-else-if="!getHideNavigation()"
+      class="VueBookRoot__left-block"
       :style="{'flex-basis': config.width + 'px', 'width': config.width + 'px'}"
     >
-      <div class="vue-book-root__menu">
+      <div class="VueBookRoot__menu">
         <vue-book-menu
           :config="config"
           :currentFile="currentFile"
           @openFolder="currentFile.openFolder()"
         />
-        <div class="vue-book-root__menu__search"
+        <div class="VueBookRoot__menu__search"
              v-if="config.mode === DemoPageMode.Search"
         >
           <vue-book-input
-            class="vue-book-root__search-input"
+            class="VueBookRoot__search-input"
             ref="searchInput"
             v-model="config.searchText"
             placeholder="Search..."
@@ -27,12 +31,19 @@
         </div>
       </div>
 
-      <div class="vue-book-root__files">
-        <searchable-demo-file-list
+      <div class="VueBookRoot__files">
+        <template
           v-if="config.mode === DemoPageMode.Search"
-          :files="filteredFiles"
-          :listCursor="listCursor"
-        />
+        >
+          <template v-if="!filteredFiles.length">
+            No files found according to search.
+          </template>
+          <DemoFileList
+            v-else
+            :files="filteredFiles"
+            :listCursor="listCursor"
+          />
+        </template>
 
         <tree-demo-file-list
           v-if="config.mode === DemoPageMode.Tree"
@@ -41,12 +52,12 @@
         />
       </div>
       <vue-book-resize-line
-        class="vue-book-root__left-block__resize-line"
+        class="VueBookRoot__left-block__resize-line"
         v-model="config.width"
       />
     </div>
 
-    <div class="vue-book-root__right-block">
+    <div class="VueBookRoot__right-block">
       <component v-if="component" :is="component"/>
     </div>
   </div>
@@ -61,7 +72,7 @@ import BookComponentListItem from '../FileTree/BookComponentListItem.vue'
 
 import { TreeFolder } from '../../classes/Main/TreeFolder'
 import { TreeFile } from '../../classes/Main/TreeFile'
-import SearchableDemoFileList from '../FileTree/SearchableDemoFileList.vue'
+import DemoFileList from '../FileTree/DemoFileList.vue'
 import VueBookResizeLine from '../Service/VueBookResizeLine.vue'
 import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
 import VueBookMenu from './VueBookMenu.vue'
@@ -78,13 +89,13 @@ import {
 let lastUpdateTimestamp = 0
 
 export default {
-  name: 'vue-book-root',
+  name: 'VueBookRoot',
   components: {
     TreeDemoFileList,
     VueBookInput,
     VueBookMenu,
     VueBookResizeLine,
-    SearchableDemoFileList,
+    DemoFileList,
     BookComponentListFolder,
     BookComponentListItem,
   },
@@ -290,12 +301,13 @@ export default {
 <style lang="scss">
 @import "../../scss/resources";
 
-.vue-book-root {
+.VueBookRoot {
   // Reset
   &__menu {
     &__search {
       margin-top: 5px;
     }
+
     padding: 5px;
   }
 
@@ -324,15 +336,18 @@ export default {
   &__left-block {
     font-family: "Noto Sans", sans-serif;
     position: relative;
+
     &__resize-line {
       position: absolute;
       right: 0;
       top: 0;
       bottom: 0;
     }
+
     * {
       box-sizing: border-box;
     }
+
     background-color: $color--main;
     height: 100%;
     flex: 0 0;

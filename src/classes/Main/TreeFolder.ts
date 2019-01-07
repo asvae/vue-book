@@ -19,7 +19,7 @@ export class TreeFolder {
     const files = treeFileCollection.treeFiles
     files.forEach((node: any) => folderTemporary.addTreeFile(node))
 
-    const rootFolder = folderTemporary.folders[0]
+    const rootFolder = folderTemporary.folders[0] || folderTemporary
 
     // Bind nodes to folders.
     rootFolder.fillParents()
