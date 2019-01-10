@@ -22,7 +22,7 @@
     <div
       class="VbContainer__content"
       ref="content"
-      :style="contentStyle"
+      :style="computedStyle"
     >
       <slot v-if="show"/>
     </div>
@@ -37,18 +37,30 @@ export default {
   components: { FontAwesomeIcon },
   data: () => ({
     show: true,
-    contentStyle: {
-      width: undefined,
-      height: undefined,
-    },
+    contentStyleTemp: null,
   }),
   props: {
     noPadding: Boolean,
     dashed: Boolean,
     title: String,
     refresh: Boolean,
+    width: String,
+    height: String,
   },
   computed: {
+    computedStyle () {
+      const computedStyle = {
+        'min-width': this.width,
+        'min-height': this.height,
+        height: undefined,
+        width: undefined,
+      }
+      if (this.contentStyleTemp) {
+        computedStyle.height = this.contentStyleTemp.height
+        computedStyle.width = this.contentStyleTemp.width
+      }
+      return computedStyle
+    },
     computedClass () {
       return {
         'VbContainer--no-padding': this.noPadding,
@@ -59,13 +71,14 @@ export default {
   methods: {
     doRefresh () {
       const computedStyle = window.getComputedStyle(this.$refs.content)
-      this.contentStyle.width = computedStyle.width
-      this.contentStyle.height = computedStyle.height
+      this.contentStyleTemp = {
+        width: computedStyle.width,
+        height: computedStyle.height,
+      }
       this.show = false
 
       setTimeout(() => {
-        this.contentStyle.width = undefined
-        this.contentStyle.height = undefined
+        this.contentStyleTemp = null
         this.show = true
       })
     },

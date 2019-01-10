@@ -15,11 +15,8 @@
     <VbContainer title="With title" refresh>
       With title and refresh
     </VbContainer>
-    <VbContainer refresh>
-      <div>With refresh</div>
-      <div>With refresh</div>
-      <div>With refresh</div>
-      <div>With refresh</div>
+    <VbContainer refresh height="100px" width="300px">
+      <div style="background-color: #1fc8db; height: 100%; width: 150px">With refresh</div>
     </VbContainer>
   </VbDemo>
 </template>
