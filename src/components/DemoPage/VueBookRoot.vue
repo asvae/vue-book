@@ -28,6 +28,13 @@
             @enter="selectFileUnderCursor()"
             @blur="listCursor.clean()"
           />
+          <div
+            v-if="config.searchText"
+            class="VueBookRoot__menu__search__icon"
+            @click="clearSearch()"
+          >
+            <font-awesome-icon icon="times"/>
+          </div>
         </div>
       </div>
 
@@ -85,6 +92,7 @@ import {
   VueBookTreeOptions,
   VueBookTreeOptionsInterface,
 } from './VueBookTreeOptions'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 let lastUpdateTimestamp = 0
 
@@ -98,6 +106,7 @@ export default {
     DemoFileList,
     BookComponentListFolder,
     BookComponentListItem,
+    FontAwesomeIcon,
   },
   data () {
     return {
@@ -209,6 +218,10 @@ export default {
     },
   },
   methods: {
+    clearSearch (): void {
+      this.config.searchText = ''
+      this.$refs.searchInput.focus()
+    },
     getNoRouter (): boolean {
       return !!(this.treeFolderDefault && this.treeFileCollectionDefault)
     },
@@ -305,7 +318,17 @@ export default {
   // Reset
   &__menu {
     &__search {
+      position: relative;
       margin-top: 5px;
+
+      &__icon {
+        position: absolute;
+        right: 6px;
+        top: 3px;
+        color: $color--icon;
+        cursor: pointer;
+        opacity: 0.3;
+      }
     }
 
     padding: 5px;

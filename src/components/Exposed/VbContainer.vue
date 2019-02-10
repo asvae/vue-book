@@ -7,11 +7,12 @@
       <div class="VbContainer__title__text" v-if="title">
         {{ title }}
       </div>
-      <div class="VbContainer__title__filler"/>
+      <div class="VbContainer__title__spacer"/>
       <div
         v-if="refresh"
         class="VbContainer__title__icon"
         @click="doRefresh()"
+        title="Refresh"
       >
         <FontAwesomeIcon
           title="Refresh"
@@ -100,7 +101,7 @@ export default {
       font-weight: 700;
     }
 
-    &__filler {
+    &__spacer {
       flex: 1 0;
     }
 

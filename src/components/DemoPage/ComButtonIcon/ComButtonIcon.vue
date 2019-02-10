@@ -36,7 +36,7 @@ export default {
   border-radius: 3px;
   padding: 3px;
   @include flexCenter();
-  color: #3f506e;
+  color: $color--icon;
 
   &--active {
     padding: 2px;

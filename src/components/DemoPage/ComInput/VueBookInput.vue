@@ -46,6 +46,11 @@ export default {
       default: '',
     },
   },
+  methods: {
+    focus () {
+      this.$el.focus()
+    }
+  },
   computed: {
     valueProxy: {
       get () {
@@ -76,8 +81,8 @@ export default {
     opacity: 0;
   }
   border-radius: $border-radius--main;
-  border: 1px solid $border-color--main;
-  padding: 4px 5px;
+  border: none;
+  padding: 4px 24px 4px 5px;
   width: 100%;
 }
 </style>
