@@ -105,6 +105,33 @@ Leave an issue if something doesn't work for you.
 
 Also remember: Stars fuel package development! 
 
+## Helpers [WIP]
+
+### Install
+
+```js
+import { VueBookComponents } from '../src/app'
+
+Vue.use(VueBookComponents)
+```
+
+Component helpers
+
+```vue
+<VbDemo>
+  <VbContainer title="is active">
+    <YourComponent is-active/>
+  </VbContainer>
+</VbDemo>
+```
+
+Functional helpers:
+
+```vue
+<button @click="$vb.log('log', 'value')">Trigger log</button>
+<button @click="$vb.alert('alert')">Trigger alert</button>
+```
+
 ## Licence
 MIT
 

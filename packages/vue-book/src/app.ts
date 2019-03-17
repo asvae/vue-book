@@ -9,7 +9,17 @@ export const VueBookComponents = {
   install: (Vue: any) => {
     Vue.component('VbDemo', VbDemo)
     Vue.component('VbContainer', VbContainer)
-  }
+
+    Vue.prototype.$vb = {
+      log: (message?: any, ...optionalParams: any[]) => {
+        // eslint-disable-next-line no-console
+        console.log(message, ...optionalParams)
+      },
+      alert: (message?: any) => {
+        alert(message)
+      },
+    }
+  },
 }
 
 export const createRoute =
