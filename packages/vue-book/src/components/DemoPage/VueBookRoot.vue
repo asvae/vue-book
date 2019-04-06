@@ -93,11 +93,15 @@ import {
   VueBookTreeOptionsInterface,
 } from './VueBookTreeOptions'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { ContainerFocusProvideMixin } from '../Exposed/ContainerFocusService'
 
 let lastUpdateTimestamp = 0
 
 export default {
   name: 'VueBookRoot',
+  mixins: [
+    ContainerFocusProvideMixin,
+  ],
   components: {
     TreeDemoFileList,
     VueBookInput,

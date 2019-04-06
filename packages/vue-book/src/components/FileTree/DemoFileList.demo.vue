@@ -1,11 +1,11 @@
 <template>
   <VbDemo>
-    <VbContainer>
+    <VbCard>
       <DemoFileList
         :files="files"
         :listCursor="listCursor"
       />
-    </VbContainer>
+    </VbCard>
   </VbDemo>
 </template>
 

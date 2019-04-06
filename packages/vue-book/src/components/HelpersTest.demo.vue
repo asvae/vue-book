@@ -1,9 +1,9 @@
 <template>
   <VbDemo>
-    <VbContainer>
+    <VbCard>
       <button @click="$vb.log('log', 'value')">Trigger log</button>
       <button @click="$vb.alert('alert')">Trigger alert</button>
-    </VbContainer>
+    </VbCard>
   </VbDemo>
 </template>
 

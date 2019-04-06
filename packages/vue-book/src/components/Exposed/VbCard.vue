@@ -1,16 +1,17 @@
 <template>
   <div
-    class="VbContainer"
+    class="VbCard"
     :class="computedClass"
+    v-if="!isHiddenAsUnfocused"
   >
-    <div class="VbContainer__title" v-if="title || refresh">
-      <div class="VbContainer__title__text" v-if="title">
+    <div class="VbCard__title" v-if="title || refresh">
+      <div class="VbCard__title__text" v-if="title">
         {{ title }}
       </div>
-      <div class="VbContainer__title__spacer"/>
+      <div class="VbCard__title__spacer"/>
       <div
         v-if="refresh"
-        class="VbContainer__title__icon"
+        class="VbCard__title__icon"
         @click="doRefresh()"
         title="Refresh"
       >
@@ -21,7 +22,7 @@
       </div>
     </div>
     <div
-      class="VbContainer__content"
+      class="VbCard__content"
       ref="content"
       :style="computedStyle"
     >
@@ -32,10 +33,14 @@
 
 <script lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { ContainerFocusInjectMixin } from './ContainerFocusService'
 
 export default {
-  name: 'VbContainer',
+  name: 'VbCard',
   components: { FontAwesomeIcon },
+  mixins: [
+    ContainerFocusInjectMixin,
+  ],
   data: () => ({
     show: true,
     contentStyleTemp: null,
@@ -47,6 +52,7 @@ export default {
     refresh: Boolean,
     width: String,
     height: String,
+    color: String,
   },
   computed: {
     computedStyle () {
@@ -55,6 +61,7 @@ export default {
         'min-height': this.height,
         height: undefined,
         width: undefined,
+        backgroundColor: this.color,
       }
       if (this.contentStyleTemp) {
         computedStyle.height = this.contentStyleTemp.height
@@ -64,8 +71,8 @@ export default {
     },
     computedClass () {
       return {
-        'VbContainer--no-padding': this.noPadding,
-        'VbContainer--dashed': this.dashed,
+        'VbCard--no-padding': this.noPadding,
+        'VbCard--dashed': this.dashed,
       }
     },
   },
@@ -88,7 +95,7 @@ export default {
 </script>
 
 <style lang="scss">
-.VbContainer {
+.VbCard {
   margin: 5px;
   background-color: white;
 
@@ -120,7 +127,7 @@ export default {
   &__content {
     padding: 20px;
     @at-root {
-      .VbContainer.VbContainer--no-padding & {
+      .VbCard.VbCard--no-padding & {
         padding: 0;
       }
     }

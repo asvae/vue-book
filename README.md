@@ -105,7 +105,29 @@ Leave an issue if something doesn't work for you.
 
 Also remember: Stars fuel package development! 
 
-## Helpers [WIP]
+## Helper components [WIP]
+
+Vue book provides a bunch of helper components to simplify demo-building.
+
+### VbDemo
+
+Root level container.
+
+### VbCard
+
+You can consider this component as both 'card' and 'test-case'.
+
+**Props**
+
+* `title` - String. Title of the card.
+* `noPadding` - Boolean. Removes padding of `VbCard` content
+* `dashed` - Boolean. Makes card border dashed, which makes it easier to see in some cases.
+* `refresh` - Boolean. Shows on card header a refresh button that redraws card content. Useful for testing reactivity.
+* `width` - String. Card width.
+* `height` - String. Card height.
+* `color` - String. Card color.
+ 
+* `focus` - Boolean. If any `VbCard` is focused - only focused cards will be shown in demo. This is useful when you want to work on specific case and hide unneeded ones. 
 
 ### Install
 
@@ -119,9 +141,9 @@ Component helpers
 
 ```vue
 <VbDemo>
-  <VbContainer title="is active">
+  <VbCard title="is active">
     <YourComponent is-active/>
-  </VbContainer>
+  </VbCard>
 </VbDemo>
 ```
 
