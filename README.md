@@ -2,7 +2,7 @@
 
 Tree view for your demo components. [Demo](http://vue-book.asva.by/#/Demo/ContactComponent.vue).
 
-![Interface](docs/main.gif)
+![Interface](packages/vue-book/docs/main.gif)
 
 ## Install
 
