@@ -97,6 +97,24 @@ import { ContainerFocusProvideMixin } from '../Exposed/ContainerFocusService'
 
 let lastUpdateTimestamp = 0
 
+const hasInFilename = (searchText: string, treeFile: TreeFile) => {
+  return treeFile.getFilename().toUpperCase().includes(searchText)
+}
+
+const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
+  return treeFiles.sort((a, b) => {
+    const search = searchText.toUpperCase()
+    // Files that have a search in their filename are sent to the top.
+    if (hasInFilename(search, a) && !hasInFilename(search, b)) {
+      return -1
+    }
+    if (hasInFilename(search, b) && !hasInFilename(search, a)) {
+      return 1
+    }
+    return 0
+  })
+}
+
 export default {
   name: 'VueBookRoot',
   mixins: [
@@ -218,7 +236,8 @@ export default {
       if (!this.config.searchText) {
         return this.files
       }
-      return this.files.filter((file: any) => this.fileSelected(file))
+      const treeFiles = this.files.filter((file: any) => this.fileSelected(file))
+      return sortByRelevance(this.config.searchText, treeFiles)
     },
   },
   methods: {

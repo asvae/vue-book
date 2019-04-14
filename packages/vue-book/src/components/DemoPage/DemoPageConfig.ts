@@ -5,7 +5,7 @@ export enum DemoPageMode {
 }
 
 export default class DemoPageConfig {
-  mode: DemoPageMode = DemoPageMode.Tree
+  mode: DemoPageMode = DemoPageMode.Search
   isFlat: boolean = false
   searchText: string = ''
   width: number = 300
