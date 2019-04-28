@@ -126,6 +126,7 @@ You can consider this component as both 'card' and 'test-case'.
 * `width` - String. Card width.
 * `height` - String. Card height.
 * `color` - String. Card color.
+* `dark` - Boolean. Dark color theme.
  
 * `focus` - Boolean. If any `VbCard` is focused - only focused cards will be shown in demo. This is useful when you want to work on specific case and hide unneeded ones. 
 

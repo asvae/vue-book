@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard>
-      Default container
+      Default
     </VbCard>
     <VbCard no-padding>
       No padding
@@ -9,14 +9,30 @@
     <VbCard dashed>
       Dashed
     </VbCard>
-    <VbCard title="With title">
-      With title
+    <VbCard title="Title">
+      Content
     </VbCard>
-    <VbCard title="With title" refresh>
+    <VbCard no-padding title="No padding + title">
+      Content
+    </VbCard>
+    <VbCard title="Title" refresh>
+
       With title and refresh
     </VbCard>
-    <VbCard refresh height="100px" width="300px">
-      <div style="background-color: #1fc8db; height: 100%; width: 150px">With refresh</div>
+    <VbCard refresh>
+      <div style="background-color: #1fc8db; height: 100%; width: 150px">Refresh (<RefreshCounter/>)</div>
+    </VbCard>
+    <VbCard height="100px" width="150px">
+      150x100
+    </VbCard>
+    <VbCard title="Dark" dark refresh dashed>
+      <span style="color: white">Content</span>
+    </VbCard>
+    <VbCard title="Color" refresh color="orange">
+      Content
+    </VbCard>
+    <VbCard title="Dark + color" dark refresh color="orange">
+      <span style="color: white">Content</span>
     </VbCard>
   </VbDemo>
 </template>
@@ -24,11 +40,13 @@
 <script>
 import VbDemo from './VbDemo'
 import VbCard from './VbCard'
+import RefreshCounter from './__demo__/RefreshCounter'
 
 export default {
   components: {
+    RefreshCounter,
     VbCard,
     VbDemo,
-  }
+  },
 }
 </script>
