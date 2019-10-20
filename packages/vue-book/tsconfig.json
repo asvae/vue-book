@@ -2,7 +2,7 @@
   "compilerOptions": {
     "noImplicitThis": false,
     "rootDir": "./src",
-    "target": "esnext",
+    "target": "es5",
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",

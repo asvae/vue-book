@@ -22,18 +22,10 @@ export const VueBookComponents = {
   },
 }
 
-export const createRoute =
-  (options: Partial<VueBookConfig>) =>
-    VueBookRouteFactory.createRoute(new VueBookConfig(options))
+export function createRoute (options: Partial<VueBookConfig>) {
+  return VueBookRouteFactory.createRoute(new VueBookConfig(options))
+}
 
-export const createComponent =
-  (options: Partial<VueBookConfig>) =>
-    VueBookRouteFactory.createComponent(new VueBookConfig(options))
-
-/** @deprecated use createRoute instead */
-export default function (requireContext: any, path: string | RegExp) {
-  return createRoute(new VueBookConfig({
-    requireContext,
-    path,
-  }))
+export function createComponent (options: Partial<VueBookConfig>) {
+  return VueBookRouteFactory.createComponent(new VueBookConfig(options))
 }

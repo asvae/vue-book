@@ -1,15 +1,20 @@
-import Vue from 'vue'
 import Router from 'vue-router'
-// import { createRoute } from 'vue-book'
+import Vue from 'vue'
+
+const something = require('vue-book/dist/js/app.js')
 import ContactComponent from './components/tree/ContactComponent'
 
-Vue.use(Router)
+console.log('something', something)
+console.log('something.one', something.one)
+console.log('something.four', something.four)
+console.log('something.five', something.five)
 
-const createRoute = require('vue-book')
+Vue.use(Router)
+Vue.use(VueBookComponents)
 
 export default new Router({
   routes: [
-    createRoute.createRoute({
+    createRoute({
       requireContext: require.context('./components', true, /.vue$/),
       path: '/demo',
       hideFileExtensions: false, // optional, hides file extensions in list.

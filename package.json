@@ -2,7 +2,7 @@
   "name": "vue-book-root",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.6.0"
+    "lerna": "^3.16.4"
   },
   "workspaces": [
     "packages/*"

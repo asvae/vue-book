@@ -1,10 +1,10 @@
 const path = require('path')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   resolve: {
     extensions: ['.ts', '.js'],
     alias: {
@@ -14,6 +14,10 @@ module.exports = {
   performance: {
     hints: false,
   },
+  optimization: {
+    // We no not want to minimize our code.
+    minimize: false,
+  },
   entry: './src/app.ts',
   output: {
     path: path.resolve(__dirname, '../../dist/js'),
@@ -22,9 +26,9 @@ module.exports = {
     library: 'VueBook',
     libraryTarget: 'umd',
   },
-  stats: 'minimal',
   externals: {
-    vue: 'vue'
+    vue: 'vue',
+    tslib: 'tslib',
   },
   module: {
     rules: [
@@ -54,11 +58,11 @@ module.exports = {
           appendTsSuffixTo: [/\.vue$/],
         },
       },
-      {
-        test: /\.js$/,
-        use: 'babel-loader',
-        exclude: /node_modules/,
-      },
+      // {
+      //   test: /\.js$/,
+      //   use: 'babel-loader',
+      //   exclude: /node_modules/,
+      // },
       {
         test: /\.(png|jpg|gif)$/,
         loader: 'file-loader',
@@ -75,7 +79,7 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new CleanWebpackPlugin(['dist'], { root: path.resolve(__dirname, '../..') }),
+    new CleanWebpackPlugin(),
     // new BundleAnalyzerPlugin(),
   ],
   devtool: '#source-map',

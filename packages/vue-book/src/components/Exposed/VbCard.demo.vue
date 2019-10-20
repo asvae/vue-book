@@ -16,7 +16,6 @@
       Content
     </VbCard>
     <VbCard title="Title" refresh>
-
       With title and refresh
     </VbCard>
     <VbCard refresh>

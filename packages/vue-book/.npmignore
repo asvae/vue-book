@@ -1,9 +1,10 @@
 !/dist
 /docs
 /demo
-/test
+/tests
 /src
 
+.circleci
 .idea
 .vscode
 
