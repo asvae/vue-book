@@ -41,64 +41,60 @@
 </template>
 
 <script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ContainerFocusInjectMixin } from './ContainerFocusService'
 
-export default {
-  name: 'VbCard',
+@Component({
   components: { FontAwesomeIcon },
-  mixins: [
-    ContainerFocusInjectMixin,
-  ],
-  data: () => ({
-    show: true,
-    cardStyleTemp: null,
-  }),
-  props: {
-    noPadding: Boolean,
-    dashed: Boolean,
-    title: String,
-    refresh: Boolean,
-    dark: Boolean,
-    width: String,
-    height: String,
-    color: String,
-  },
-  computed: {
-    computedStyle () {
-      if (this.cardStyleTemp) {
-        return {
-          ...this.cardStyleTemp,
-          backgroundColor: this.color,
-        }
-      }
+  mixins: [ContainerFocusInjectMixin],
+})
+export default class VbCard extends Vue {
+  @Prop(Boolean) noPadding!: boolean
+  @Prop(Boolean) dashed!: boolean
+  @Prop(String) title!: string
+  @Prop(Boolean) refresh!: boolean
+  @Prop(Boolean) dark!: boolean
+  @Prop(String) width!: string
+  @Prop(String) height!: string
+  @Prop(String) color!: string
 
+  show = true
+  cardStyleTemp: {} | { width: string, height: string } = {}
+
+  get computedStyle () {
+    if (this.cardStyleTemp) {
       return {
-        height: this.height,
-        width: this.width,
+        ...this.cardStyleTemp,
         backgroundColor: this.color,
       }
-    },
-    computedClass () {
-      return {
-        'VbCard--no-padding': this.noPadding,
-        'VbCard--dashed': this.dashed,
-        'VbCard--dark': this.dark,
-      }
-    },
-  },
-  methods: {
-    doRefresh () {
-      const { width, height } = window.getComputedStyle(this.$el)
-      this.cardStyleTemp = { width, height }
-      this.show = false
+    }
 
-      setTimeout(() => {
-        this.cardStyleTemp = null
-        this.show = true
-      })
-    },
-  },
+    return {
+      height: this.height,
+      width: this.width,
+      backgroundColor: this.color,
+    }
+  }
+
+  get computedClass () {
+    return {
+      'VbCard--no-padding': this.noPadding,
+      'VbCard--dashed': this.dashed,
+      'VbCard--dark': this.dark,
+    }
+  }
+
+  doRefresh () {
+    const { width, height } = window.getComputedStyle(this.$el)
+    this.cardStyleTemp = { width, height }
+    this.show = false
+
+    setTimeout(() => {
+      this.cardStyleTemp = {}
+      this.show = true
+    })
+  }
 }
 </script>
 

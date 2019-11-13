@@ -1,53 +1,45 @@
 <template>
-  <div class="vue-book-resize-line"
-       :class="{'vue-book-resize-line--is-horizontal': isHorizontal}"
-       draggable
-       @drag="onDrag"
-  />
+  <div
+    class="VueBookResizeLine"
+    :class="{'VueBookResizeLine--is-horizontal': isHorizontal}"
+    draggable
+    @drag="onDrag"
+  >
+
+  </div>
 </template>
 
 <script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
-export default {
-  data () {
-    return {
-      startValue: 0,
-      startCoordinate: 0,
+@Component({})
+export default class VueBookResizeLine extends Vue {
+  startValue = 0
+  startCoordinate = 0
+  @Prop({ type: Number, required: true }) value!: number
+  @Prop({ type: Boolean, required: true }) isHorizontal!: boolean
+
+  onDrag (event: DragEvent): void {
+    // No idea how, but this works.
+    if (this.isHorizontal) {
+      if (event.screenY) {
+        const totalHeight = document.documentElement.clientHeight
+        this.$emit('input', totalHeight - (event.clientY))
+      }
+      return
     }
-  },
-  props: {
-    value: {
-      type: Number,
-      required: true,
-    },
-    isHorizontal: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  methods: {
-    onDrag (event: DragEvent): void {
-      // No idea how, but this works.
-      if (this.isHorizontal) {
-        if (event.screenY) {
-          const totalHeight = document.documentElement.clientHeight
-          this.$emit('input', totalHeight - (event.clientY))
-        }
-        return
-      }
 
-      if (event.screenX) {
-        this.$emit('input', event.clientX)
-      }
-    },
-  },
+    if (event.screenX) {
+      this.$emit('input', event.clientX)
+    }
+  }
 }
 </script>
 
 <style lang="scss">
 @import "../../scss/resources";
 
-.vue-book-resize-line {
+.VueBookResizeLine {
   width: 4px;
   cursor: col-resize;
   &--is-horizontal {

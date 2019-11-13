@@ -1,26 +1,29 @@
 <template>
-  <div class="several-instances">
+  <div class="SeveralInstances">
     <vue-book/>
     <vue-book/>
   </div>
 </template>
 
 <script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 import { createComponent } from '../src/app'
 
-export default {
-  name: 'several-instances',
+@Component({
   components: {
     VueBook: createComponent({
       requireContext: require.context('./tree', true, /.vue$/),
       hideFileExtensions: true,
     })
-  }
+  },
+})
+export default class SeveralInstances extends Vue {
+
 }
 </script>
 
 <style lang="scss">
-.several-instances {
+.SeveralInstances {
   display: flex;
   height: 100%;
   .vue-book-root {

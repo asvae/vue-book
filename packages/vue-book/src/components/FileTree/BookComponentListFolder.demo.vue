@@ -1,48 +1,34 @@
 <template>
-  <div class="demo-container">
-    <div style="width: 250px">
-      <div class="demo-container__item demo-container--config">
-        <div class="demo-container__header"
-             v-text="'type'"
-        />
-        <div v-for="(value, key) in valueList"
-             class="selectable-item is-small"
-             :class="{active: valueSelected === key}"
-             @click="valueSelected = key"
-             v-text="key"
-        />
-      </div>
-    </div>
-
-    <div class="demo-container__item" style="width: 250px">
-      <div class="demo-container__header"
-           v-text="valueSelected"
+  <VbDemo>
+    <VbCard title="type" :width="250">
+      <div v-for="(value, key) in valueList"
+           class="selectable-item is-small"
+           :class="{active: valueSelected === key}"
+           @click="valueSelected = key"
+           v-text="key"
       />
-      <book-component-list-folder :folder="valueList[valueSelected]"/>
-    </div>
-  </div>
+    </VbCard>
+    <VbCard :title="valueSelected" :width="250">
+      <BookComponentListFolder :folder="valueList[valueSelected]"/>
+    </VbCard>
+  </VbDemo>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 import BookComponentListFolder from './BookComponentListFolder.vue'
-import DemoNode from '../../classes/Main/TreeFile'
-import { TreeFolder } from '../../classes/Main/TreeFolder'
 import DemoFolderFactory from '../../classes/Factory/DemoFolderFactory'
 
-export default {
-  data () {
-    return {
-      valueList: {
-        empty: DemoFolderFactory.getEmpty(),
-        withFolders: DemoFolderFactory.getWithFolders(),
-        withFiles: DemoFolderFactory.getWithFiles(),
-        withFilesAndFolders: DemoFolderFactory.getWithFoldersAndFiles(),
-      },
-      valueSelected: 'empty',
-    }
-  },
-  components: {
-    BookComponentListFolder,
-  },
+@Component({
+  components: { BookComponentListFolder },
+})
+export default class BookComponentListFolderDemo extends Vue {
+  valueList = {
+    empty: DemoFolderFactory.getEmpty(),
+    withFolders: DemoFolderFactory.getWithFolders(),
+    withFiles: DemoFolderFactory.getWithFiles(),
+    withFilesAndFolders: DemoFolderFactory.getWithFoldersAndFiles(),
+  }
+  valueSelected = 'empty'
 }
 </script>

@@ -1,32 +1,30 @@
 <template>
-  <div class="demo-container">
-    <div class="demo-container__item"
-         style="width: 300px"
-         v-for="(value, key) in valueList"
+  <VbDemo>
+    <VbCard
+      style="width: 300px"
+      v-for="(value, key) in valueList"
+      :title="key"
+      :key="key"
     >
-      <div class="demo-container__header"
-           v-text="key"
-      />
       <BookComponentListItem :file="value"/>
-    </div>
-  </div>
+    </VbCard>
+  </VbDemo>
 </template>
 
-<script>
-import BookComponentListItem from './BookComponentListItem'
-import { TreeFileFactory } from "../../classes/Factory/TreeFileFactory";
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import { TreeFileFactory } from '../../classes/Factory/TreeFileFactory'
+import BookComponentListItem from './BookComponentListItem.vue'
 
-export default {
+@Component({
   components: {
     BookComponentListItem,
   },
-  data () {
-    return {
-      valueList: {
-        short: TreeFileFactory.getWithShortPath(),
-        long: TreeFileFactory.getWithLongPath(),
-      }
-    }
-  },
+})
+export default class BookComponentListItemDemo extends Vue {
+  valueList = {
+    short: TreeFileFactory.getWithShortPath(),
+    long: TreeFileFactory.getWithLongPath(),
+  }
 }
 </script>

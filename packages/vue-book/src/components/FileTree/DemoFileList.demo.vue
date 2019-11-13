@@ -10,25 +10,23 @@
 </template>
 
 <script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 import DemoFileList from './DemoFileList.vue'
 import { TreeFileFactory } from '../../classes/Factory/TreeFileFactory'
 import { ListCursor } from './ListCursor'
 
-export default {
+@Component({
   components: {
     DemoFileList,
   },
-  data () {
-    const treeFiles = [
-      TreeFileFactory.getWithShortPath(),
-      TreeFileFactory.getWithLongPath(),
-    ]
-    return {
-      files: treeFiles,
-      listCursor: new ListCursor({
-        preSelectedItem: treeFiles[1],
-      }),
-    }
-  },
+})
+export default class DemoFileListDemo extends Vue {
+  files = [
+    TreeFileFactory.getWithShortPath(),
+    TreeFileFactory.getWithLongPath(),
+  ]
+  listCursor = new ListCursor({
+    preSelectedItem: this.files[1],
+  })
 }
 </script>

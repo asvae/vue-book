@@ -13,7 +13,7 @@ const router = new Router({
       requireContext: require.context('./tree', true, /.vue$/),
       path: '/demo',
       hideFileExtensions: true,
-      // hideNavigation: true,
+      // hideNavigation: true,TreeFileFactory
     }),
     {
       path: '/component-mode',

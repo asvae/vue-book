@@ -1,5 +1,5 @@
 <template>
-  <div class="vue-book-menu">
+  <div class="VueBookMenu">
     <com-button-icon
       class="vue-book-menu__icon"
       @click.native="config.mode = DemoPageMode.Tree"
@@ -31,41 +31,32 @@
 </template>
 
 <script lang="ts">
-import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
-import { TreeFile } from '../../classes/Main/TreeFile'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ComButtonIcon from './ComButtonIcon/ComButtonIcon.vue'
+import { TreeFile } from '../../classes/Main/TreeFile'
+import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
 
-export default {
-  name: 'vue-book-menu',
-  components: {
-    ComButtonIcon,
-    FontAwesomeIcon,
-  },
-  props: {
-    currentFile: {
-      type: TreeFile,
-      required: false,
-    },
-    config: {
-      type: DemoPageConfig,
-      required: true,
-    },
-  },
-  computed: {
-    DemoPageMode: () => DemoPageMode,
-  },
+@Component({
+  ComButtonIcon,
+  FontAwesomeIcon,
+})
+export default class VueBookMenu extends Vue {
+  @Prop({ type: TreeFile, required: false }) currentFile!: TreeFile
+  @Prop({ type: DemoPageConfig, required: false }) config!: DemoPageConfig
+
+  DemoPageMode = DemoPageMode
 }
 </script>
 
 <style lang="scss">
 @import "../../scss/resources";
 
-.vue-book-menu {
+.VuebookMenu {
   display: flex;
+
   &__filler {
     flex: 1 0;
   }
 }
 </style>
-
