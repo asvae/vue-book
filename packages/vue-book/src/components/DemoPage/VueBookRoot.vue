@@ -94,6 +94,7 @@ import {
 } from './VueBookTreeOptions'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ContainerFocusProvideMixin } from '../Exposed/ContainerFocusService'
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 
 let lastUpdateTimestamp = 0
 
@@ -115,11 +116,7 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
   })
 }
 
-export default {
-  name: 'VueBookRoot',
-  mixins: [
-    ContainerFocusProvideMixin,
-  ],
+@Component({
   components: {
     TreeDemoFileList,
     VueBookInput,
@@ -130,207 +127,215 @@ export default {
     BookComponentListItem,
     FontAwesomeIcon,
   },
-  data () {
-    return {
-      treeFolder: null,
-      listCursor: new ListCursor(),
-      configStore: new ConfigStore(),
-      foldersStoreInstance: new FoldersStore(),
-      vueBookTreeOptions: new VueBookTreeOptions({
-        noRouter: this.getNoRouter(),
-        selectedTreeFile: null,
-        hideFileExtensions: this.getHideFileExtensions(),
-      }),
-    }
-  },
-  props: {
-    treeFolderDefault: {
-      type: TreeFolder,
-    },
-    treeFileCollectionDefault: {
-      type: TreeFileCollection,
-    },
-    hideFileExtensionsDefault: {
-      type: Boolean,
-      default: false,
-    },
-    hideNavigationDefault: {
-      type: Boolean,
-      default: false,
-    },
-  },
+  mixins: [
+    ContainerFocusProvideMixin,
+  ],
+})
+export default class VueBookRoot extends Vue {
+  @Prop(TreeFolder) treeFolderDefault!: TreeFolder
+  @Prop(TreeFileCollection) treeFileCollectionDefault!: TreeFileCollection
+  @Prop({ type: Boolean, default: false }) hideFileExtensionsDefault!: boolean
+  @Prop({ type: Boolean, default: false }) hideNavigationDefault!: boolean
+
+  treeFolder: TreeFolder | null = null
+  listCursor = new ListCursor()
+  configStore = new ConfigStore()
+  foldersStoreInstance = new FoldersStore()
+  vueBookTreeOptions = new VueBookTreeOptions({
+    noRouter: this.getNoRouter(),
+    selectedTreeFile: null,
+    hideFileExtensions: this.getHideFileExtensions(),
+  })
+
   mounted () {
-    const input = this.$refs.searchInput
-    input && input.$el.focus()
-  },
+    const input = this.$refs.searchInput as any
+    input && (input.$el as HTMLInputElement).focus()
+  }
+
   created () {
     this.foldersStoreInstance.load()
     this.configStore.load()
     const treeFolder = this.getDemoFolder()
     treeFolder.mergeWithFolders(this.foldersStoreInstance.openFolders)
     this.treeFolder = treeFolder
-  },
-  watch: {
-    'config': {
-      handler (value: DemoPageConfig) {
-        if (lastUpdateTimestamp < Math.floor(Date.now()) - 200) {
-          this.configStore.config = value
-          this.configStore.save()
-          lastUpdateTimestamp = Math.floor(Date.now())
-        }
-      },
-      deep: true,
-    },
-    'treeFolder': {
-      handler (value: TreeFolder) {
-        this.foldersStoreInstance.openFolders = value.getOpenFolders()
-        this.foldersStoreInstance.save()
-      },
-      deep: true,
-    },
-  },
+  }
+
+  @Watch('config', { deep: true })
+  onConfigChange (value: DemoPageConfig) {
+    if (lastUpdateTimestamp < Math.floor(Date.now()) - 200) {
+      this.configStore.config = value
+      this.configStore.save()
+      lastUpdateTimestamp = Math.floor(Date.now())
+    }
+  }
+
+  @Watch('treeFolder', { deep: true })
+  onTreeFolderChange (value: TreeFolder) {
+    this.foldersStoreInstance.openFolders = value.getOpenFolders()
+    this.foldersStoreInstance.save()
+  }
+
+  // TODO Use decorators.
   provide () {
     return {
       [VueBookTreeOptionsInterface]: this.vueBookTreeOptions,
     }
-  },
-  computed: {
-    DemoPageMode: () => DemoPageMode,
-    noRouter (): boolean {
-      return this.getNoRouter()
-    },
-    hideFileExtensions (): boolean {
-      return this.getHideFileExtensions()
-    },
-    config () {
-      return this.configStore.config
-    },
-    component () {
-      return this.currentFile && this.currentFile.component
-    },
-    currentFile (): TreeFile | null {
-      if (this.noRouter) {
-        return this.vueBookTreeOptions.selectedTreeFile
-      }
+  }
 
-      return this.files.find((file: any) => {
-        return this.$route.path === file.path
-      }) || null
-    },
-    files (): TreeFile[] {
-      return this.treeFileCollection.treeFiles
-    },
-    treeFileCollection (): TreeFileCollection {
-      let treeFileCollection = this.treeFileCollectionDefault
-      if (!treeFileCollection) {
-        treeFileCollection = this.$route.meta.treeFileCollection
-      }
+  get DemoPageMode () {
+    return DemoPageMode
+  }
 
-      if (!(treeFileCollection instanceof TreeFileCollection)) {
-        throw new Error('No treeFileCollection found: pass it to props or provide via route meta')
-      }
+  get noRouter (): boolean {
+    return this.getNoRouter()
+  }
 
-      return treeFileCollection
-    },
-    filteredFiles (): TreeFile[] {
-      if (!this.config.searchText) {
-        return this.files
-      }
-      const treeFiles = this.files.filter((file: any) => this.fileSelected(file))
-      return sortByRelevance(this.config.searchText, treeFiles)
-    },
-  },
-  methods: {
-    clearSearch (): void {
-      this.config.searchText = ''
-      this.$refs.searchInput.focus()
-    },
-    getNoRouter (): boolean {
-      return !!(this.treeFolderDefault && this.treeFileCollectionDefault)
-    },
-    getHideFileExtensions (): boolean {
-      if (this.noRouter) {
-        return this.hideFileExtensionsDefault
-      }
+  get hideFileExtensions (): boolean {
+    return this.getHideFileExtensions()
+  }
 
-      return this.$route.meta.hideFileExtensions
-    },
-    getHideNavigation (): boolean {
-      if (this.noRouter) {
-        return this.hideNavigationDefault
-      }
+  get config (): DemoPageConfig {
+    if (this.configStore.config === null) {
+      throw new Error('configStore is null')
+    }
+    return this.configStore.config
+  }
 
-      return this.$route.meta.hideNavigation
-    },
-    getDemoFolder (): TreeFolder {
-      let treeFolder = this.treeFolderDefault
-      if (!treeFolder) {
-        treeFolder = this.$route.meta.treeFolder
-      }
+  get component () {
+    return this.currentFile && this.currentFile.component
+  }
 
-      if (!(treeFolder instanceof TreeFolder)) {
-        throw new Error('No treeFolder found: pass it to props or provide via route meta')
-      }
+  get currentFile (): TreeFile | null {
+    if (this.noRouter) {
+      return this.vueBookTreeOptions.selectedTreeFile
+    }
 
-      return treeFolder
-    },
-    fileSelected (file: TreeFile): boolean {
-      if (this.noRouter) {
-        return this.vueBookTreeOptions.selectedTreeFile === file
-      }
+    return this.files.find((file: any) => {
+      return this.$route.path === file.path
+    }) || null
+  }
 
-      const path = file.path.toUpperCase()
-      const text = this.config.searchText.toUpperCase()
-      const includesFull = path.includes(text)
-      if (includesFull) {
-        return includesFull
-      }
-      const upperCaseLetters = file.getFilename().replace(/[a-z.]/g, '')
-      return upperCaseLetters.includes(this.config.searchText)
-    },
-    moveCursor (delta: number) {
-      const files = this.filteredFiles
+  get files (): TreeFile[] {
+    return this.treeFileCollection.treeFiles
+  }
 
-      if (!this.listCursor.preSelectedItem) {
-        this.listCursor.preSelectedItem = files[0]
-        return
-      }
+  get treeFileCollection (): TreeFileCollection {
+    let treeFileCollection = this.treeFileCollectionDefault
+    if (!treeFileCollection) {
+      treeFileCollection = this.$route.meta.treeFileCollection
+    }
 
-      const fileIndex = files.indexOf(this.listCursor.preSelectedItem)
-      if (fileIndex === -1) {
-        this.listCursor.preSelectedItem = files[0]
-        return
-      }
-      const nextFileIndex = fileIndex + delta
-      if (nextFileIndex === -1) {
-        this.listCursor.preSelectedItem = files[0]
-        return
-      }
-      if (nextFileIndex === files.length) {
-        this.listCursor.preSelectedItem = files[files.length - 1]
-        return
-      }
-      this.listCursor.preSelectedItem = files[nextFileIndex]
-    },
-    selectFileUnderCursor () {
-      const fileUnderCursor = this.listCursor.preSelectedItem
+    if (!(treeFileCollection instanceof TreeFileCollection)) {
+      throw new Error('No treeFileCollection found: pass it to props or provide via route meta')
+    }
 
-      if (!fileUnderCursor) {
-        return
-      }
+    return treeFileCollection
+  }
 
-      if (!this.filteredFiles.includes(fileUnderCursor)) {
-        return
-      }
+  get filteredFiles (): TreeFile[] {
+    if (!this.config.searchText) {
+      return this.files
+    }
+    const treeFiles = this.files.filter((file: any) => this.fileSelected(file))
+    return sortByRelevance(this.config.searchText, treeFiles)
+  }
 
-      if (this.noRouter) {
-        this.vueBookTreeOptions.selectedTreeFile = fileUnderCursor
-        return
-      }
+  clearSearch (): void {
+    this.config.searchText = ''
+    ;(this.$refs.searchInput as HTMLInputElement).focus()
+  }
 
-      this.$router.push(fileUnderCursor.path)
-    },
-  },
+  getNoRouter (): boolean {
+    return !!(this.treeFolderDefault && this.treeFileCollectionDefault)
+  }
+
+  getHideFileExtensions (): boolean {
+    if (this.noRouter) {
+      return this.hideFileExtensionsDefault
+    }
+
+    return this.$route.meta.hideFileExtensions
+  }
+
+  getHideNavigation (): boolean {
+    if (this.noRouter) {
+      return this.hideNavigationDefault
+    }
+
+    return this.$route.meta.hideNavigation
+  }
+
+  getDemoFolder (): TreeFolder {
+    let treeFolder = this.treeFolderDefault
+    if (!treeFolder) {
+      treeFolder = this.$route.meta.treeFolder
+    }
+
+    if (!(treeFolder instanceof TreeFolder)) {
+      throw new Error('No treeFolder found: pass it to props or provide via route meta')
+    }
+
+    return treeFolder
+  }
+
+  fileSelected (file: TreeFile): boolean {
+    if (this.noRouter) {
+      return this.vueBookTreeOptions.selectedTreeFile === file
+    }
+
+    const path = file.path.toUpperCase()
+    const text = this.config.searchText.toUpperCase()
+    const includesFull = path.includes(text)
+    if (includesFull) {
+      return includesFull
+    }
+    const upperCaseLetters = file.getFilename().replace(/[a-z.]/g, '')
+    return upperCaseLetters.includes(this.config.searchText)
+  }
+
+  moveCursor (delta: number) {
+    const files = this.filteredFiles
+
+    if (!this.listCursor.preSelectedItem) {
+      this.listCursor.preSelectedItem = files[0]
+      return
+    }
+
+    const fileIndex = files.indexOf(this.listCursor.preSelectedItem)
+    if (fileIndex === -1) {
+      this.listCursor.preSelectedItem = files[0]
+      return
+    }
+    const nextFileIndex = fileIndex + delta
+    if (nextFileIndex === -1) {
+      this.listCursor.preSelectedItem = files[0]
+      return
+    }
+    if (nextFileIndex === files.length) {
+      this.listCursor.preSelectedItem = files[files.length - 1]
+      return
+    }
+    this.listCursor.preSelectedItem = files[nextFileIndex]
+  }
+
+  selectFileUnderCursor () {
+    const fileUnderCursor = this.listCursor.preSelectedItem
+
+    if (!fileUnderCursor) {
+      return
+    }
+
+    if (!this.filteredFiles.includes(fileUnderCursor)) {
+      return
+    }
+
+    if (this.noRouter) {
+      this.vueBookTreeOptions.selectedTreeFile = fileUnderCursor
+      return
+    }
+
+    this.$router.push(fileUnderCursor.path)
+  }
 }
 </script>
 

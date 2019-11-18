@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts">
+import { Component, Vue, Prop, Inject } from 'vue-property-decorator'
 import { TreeFile } from '../../classes/Main/TreeFile'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
@@ -23,48 +24,36 @@ import {
   VueBookTreeOptionsInterface,
 } from '../DemoPage/VueBookTreeOptions'
 
-export default {
-  name: 'BookComponentListItem',
+@Component({
   components: {
     FontAwesomeIcon,
   },
-  inject: [
-    VueBookTreeOptionsInterface,
-  ],
-  props: {
-    file: {
-      type: TreeFile,
-      required: true,
-    },
-  },
-  computed: {
-    vueBookTreeOptions () {
-      return this[VueBookTreeOptionsInterface] as VueBookTreeOptions
-    },
-    name () {
-      if (this.vueBookTreeOptions.hideFileExtensions) {
-        return (this.file as TreeFile).getFilenameWithoutExtension()
-      }
-      return (this.file as TreeFile).getFilename()
-    },
-    isActive () {
-      if (this.vueBookTreeOptions.noRouter) {
-        return this.vueBookTreeOptions.selectedTreeFile === this.file
-      }
+})
+export default class BookComponentListItem extends Vue {
+  @Inject(VueBookTreeOptionsInterface) readonly vueBookTreeOptions!: VueBookTreeOptions
+  @Prop({type: TreeFile, required: true}) file!: TreeFile
 
-      return this.$route.path === this.file.path
-    },
-  },
-  methods: {
-    select (): void {
-      if (this.vueBookTreeOptions.noRouter) {
-        this.vueBookTreeOptions.selectedTreeFile = this.file as TreeFile
-        return
-      }
+  get name () {
+    if (this.vueBookTreeOptions.hideFileExtensions) {
+      return (this.file as TreeFile).getFilenameWithoutExtension()
+    }
+    return (this.file as TreeFile).getFilename()
+  }
+  get isActive () {
+    if (this.vueBookTreeOptions.noRouter) {
+      return this.vueBookTreeOptions.selectedTreeFile === this.file
+    }
 
-      this.$router.push(this.file.path)
-    },
-  },
+    return this.$route.path === this.file.path
+  }
+  select (): void {
+    if (this.vueBookTreeOptions.noRouter) {
+      this.vueBookTreeOptions.selectedTreeFile = this.file as TreeFile
+      return
+    }
+
+    this.$router.push(this.file.path)
+  }
 }
 </script>
 

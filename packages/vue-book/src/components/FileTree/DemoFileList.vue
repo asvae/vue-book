@@ -11,31 +11,25 @@
   </div>
 </template>
 
+
 <script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
 import { TreeFile } from '../../classes/Main/TreeFile'
 import { ListCursor } from './ListCursor'
 import BookComponentListItem from './BookComponentListItem.vue'
 
-export default {
-  name: 'DemoFileList',
+@Component({
   components: {
     BookComponentListItem,
   },
-  props: {
-    listCursor: {
-      type: ListCursor,
-      required: true,
-    },
-    files: {
-      type: Array,
-      required: true,
-    },
-  },
-  methods: {
-    filePreSelected (file: TreeFile): boolean {
-      return this.listCursor.preSelectedItem === file
-    },
-  },
+})
+export default class DemoFileList extends Vue {
+  @Prop({ type: ListCursor, required: true }) listCursor!: ListCursor
+  @Prop({ type: Array, required: true }) files!: TreeFile
+
+  filePreSelected (file: TreeFile): boolean {
+    return this.listCursor.preSelectedItem === file
+  }
 }
 </script>
 

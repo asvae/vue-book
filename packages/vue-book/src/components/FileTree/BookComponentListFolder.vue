@@ -1,7 +1,7 @@
 <template>
-  <div class="book-component-list-folder">
-    <div class="book-component-list-folder__header" @click="folder.toggle()">
-      <div class="book-component-list-folder__header__caret">
+  <div class="BookComponentListFolder">
+    <div class="BookComponentListFolder__header" @click="folder.toggle()">
+      <div class="BookComponentListFolder__header__caret">
         <font-awesome-icon
           v-if="folder.isOpen"
           icon="caret-down"
@@ -13,25 +13,25 @@
       </div>
 
       <font-awesome-icon
-        class="book-component-list-folder__header__icon"
+        class="BookComponentListFolder__header__icon"
         icon="folder"
       />
 
-      <div class="book-component-list-folder__title">
+      <div class="BookComponentListFolder__title">
         <span>{{folder.name}}</span>
       </div>
     </div>
 
-    <div class="book-component-list-folder__insides"
+    <div class="BookComponentListFolder__insides"
          v-if="folder.isOpen && ! folder.isEmpty()"
     >
-      <book-component-list-folder
+      <BookComponentListFolder
         v-for="child in folder.folders"
         :key="generateKey()"
         :folder="child"
         ref="folders"
       />
-      <vm-file
+      <BookComponentListItem
         v-for="file in folder.files"
         :key="generateKey()"
         :file="file"
@@ -41,56 +41,54 @@
 </template>
 
 <script lang="ts">
-import vmFile from './BookComponentListItem.vue'
+import { Component, Vue, Prop } from 'vue-property-decorator'
+
+import BookComponentListItem from './BookComponentListItem.vue'
 
 import { TreeFolder } from '../../classes/Main/TreeFolder'
 import { ObjectHelpers } from 'asva-helpers'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-export default {
-  name: 'book-component-list-folder',
+@Component({
   components: {
+    BookComponentListItem,
     FontAwesomeIcon,
-    vmFile,
   },
-  props: {
-    folder: {
-      type: TreeFolder,
-      required: true,
-    },
-  },
-  methods: {
-    openSelected (): void {
-      const foldersChain = ObjectHelpers
-        .traverseBranch(this.folder, { path: this.$route.path })
-        .filter(item => {
-          return (item instanceof TreeFolder)
-        })
+})
+export default class BookComponentListFolder extends Vue {
+  @Prop({ type: TreeFolder, required: true }) folder!: TreeFolder
 
-      if (foldersChain.length) {
-        this.folder.isOpen = true
-      }
+  openSelected (): void {
+    const foldersChain = ObjectHelpers
+      .traverseBranch(this.folder, { path: this.$route.path })
+      .filter(item => {
+        return (item instanceof TreeFolder)
+      })
 
-      if (foldersChain.length > 1) {
-        setTimeout(() => {
-          const folderComponent = this.$refs.folders.find(
-            (folderComponent: any) => folderComponent.folder === foldersChain[1],
-          )
-          folderComponent && folderComponent.openSelected()
-        })
-      }
-    },
-    generateKey (): number {
-      return Math.floor(Math.random() * 1e8)
-    },
-  },
+    if (foldersChain.length) {
+      this.folder.isOpen = true
+    }
+
+    if (foldersChain.length > 1) {
+      setTimeout(() => {
+        const folderComponent =
+          (this.$refs.folders as BookComponentListFolder[])
+            .find(folderComponent => folderComponent.folder === foldersChain[1])
+        folderComponent && folderComponent.openSelected()
+      })
+    }
+  }
+
+  generateKey (): number {
+    return Math.floor(Math.random() * 1e8)
+  }
 }
 </script>
 
 <style lang="scss">
 @import "../../scss/resources";
 
-.book-component-list-folder {
+.BookComponentListFolder {
   &__header {
     cursor: pointer;
     display: flex;

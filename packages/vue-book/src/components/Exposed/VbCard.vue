@@ -60,7 +60,7 @@ export default class VbCard extends Vue {
   @Prop(String) color!: string
 
   show = true
-  cardStyleTemp: {} | { width: string, height: string } = {}
+  cardStyleTemp: {} | { width: string | null, height: string | null } = {}
 
   get computedStyle () {
     if (this.cardStyleTemp) {
