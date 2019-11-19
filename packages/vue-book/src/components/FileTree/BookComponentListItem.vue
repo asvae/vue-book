@@ -31,7 +31,7 @@ import {
 })
 export default class BookComponentListItem extends Vue {
   @Inject(VueBookTreeOptionsInterface) readonly vueBookTreeOptions!: VueBookTreeOptions
-  @Prop({type: TreeFile, required: true}) file!: TreeFile
+  @Prop({ type: TreeFile, required: true }) file!: TreeFile
 
   get name () {
     if (this.vueBookTreeOptions.hideFileExtensions) {
@@ -39,6 +39,7 @@ export default class BookComponentListItem extends Vue {
     }
     return (this.file as TreeFile).getFilename()
   }
+
   get isActive () {
     if (this.vueBookTreeOptions.noRouter) {
       return this.vueBookTreeOptions.selectedTreeFile === this.file
@@ -46,6 +47,7 @@ export default class BookComponentListItem extends Vue {
 
     return this.$route.path === this.file.path
   }
+
   select (): void {
     if (this.vueBookTreeOptions.noRouter) {
       this.vueBookTreeOptions.selectedTreeFile = this.file as TreeFile
@@ -69,12 +71,15 @@ export default class BookComponentListItem extends Vue {
   color: black;
   white-space: nowrap;
   display: block;
+
   &#{&}--active {
     background-color: darken($color--main, 25);
   }
+
   &#{&}--active &__file-name {
     color: lighten($color--main, 45);
   }
+
   &__icon {
     color: #829268;
     margin-left: 3px;

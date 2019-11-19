@@ -17,7 +17,7 @@ export default class VueBookResizeLine extends Vue {
   startValue = 0
   startCoordinate = 0
   @Prop({ type: Number, required: true }) value!: number
-  @Prop({ type: Boolean, required: true }) isHorizontal!: boolean
+  @Prop({ type: Boolean, default: false }) isHorizontal!: boolean
 
   onDrag (event: DragEvent): void {
     // No idea how, but this works.

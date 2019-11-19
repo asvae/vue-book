@@ -58,7 +58,7 @@
           :listCursor="listCursor"
         />
       </div>
-      <vue-book-resize-line
+      <VueBookResizeLine
         class="VueBookRoot__left-block__resize-line"
         v-model="config.width"
       />
@@ -130,6 +130,12 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
   mixins: [
     ContainerFocusProvideMixin,
   ],
+  // TODO Use decorators.
+  provide () {
+    return {
+      [VueBookTreeOptionsInterface]: (this as VueBookRoot).vueBookTreeOptions,
+    }
+  }
 })
 export default class VueBookRoot extends Vue {
   @Prop(TreeFolder) treeFolderDefault!: TreeFolder
@@ -152,7 +158,8 @@ export default class VueBookRoot extends Vue {
     input && (input.$el as HTMLInputElement).focus()
   }
 
-  created () {
+  constructor () {
+    super();
     this.foldersStoreInstance.load()
     this.configStore.load()
     const treeFolder = this.getDemoFolder()
@@ -173,13 +180,6 @@ export default class VueBookRoot extends Vue {
   onTreeFolderChange (value: TreeFolder) {
     this.foldersStoreInstance.openFolders = value.getOpenFolders()
     this.foldersStoreInstance.save()
-  }
-
-  // TODO Use decorators.
-  provide () {
-    return {
-      [VueBookTreeOptionsInterface]: this.vueBookTreeOptions,
-    }
   }
 
   get DemoPageMode () {
