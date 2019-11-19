@@ -1,36 +1,30 @@
 <template>
-  <div class="com-button-icon"
-       :class="{'com-button-icon--active': active}"
+  <div class="ComButtonIcon"
+       :class="{'ComButtonIcon--active': active}"
   >
     <font-awesome-icon :icon="icon"/>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-export default {
-  name: 'com-button-icon',
+@Component({
   components: {
     FontAwesomeIcon,
-  },
-  props: {
-    icon: {
-      type: String,
-      required: true,
-    },
-    active: {
-      type: Boolean,
-      required: false,
-    },
-  },
+  }
+})
+export default class ComButtonIcon extends Vue {
+  @Prop({type: String, required: true}) icon!: string
+  @Prop({type: Boolean, default: false}) active!: boolean
 }
 </script>
 
 <style lang="scss">
 @import "../../../scss/resources";
 
-.com-button-icon {
+.ComButtonIcon {
   cursor: pointer;
   display: inline-flex;
   border-radius: 3px;
