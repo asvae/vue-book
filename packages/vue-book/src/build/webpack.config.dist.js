@@ -15,8 +15,7 @@ module.exports = {
     hints: false,
   },
   optimization: {
-    // We no not want to minimize our code.
-    minimize: false,
+    minimize: true,
   },
   entry: './src/app.ts',
   output: {
