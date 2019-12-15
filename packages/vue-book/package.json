@@ -1,6 +1,6 @@
 {
   "name": "vue-book",
-  "version": "0.1.0-alpha.24",
+  "version": "0.1.0-alpha.25",
   "description": "Tree view for your demo components",
   "main": "dist/js/app.js",
   "private": false,
@@ -32,7 +32,6 @@
     "vue": "^2.5.17"
   },
   "dependencies": {
-    "ts-loader": "^6.2.1",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
@@ -61,6 +60,7 @@
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "ts-jest": "^24.1.0",
+    "ts-loader": "^6.2.1",
     "typescript": "~3.5.3",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
