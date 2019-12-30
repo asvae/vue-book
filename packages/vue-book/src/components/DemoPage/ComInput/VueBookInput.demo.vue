@@ -1,25 +1,23 @@
 <template>
-  <div class="demo-container">
-    <div class="demo-container__item">
-      <vue-book-input
+  <VbDemo>
+    <VbCard>
+      <VueBookInput
         v-model="normal"
         placeholder="Normal"
       />
-    </div>
-  </div>
+    </VbCard>
+  </VbDemo>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 import VueBookInput from './VueBookInput.vue'
 
-export default {
-  components: {
-    VueBookInput,
-  },
-  data () {
-    return {
-      normal: '',
-    }
-  },
+@Component({
+  components: { VueBookInput },
+})
+export default class VueBookInputDemo extends Vue {
+  normal = ''
 }
 </script>
+

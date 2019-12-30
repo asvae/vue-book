@@ -9,14 +9,21 @@
   </VbDemo>
 </template>
 
-<script>
-import VbDemo from './VbDemo'
-import VbCard from './VbCard'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 
-export default {
+import VbDemo from './VbDemo.vue'
+import VbCard from './VbCard.vue'
+
+@Component({
   components: {
-    VbCard,
     VbDemo,
-  }
+    VbCard,
+  },
+})
+export default class VbCardFocusDemo extends Vue {
+
 }
 </script>
+
+

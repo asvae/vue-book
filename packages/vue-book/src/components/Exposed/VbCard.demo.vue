@@ -19,7 +19,8 @@
       With title and refresh
     </VbCard>
     <VbCard refresh>
-      <div style="background-color: #1fc8db; height: 100%; width: 150px">Refresh (<RefreshCounter/>)</div>
+      <div style="background-color: #1fc8db; height: 100%; width: 150px">Refresh (<RefreshCounter/>)
+      </div>
     </VbCard>
     <VbCard height="100px" width="150px">
       150x100
@@ -36,16 +37,22 @@
   </VbDemo>
 </template>
 
-<script>
-import VbDemo from './VbDemo'
-import VbCard from './VbCard'
-import RefreshCounter from './__demo__/RefreshCounter'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 
-export default {
+import VbDemo from './VbDemo.vue'
+import VbCard from './VbCard.vue'
+import RefreshCounter from './__demo__/RefreshCounter.vue'
+
+@Component({
   components: {
-    RefreshCounter,
-    VbCard,
     VbDemo,
+    VbCard,
+    RefreshCounter,
   },
+})
+export default class VbCardDemo extends Vue {
+
 }
 </script>
+

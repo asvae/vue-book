@@ -1,6 +1,6 @@
 <template>
-  <div class="demo-container">
-    <div class="demo-container__item">
+  <VbDemo>
+    <VbCard>
       <com-button-icon
         @click.native="active = ! active"
         icon="server"
@@ -11,21 +11,18 @@
         icon="server"
         :active="! active"
       />
-    </div>
-  </div>
+    </VbCard>
+  </VbDemo>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 import ComButtonIcon from './ComButtonIcon.vue'
 
-export default {
-  components: {
-    ComButtonIcon,
-  },
-  data () {
-    return {
-      active: false,
-    }
-  },
+@Component({
+  components: { ComButtonIcon },
+})
+export default class ComButtonIconDemo extends Vue {
+  active = false
 }
 </script>

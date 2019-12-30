@@ -1,13 +1,8 @@
 import Router from 'vue-router'
 import Vue from 'vue'
 
-const something = require('vue-book/dist/js/app.js')
+import {createRoute, VueBookComponents} from 'vue-book'
 import ContactComponent from './components/tree/ContactComponent'
-
-console.log('something', something)
-console.log('something.one', something.one)
-console.log('something.four', something.four)
-console.log('something.five', something.five)
 
 Vue.use(Router)
 Vue.use(VueBookComponents)
