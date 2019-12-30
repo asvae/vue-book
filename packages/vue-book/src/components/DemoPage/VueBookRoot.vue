@@ -15,7 +15,8 @@
           :currentFile="currentFile"
           @openFolder="currentFile.openFolder()"
         />
-        <div class="VueBookRoot__menu__search"
+        <!-- Why form? See https://github.com/asvae/vue-book/issues/39 -->
+        <form autocomplete="off" class="VueBookRoot__menu__search"
              v-if="config.mode === DemoPageMode.Search"
         >
           <vue-book-input
@@ -35,7 +36,7 @@
           >
             <font-awesome-icon icon="times"/>
           </div>
-        </div>
+        </form>
       </div>
 
       <div class="VueBookRoot__files">
