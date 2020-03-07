@@ -17,7 +17,7 @@
         />
         <!-- Why form? See https://github.com/asvae/vue-book/issues/39 -->
         <form autocomplete="off" class="VueBookRoot__menu__search"
-             v-if="config.mode === DemoPageMode.Search"
+              v-if="config.mode === DemoPageMode.Search"
         >
           <vue-book-input
             class="VueBookRoot__search-input"
@@ -66,7 +66,7 @@
     </div>
 
     <div class="VueBookRoot__right-block">
-      <component v-if="component" :is="component"/>
+      <component ref="component" v-if="component" :is="component"/>
     </div>
   </div>
 </template>
@@ -136,7 +136,15 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
     return {
       [VueBookTreeOptionsInterface]: (this as VueBookRoot).vueBookTreeOptions,
     }
-  }
+  },
+  beforeRouteUpdate (to: any, from: any, next: Function) {
+    // Demo components are not registered as routes in vue-router, so we have to call route update hooks manually.
+    const component = this.$refs.component as any
+    if (component) {
+      component?.$options.beforeRouteUpdate?.[0]?.call(component, to, from, next)
+    }
+    next()
+  },
 })
 export default class VueBookRoot extends Vue {
   @Prop(TreeFolder) treeFolderDefault!: TreeFolder
@@ -160,7 +168,7 @@ export default class VueBookRoot extends Vue {
   }
 
   constructor () {
-    super();
+    super()
     this.foldersStoreInstance.load()
     this.configStore.load()
     const treeFolder = this.getDemoFolder()

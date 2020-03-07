@@ -105,6 +105,9 @@ Leave an issue if something doesn't work for you.
 
 Also remember: Stars fuel package development! 
 
+## Hooks
+In component you can use [`beforeRouteUpdate`](https://router.vuejs.org/guide/advanced/navigation-guards.html#in-component-guards). Common case is to reset some global service.
+
 ## Helper components [WIP]
 
 Vue book provides a bunch of helper components to simplify demo-building.
