@@ -142,8 +142,9 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
     const component = this.$refs.component as any
     if (component) {
       component?.$options.beforeRouteUpdate?.[0]?.call(component, to, from, next)
+    } else {
+      next()
     }
-    next()
   },
 })
 export default class VueBookRoot extends Vue {
