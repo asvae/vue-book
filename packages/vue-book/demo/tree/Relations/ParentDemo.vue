@@ -1,18 +1,18 @@
 <template>
-    <div>
-        <vm-parent/>
-    </div>
+  <div>
+    <vm-parent/>
+  </div>
 </template>
 <vm-parent/>
 
 <script>
-  import VmParent from '../../components/Parent.vue'
+import VmParent from '../../components/Parent.vue'
 
-  export default {
-    $componentTree: {
-      component: VmParent,
-    },
-    components: { VmParent }
-  }
+export default {
+  $componentTree: {
+    component: VmParent,
+  },
+  components: { VmParent },
+}
 </script>
 

@@ -12,10 +12,8 @@ export default {
   name: 'VbDemo',
   computed: {
     computedClass () {
-      return {
-
-      }
-    }
+      return {}
+    },
   },
 }
 </script>

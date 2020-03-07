@@ -14,7 +14,7 @@ import { createComponent } from '../src/app'
     VueBook: createComponent({
       requireContext: require.context('./tree', true, /.vue$/),
       hideFileExtensions: true,
-    })
+    }),
   },
 })
 export default class SeveralInstances extends Vue {
@@ -26,6 +26,7 @@ export default class SeveralInstances extends Vue {
 .SeveralInstances {
   display: flex;
   height: 100%;
+
   .vue-book-root {
     position: unset;
     height: 100%;

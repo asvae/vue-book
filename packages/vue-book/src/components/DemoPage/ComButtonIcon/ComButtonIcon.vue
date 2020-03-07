@@ -13,11 +13,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 @Component({
   components: {
     FontAwesomeIcon,
-  }
+  },
 })
 export default class ComButtonIcon extends Vue {
-  @Prop({type: String, required: true}) icon!: string
-  @Prop({type: Boolean, default: false}) active!: boolean
+  @Prop({ type: String, required: true }) icon!: string
+  @Prop({ type: Boolean, default: false }) active!: boolean
 }
 </script>
 

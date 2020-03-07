@@ -42,6 +42,7 @@ export default class VueBookResizeLine extends Vue {
 .VueBookResizeLine {
   width: 4px;
   cursor: col-resize;
+
   &--is-horizontal {
     cursor: row-resize;
   }

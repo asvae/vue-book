@@ -19,7 +19,9 @@
       With title and refresh
     </VbCard>
     <VbCard refresh>
-      <div style="background-color: #1fc8db; height: 100%; width: 150px">Refresh (<RefreshCounter/>)
+      <div style="background-color: #1fc8db; height: 100%; width: 150px">Refresh (
+        <RefreshCounter/>
+        )
       </div>
     </VbCard>
     <VbCard height="100px" width="150px">

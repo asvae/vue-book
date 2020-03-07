@@ -4,7 +4,7 @@ import { Component, Inject, Prop } from 'vue-property-decorator'
 
 const createContainerFocusService = () => new Vue({
   data: () => ({
-    focusedContainers: [] as string[]
+    focusedContainers: [] as string[],
   }),
   methods: {
     focusContainer (id: string): void {
@@ -17,43 +17,45 @@ const createContainerFocusService = () => new Vue({
       // TODO Use proper TS.
       return (this as any).focusedContainers.length
         && !this.focusedContainers.includes(id)
-    }
-  }
+    },
+  },
 })
 
 export const ContainerFocusProvideMixin = {
   provide () {
     return {
-      vbFocusService: createContainerFocusService()
+      vbFocusService: createContainerFocusService(),
     }
-  }
+  },
 }
 
 @Component({})
 export class ContainerFocusInjectMixin extends Vue {
-  @Inject({default: null}) vbFocusService!: any
+  @Inject({ default: null }) vbFocusService!: any
   @Prop() focus!: boolean
 
   id = Math.round(Math.random() * 100000) + ''
 
   created () {
-    if (! this.vbFocusService) {
+    if (!this.vbFocusService) {
       return
     }
     if (this.focus) {
       this.vbFocusService.focusContainer(this.id)
     }
   }
+
   beforeDestroy () {
-    if (! this.vbFocusService) {
+    if (!this.vbFocusService) {
       return
     }
     if (this.focus) {
       this.vbFocusService.unfocusContainer(this.id)
     }
   }
+
   get isHiddenAsUnfocused () {
-    if (! this.vbFocusService) {
+    if (!this.vbFocusService) {
       return
     }
     return this.vbFocusService.isUnfocused(this.id)

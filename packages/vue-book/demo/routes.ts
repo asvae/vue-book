@@ -38,8 +38,8 @@ const router = new Router({
     }),
     {
       path: '/*',
-      redirect: '/demo'
-    }
+      redirect: '/demo',
+    },
   ],
 })
 

@@ -27,6 +27,7 @@ export default {
   height: 100%;
   background-color: $color--white;
   overflow: auto;
+
   &__node {
 
   }

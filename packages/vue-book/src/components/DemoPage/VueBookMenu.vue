@@ -41,7 +41,7 @@ import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
   components: {
     ComButtonIcon,
     FontAwesomeIcon,
-  }
+  },
 })
 export default class VueBookMenu extends Vue {
   @Prop({ type: TreeFile, required: false }) currentFile!: TreeFile

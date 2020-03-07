@@ -20,7 +20,7 @@ export default {
     VmChildWithoutDemo2,
     VmChildWithoutDemo1,
     VmChild2,
-    VmChild1
+    VmChild1,
   },
 }
 </script>

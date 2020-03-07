@@ -18,7 +18,7 @@ export class TreeFile {
     return this.path.split('/').pop() || ''
   }
 
-  getFilenameWithoutExtension(): string {
+  getFilenameWithoutExtension (): string {
     return this.getFilename().split('.')[0]
   }
 

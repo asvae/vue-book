@@ -1,6 +1,5 @@
 // Vue font awesome config.
 import { library } from '@fortawesome/fontawesome-svg-core'
-
 // NOTE Importing them all in one import doesn't trigger webpack tree-shaking.
 // As a result - whole file is included, giving additional 600Kb to bundle size.
 // See https://github.com/FortAwesome/react-fontawesome/issues/70

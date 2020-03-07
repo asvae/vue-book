@@ -1,9 +1,9 @@
 <template>
-    <div>
-        I am GrandchildTwo
-    </div>
+  <div>
+    I am GrandchildTwo
+  </div>
 </template>
 
 <script>
-  export default {}
+export default {}
 </script>

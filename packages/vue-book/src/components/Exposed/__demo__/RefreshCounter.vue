@@ -11,9 +11,10 @@ let refreshCounter = 0
 
 @Component({})
 export default class RefreshCounter extends Vue {
-  created() {
+  created () {
     console.log('created')
   }
+
   get refreshCounter () {
     return ++refreshCounter
   }

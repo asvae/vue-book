@@ -1,12 +1,12 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
   },
   extends: [
     'plugin:vue/essential',
     '@vue/standard',
-    "@vue/typescript",
+    '@vue/typescript',
     'plugin:vue/strongly-recommended',
   ],
   rules: {
@@ -17,23 +17,23 @@ module.exports = {
     'camelcase': 'off', // to support generated types
   },
   parserOptions: {
-    parser: "@typescript-eslint/parser",
+    parser: '@typescript-eslint/parser',
   },
 
   // required to lint *.vue files
   plugins: [
     'vue',
-    "@typescript-eslint",
+    '@typescript-eslint',
   ],
   overrides: [
     {
       files: [
         '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)'
+        '**/tests/unit/**/*.spec.{j,t}s?(x)',
       ],
       env: {
-        jest: true
-      }
-    }
-  ]
+        jest: true,
+      },
+    },
+  ],
 }
