@@ -54,6 +54,10 @@ export default class BookComponentListItem extends Vue {
       return
     }
 
+    if (this.$route?.path === this.file.path) {
+      return
+    }
+
     this.$router.push(this.file.path)
   }
 }

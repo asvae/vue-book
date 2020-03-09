@@ -140,7 +140,7 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
   beforeRouteUpdate (to: any, from: any, next: Function) {
     // Demo components are not registered as routes in vue-router, so we have to call route update hooks manually.
     const component = this.$refs.component as any
-    if (component) {
+    if (component?.$options.beforeRouteUpdate) {
       component?.$options.beforeRouteUpdate?.[0]?.call(component, to, from, next)
     } else {
       next()
