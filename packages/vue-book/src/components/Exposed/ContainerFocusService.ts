@@ -32,7 +32,7 @@ export const ContainerFocusProvideMixin = {
 @Component({})
 export class ContainerFocusInjectMixin extends Vue {
   @Inject({ default: null }) vbFocusService!: any
-  @Prop() focus!: boolean
+  @Prop(Boolean) focus!: boolean
 
   id = Math.round(Math.random() * 100000) + ''
 
