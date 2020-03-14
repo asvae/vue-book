@@ -1,7 +1,8 @@
 <template>
   <VbDemo>
     <VbCard>
-      <VbCheckbox>Some value</VbCheckbox>
+      <VbCheckbox v-model="value" label="label-text"/>
+      {{value}}
     </VbCard>
   </VbDemo>
 </template>
@@ -21,7 +22,7 @@ import VbCheckbox from 'vuestic-ui/src/components/vuestic-components/va-checkbox
   },
 })
 export default class VbCardDemo extends Vue {
-
+  value = true
 }
 </script>
 

@@ -1,5 +1,8 @@
 module.exports = {
   lintOnSave: false,
+  transpileDependencies: [
+    'vuestic-ui',
+  ],
   configureWebpack: {
     entry: __dirname + '/demo/main.ts',
     devServer: {

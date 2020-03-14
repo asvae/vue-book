@@ -1,6 +1,6 @@
 {
   "name": "vue-book",
-  "version": "0.1.0-alpha.29",
+  "version": "0.1.0-alpha.31",
   "description": "Tree view for your demo components",
   "main": "dist/js/app.js",
   "private": false,
@@ -68,7 +68,7 @@
     "vue-property-decorator": "^8.4.0",
     "vue-router": "^3.1.3",
     "vue-template-compiler": "^2.6.11",
-    "vuestic-ui": "1.0.0-alpha.1",
+    "vuestic-ui": "1.0.0-alpha.2",
     "webpack": "^4.42.0",
     "webpack-bundle-analyzer": "^3.5.0",
     "webpack-cli": "^3.3.11"
