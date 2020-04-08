@@ -1,7 +1,8 @@
 <template>
-  <div class="vue-book-404">
-    <div class="vue-book-404__title">Demo was not found. Here's some similar ones:</div>
-    <div class="vue-book-404__description" v-if="files.length">
+  <div class="vue-book-not-found">
+    <div class="vue-book-not-found__title">Demo was not found.</div>
+    <div class="vue-book-not-found__description" v-if="files.length">
+      Here's some similar ones:
       <ul>
         <li
           v-for="(file, i) in files"
@@ -30,7 +31,7 @@ export default class VueBookNotFound extends Vue {
 </script>
 
 <style lang="scss">
-.vue-book-404 {
+.vue-book-not-found {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -42,6 +43,7 @@ export default class VueBookNotFound extends Vue {
     font-size: 20px;
   }
   &__description {
+    padding-top: 40px;
     font-size: 16px;
   }
 }
