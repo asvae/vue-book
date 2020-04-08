@@ -46,7 +46,7 @@
           <template v-if="!filteredFiles.length">
             No files found according to search.
           </template>
-          <DemoFileList
+          <demo-file-list
             v-else
             :files="filteredFiles"
             :listCursor="listCursor"
@@ -66,7 +66,8 @@
     </div>
 
     <div class="VueBookRoot__right-block">
-      <component ref="component" v-if="component" :is="component"/>
+      <vue-book-not-found :files="similarFiles" v-if="!component"/>
+      <component ref="component" v-else="component" :is="component"/>
     </div>
   </div>
 </template>
@@ -84,7 +85,7 @@ import DemoFileList from '../FileTree/DemoFileList.vue'
 import VueBookResizeLine from '../Service/VueBookResizeLine.vue'
 import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
 import VueBookMenu from './VueBookMenu.vue'
-
+import VueBookNotFound from './VueBookNotFound.vue'
 import VueBookInput from './ComInput/VueBookInput.vue'
 import TreeDemoFileList from '../FileTree/TreeDemoFileList.vue'
 import { ListCursor } from '../FileTree/ListCursor'
@@ -127,6 +128,7 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
     BookComponentListFolder,
     BookComponentListItem,
     FontAwesomeIcon,
+    VueBookNotFound,
   },
   mixins: [
     ContainerFocusProvideMixin,
@@ -140,6 +142,7 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
   beforeRouteUpdate (to: any, from: any, next: Function) {
     // Demo components are not registered as routes in vue-router, so we have to call route update hooks manually.
     const component = this.$refs.component as any
+    console.log('component', component)
     if (component?.$options.beforeRouteUpdate) {
       component?.$options.beforeRouteUpdate?.[0]?.call(component, to, from, next)
     } else {
@@ -248,6 +251,20 @@ export default class VueBookRoot extends Vue {
     }
     const treeFiles = this.files.filter((file: any) => this.fileSelected(file))
     return sortByRelevance(this.config.searchText, treeFiles)
+  }
+
+  get currentComponentName (): string | undefined {
+    return this.$route.path.split('/').pop()
+  }
+
+  get similarFiles (): TreeFile[] {
+    const similarFiles: TreeFile[] = []
+    this.filteredFiles.forEach((file: TreeFile) => {
+      if (file.getFilename() === this.currentComponentName) {
+        similarFiles.push(file)
+      }
+    })
+    return similarFiles
   }
 
   clearSearch (): void {
