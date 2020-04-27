@@ -69,12 +69,18 @@
       <vue-book-not-found :files="similarFiles" v-if="!component"/>
       <component ref="component" v-else="component" :is="component"/>
     </div>
+
+    <vb-recent-files-modal
+      :recentFilesStore="recentFilesStoreInstance"
+      v-model="showRecentModal"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { FoldersStore } from '../../store/FoldersStore'
 import { ConfigStore } from '../../store/configStore'
+import { RecentFilesStore } from '../../store/RecentFilesStore'
 
 import BookComponentListFolder from '../FileTree/BookComponentListFolder.vue'
 import BookComponentListItem from '../FileTree/BookComponentListItem.vue'
@@ -97,6 +103,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ContainerFocusProvideMixin } from '../Exposed/ContainerFocusService'
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
+import VbRecentFilesModal from '../Exposed/VbRecentFilesModal.vue'
 
 let lastUpdateTimestamp = 0
 
@@ -120,6 +127,7 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
 
 @Component({
   components: {
+    VbRecentFilesModal,
     TreeDemoFileList,
     VueBookInput,
     VueBookMenu,
@@ -142,24 +150,25 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
   beforeRouteUpdate (to: any, from: any, next: Function) {
     // Demo components are not registered as routes in vue-router, so we have to call route update hooks manually.
     const component = this.$refs.component as any
-    console.log('component', component)
     if (component?.$options.beforeRouteUpdate) {
       component?.$options.beforeRouteUpdate?.[0]?.call(component, to, from, next)
     } else {
       next()
     }
   },
-})
+} as any)
 export default class VueBookRoot extends Vue {
   @Prop(TreeFolder) treeFolderDefault!: TreeFolder
   @Prop(TreeFileCollection) treeFileCollectionDefault!: TreeFileCollection
   @Prop({ type: Boolean, default: false }) hideFileExtensionsDefault!: boolean
   @Prop({ type: Boolean, default: false }) hideNavigationDefault!: boolean
 
+  showRecentModal: boolean = false
   treeFolder: TreeFolder | null = null
   listCursor = new ListCursor()
   configStore = new ConfigStore()
   foldersStoreInstance = new FoldersStore()
+  recentFilesStoreInstance = new RecentFilesStore()
   vueBookTreeOptions = new VueBookTreeOptions({
     noRouter: this.getNoRouter(),
     selectedTreeFile: null,
@@ -175,6 +184,7 @@ export default class VueBookRoot extends Vue {
     super()
     this.foldersStoreInstance.load()
     this.configStore.load()
+    this.recentFilesStoreInstance.load()
     const treeFolder = this.getDemoFolder()
     treeFolder.mergeWithFolders(this.foldersStoreInstance.openFolders)
     this.treeFolder = treeFolder
@@ -189,10 +199,22 @@ export default class VueBookRoot extends Vue {
     }
   }
 
+  showRecentFiles (event: any) {
+    if (event.ctrlKey && event.keyCode === 69) {
+      event.preventDefault()
+      this.showRecentModal = !this.showRecentModal
+    }
+  }
+
   @Watch('treeFolder', { deep: true })
   onTreeFolderChange (value: TreeFolder) {
     this.foldersStoreInstance.openFolders = value.getOpenFolders()
     this.foldersStoreInstance.save()
+  }
+
+  @Watch('$route.path', { deep: true })
+  onRouteChange () {
+    this.formRecentFilesList()
   }
 
   get DemoPageMode () {
@@ -360,8 +382,20 @@ export default class VueBookRoot extends Vue {
       this.vueBookTreeOptions.selectedTreeFile = fileUnderCursor
       return
     }
-
     this.$router.push(fileUnderCursor.path)
+  }
+
+  formRecentFilesList (): void {
+    const recentFile: TreeFile | undefined = this.filteredFiles.find((file: TreeFile) => file.getFilename() === this.$route.path.split('/').pop())
+    if (recentFile) {
+      this.recentFilesStoreInstance.formList(recentFile)
+      this.showRecentModal = false
+    }
+  }
+
+  created () {
+    this.formRecentFilesList()
+    window.addEventListener('keydown', this.showRecentFiles)
   }
 }
 </script>
