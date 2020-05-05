@@ -8,8 +8,8 @@ module.exports = (api, opts) => {
   api.extendPackage({
     dependencies,
     scripts: {
-      'serve:book': 'vue-cli-service serve --modules-folder /src/apps/book/book-main.js',
-      'build:book': 'vue-cli-service build --modules-folder /src/apps/book/book-main.js',
+      'serve:book': 'vue-cli-service serve --cwd /src/apps/book/book-main.js',
+      'build:book': 'vue-cli-service build --cwd /src/apps/book/book-main.js',
     },
   })
 }
