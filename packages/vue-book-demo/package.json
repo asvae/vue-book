@@ -18,8 +18,8 @@
     "lint-staged": "^10.0.8",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2",
-    "vue-book": "^0.1.0-alpha.20",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "vue-book": "^0.1.0-alpha.31"
   },
   "gitHooks": {},
   "lint-staged": {
