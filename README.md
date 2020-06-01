@@ -130,8 +130,21 @@ You can consider this component as both 'card' and 'test-case'.
 * `height` - String. Card height.
 * `color` - String. Card color.
 * `dark` - Boolean. Dark color theme.
- 
+* `state` - Allows to pass a state which will be accessible in a scoped slot. For details - see below.
 * `focus` - Boolean. If any `VbCard` is focused - only focused cards will be shown in demo. This is useful when you want to work on specific case and hide unneeded ones. 
+
+#### State
+`state` prop creates a scoped state for single card. That means you can create multiple cards, that use the same values, but they won't conflict. Intended as a substitute for declaring every prop in `data`.
+
+```vue
+<VbCard
+  title="state example"
+  :state="{value: false}"
+  #default="{state}"
+>
+  <input type="checkbox" v-model="state.value">
+</VbCard>
+```
 
 ### Install
 

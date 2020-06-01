@@ -36,7 +36,10 @@
       <div class="VbCard__separator"/>
     </template>
 
-    <slot v-if="show"/>
+    <slot
+      :state="stateComputed"
+      v-if="show"
+    />
   </div>
 </template>
 
@@ -58,9 +61,14 @@ export default class VbCard extends Vue {
   @Prop(String) width!: string
   @Prop(String) height!: string
   @Prop(String) color!: string
+  @Prop() state!: Record<string, any>
 
   show = true
   cardStyleTemp: {} | { width: string | null, height: string | null } = {}
+
+  get stateComputed () {
+    return Vue.observable(this.state)
+  }
 
   get computedStyle () {
     if (this.cardStyleTemp) {

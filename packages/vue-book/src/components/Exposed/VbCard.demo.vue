@@ -36,6 +36,14 @@
     <VbCard title="Dark + color" dark refresh color="orange">
       <span style="color: white">Content</span>
     </VbCard>
+    <VbCard
+      title="state"
+      :state="{value: false}"
+      #default="{state}"
+    >
+      <input type="checkbox" v-model="state.value">
+      {{state.value}}
+    </VbCard>
   </VbDemo>
 </template>
 
