@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard title="type" :width="250">
+    <VbCard title="type" width="250px">
       <div v-for="(value, key) in valueList"
            class="selectable-item is-small"
            :class="{active: valueSelected === key}"
@@ -8,7 +8,7 @@
            v-text="key"
       />
     </VbCard>
-    <VbCard :title="valueSelected" :width="250">
+    <VbCard :title="valueSelected" width="250px">
       <BookComponentListFolder :folder="valueList[valueSelected]"/>
     </VbCard>
   </VbDemo>
