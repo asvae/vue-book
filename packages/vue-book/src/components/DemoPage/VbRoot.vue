@@ -1,26 +1,35 @@
 <template>
-  <div class="VueBookRoot">
+  <div class="VbRoot">
     <div v-if="!files.length">
       <p>You provided no files in requireContext.</p>
       <p>Please check your path and masks.</p>
     </div>
+    <div class="VbRoot__left-block-folded" v-else-if="foldNavigation">
+      <ComButtonIcon
+        @click="foldNavigation = !foldNavigation"
+        :title="foldNavigation ? 'Unfold navigation panel' : 'Fold navigation panel'"
+        :icon="foldNavigation ? 'bars' : 'arrow-left'"
+        :active="config.mode === DemoPageMode.Tree"
+      />
+    </div>
     <div
       v-else-if="!getHideNavigation()"
-      class="VueBookRoot__left-block"
+      class="VbRoot__left-block"
       :style="{'flex-basis': config.width + 'px', 'width': config.width + 'px'}"
     >
-      <div class="VueBookRoot__menu">
+      <div class="VbRoot__menu">
         <vue-book-menu
           :config="config"
           :currentFile="currentFile"
           @openFolder="currentFile.openFolder()"
         />
+
         <!-- Why form? See https://github.com/asvae/vue-book/issues/39 -->
-        <form autocomplete="off" class="VueBookRoot__menu__search"
+        <form autocomplete="off" class="VbRoot__menu__search"
               v-if="config.mode === DemoPageMode.Search"
         >
           <vue-book-input
-            class="VueBookRoot__search-input"
+            class="VbRoot__search-input"
             ref="searchInput"
             v-model="config.searchText"
             placeholder="Search..."
@@ -31,7 +40,7 @@
           />
           <div
             v-if="config.searchText"
-            class="VueBookRoot__menu__search__icon"
+            class="VbRoot__menu__search__icon"
             @click="clearSearch()"
           >
             <font-awesome-icon icon="times"/>
@@ -39,7 +48,7 @@
         </form>
       </div>
 
-      <div class="VueBookRoot__files">
+      <div class="VbRoot__files">
         <template
           v-if="config.mode === DemoPageMode.Search"
         >
@@ -59,14 +68,24 @@
           :listCursor="listCursor"
         />
       </div>
+
+      <div class="VbRoot__left-block-bottom-menu">
+        <ComButtonIcon
+          @click="foldNavigation = !foldNavigation"
+          :title="foldNavigation ? 'Unfold navigation panel' : 'Fold navigation panel'"
+          :icon="foldNavigation ? 'bars' : 'arrow-left'"
+          :active="config.mode === DemoPageMode.Tree"
+        />
+      </div>
+
       <VueBookResizeLine
-        class="VueBookRoot__left-block__resize-line"
+        class="VbRoot__left-block__resize-line"
         v-model="config.width"
       />
     </div>
 
-    <div class="VueBookRoot__right-block">
-      <vue-book-not-found :files="similarFiles" v-if="!component"/>
+    <div class="VbRoot__right-block">
+      <VueBookNotFound :files="similarFiles" v-if="!component"/>
       <component ref="component" v-else="component" :is="component"/>
     </div>
   </div>
@@ -97,6 +116,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ContainerFocusProvideMixin } from '../Exposed/ContainerFocusService'
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
+import { screenSizeService } from '../../services/ScreenSizeService'
+import ComButtonIcon from './ComButtonIcon/ComButtonIcon.vue'
 
 let lastUpdateTimestamp = 0
 
@@ -129,6 +150,7 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
     BookComponentListItem,
     FontAwesomeIcon,
     VueBookNotFound,
+    ComButtonIcon,
   },
   mixins: [
     ContainerFocusProvideMixin,
@@ -136,13 +158,12 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
   // TODO Use decorators.
   provide () {
     return {
-      [VueBookTreeOptionsInterface]: (this as VueBookRoot).vueBookTreeOptions,
+      [VueBookTreeOptionsInterface]: (this as VbRoot).vueBookTreeOptions,
     }
   },
   beforeRouteUpdate (to: any, from: any, next: Function) {
     // Demo components are not registered as routes in vue-router, so we have to call route update hooks manually.
     const component = this.$refs.component as any
-    console.log('component', component)
     if (component?.$options.beforeRouteUpdate) {
       component?.$options.beforeRouteUpdate?.[0]?.call(component, to, from, next)
     } else {
@@ -150,7 +171,7 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
     }
   },
 })
-export default class VueBookRoot extends Vue {
+export default class VbRoot extends Vue {
   @Prop(TreeFolder) treeFolderDefault!: TreeFolder
   @Prop(TreeFileCollection) treeFileCollectionDefault!: TreeFileCollection
   @Prop({ type: Boolean, default: false }) hideFileExtensionsDefault!: boolean
@@ -165,6 +186,13 @@ export default class VueBookRoot extends Vue {
     selectedTreeFile: null,
     hideFileExtensions: this.getHideFileExtensions(),
   })
+  foldNavigation = false
+
+  created () {
+    if (this.isMobile) {
+      this.foldNavigation = true
+    }
+  }
 
   mounted () {
     const input = this.$refs.searchInput as any
@@ -180,6 +208,11 @@ export default class VueBookRoot extends Vue {
     this.treeFolder = treeFolder
   }
 
+  @Watch('isMobile')
+  onIsMobileChange (isMobile: boolean) {
+    this.foldNavigation = isMobile
+  }
+
   @Watch('config', { deep: true })
   onConfigChange (value: DemoPageConfig) {
     if (lastUpdateTimestamp < Math.floor(Date.now()) - 200) {
@@ -193,6 +226,10 @@ export default class VueBookRoot extends Vue {
   onTreeFolderChange (value: TreeFolder) {
     this.foldersStoreInstance.openFolders = value.getOpenFolders()
     this.foldersStoreInstance.save()
+  }
+
+  get isMobile () {
+    return screenSizeService.isMobile
   }
 
   get DemoPageMode () {
@@ -369,7 +406,7 @@ export default class VueBookRoot extends Vue {
 <style lang="scss">
 @import "../../scss/resources";
 
-.VueBookRoot {
+.VbRoot {
   // Reset
   &__menu {
     &__search {
@@ -397,12 +434,19 @@ export default class VueBookRoot extends Vue {
 
   &__files {
     background-color: $color--main;
-    padding: 0 5px 5px 5px;
+    padding: 0 5px;
     flex: 1 0;
     height: 300px;
   }
 
   $root: &;
+
+  &__left-block-folded {
+    background-color: $color--main;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+  }
 
   height: 100%;
   width: 100%;
@@ -432,6 +476,10 @@ export default class VueBookRoot extends Vue {
 
     display: flex;
     flex-direction: column;
+  }
+
+  &__left-block-bottom-menu {
+
   }
 
   &__right-block {

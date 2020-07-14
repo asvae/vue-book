@@ -15,5 +15,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
 import { faServer } from '@fortawesome/free-solid-svg-icons/faServer'
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
 import { faSync } from '@fortawesome/free-solid-svg-icons/faSync'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 
-library.add(faServer, faFolder, faSearch, faBars, faExchangeAlt, faDotCircle, faCaretDown, faCaretRight, faFile, faArrowsAltV, faSync, faTimes)
+library.add(faServer, faFolder, faSearch, faBars, faExchangeAlt, faDotCircle, faCaretDown, faCaretRight, faFile, faArrowsAltV, faSync, faTimes, faArrowLeft)

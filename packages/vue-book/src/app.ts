@@ -9,9 +9,11 @@ const loremString = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, se
 
 export const VueBookComponents = {
   install: (Vue: any) => {
+    // Register global components
     Vue.component('VbDemo', VbDemo)
     Vue.component('VbCard', VbCard)
 
+    // Register global helpers
     Vue.prototype.$vb = {
       log: (message?: any, ...optionalParams: any[]): void => {
         // eslint-disable-next-line no-console

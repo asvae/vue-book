@@ -1,6 +1,8 @@
 <template>
-  <div class="ComButtonIcon"
-       :class="{'ComButtonIcon--active': active}"
+  <div
+    class="ComButtonIcon"
+    :class="{'ComButtonIcon--active': active}"
+    v-on="$listeners"
   >
     <font-awesome-icon :icon="icon"/>
   </div>
@@ -11,6 +13,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 @Component({
+  name: 'ComButtonIcon',
   components: {
     FontAwesomeIcon,
   },

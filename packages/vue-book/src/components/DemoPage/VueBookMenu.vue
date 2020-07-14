@@ -1,6 +1,6 @@
 <template>
   <div class="VueBookMenu">
-    <com-button-icon
+    <ComButtonIcon
       class="VuebookMenu__icon"
       @click.native="config.mode = DemoPageMode.Tree"
       title="Mode: Tree"
@@ -8,7 +8,7 @@
       :active="config.mode === DemoPageMode.Tree"
     />
 
-    <com-button-icon
+    <ComButtonIcon
       class="VuebookMenu__icon"
       @click.native="config.mode = DemoPageMode.Search"
       title="Mode: Search"

@@ -1,6 +1,6 @@
 import { TreeFile } from './TreeFile'
 
-import VueBookRoot from '../../components/DemoPage/VueBookRoot.vue'
+import VbRoot from '../../components/DemoPage/VbRoot.vue'
 import { TreeFileCollection } from './TreeFileCollection'
 import { RouteConfig } from 'vue-router'
 import { VueBookConfig } from './VueBookConfig'
@@ -31,7 +31,7 @@ export default class VueBookRouteFactory {
 
     return {
       path: path + '*',
-      component: VueBookRoot,
+      component: VbRoot,
       meta: {
         treeFolder: TreeFolder.createFromDemoFileCollection(treeFileCollection),
         treeFileCollection,
@@ -61,7 +61,7 @@ export default class VueBookRouteFactory {
     return {
       render: (createElement: CreateElement) => {
         return createElement(
-          VueBookRoot,
+          VbRoot,
           {
             props: {
               treeFolderDefault: TreeFolder.createFromDemoFileCollection(treeFileCollection),
