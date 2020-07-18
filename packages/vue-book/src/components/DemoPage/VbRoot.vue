@@ -286,7 +286,7 @@ export default class VbRoot extends Vue {
     if (!this.config.searchText) {
       return this.files
     }
-    const treeFiles = this.files.filter((file: any) => this.fileSelected(file))
+    const treeFiles = this.files.filter((file: any) => this.fileSearched(file))
     return sortByRelevance(this.config.searchText, treeFiles)
   }
 
@@ -342,11 +342,7 @@ export default class VbRoot extends Vue {
     return treeFolder
   }
 
-  fileSelected (file: TreeFile): boolean {
-    if (this.noRouter) {
-      return this.vueBookTreeOptions.selectedTreeFile === file
-    }
-
+  fileSearched (file: TreeFile): boolean {
     const path = file.path.toUpperCase()
     const text = this.config.searchText.toUpperCase()
     const includesFull = path.includes(text)
