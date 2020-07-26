@@ -70,7 +70,7 @@
       <component ref="component" v-else="component" :is="component"/>
     </div>
 
-    <vb-recent-files-modal
+    <VbRecentFilesModal
       :recentFilesStore="recentFilesStoreInstance"
       v-model="showRecentModal"
     />

@@ -1,5 +1,5 @@
 <template>
-  <va-modal
+  <VaModal
     class="vb-recent-modal"
     max-height="60vh"
     v-model="showModal"
@@ -42,7 +42,7 @@
         </li>
       </ul>
     </div>
-  </va-modal>
+  </VaModal>
 </template>
 
 <script lang="ts">
