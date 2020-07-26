@@ -122,16 +122,17 @@ You can consider this component as both 'card' and 'test-case'.
 
 **Props**
 
-* `title` - String. Title of the card.
-* `noPadding` - Boolean. Removes padding of `VbCard` content
-* `dashed` - Boolean. Makes card border dashed, which makes it easier to see in some cases.
-* `refresh` - Boolean. Shows on card header a refresh button that redraws card content. Useful for testing reactivity.
-* `width` - String. Card width.
-* `height` - String. Card height.
-* `color` - String. Card color.
-* `dark` - Boolean. Dark color theme.
-* `state` - Allows to pass a state which will be accessible in a scoped slot. For details - see below.
-* `focus` - Boolean. If any `VbCard` is focused - only focused cards will be shown in demo. This is useful when you want to work on specific case and hide unneeded ones. 
+* `title` - `string`. Title of the card.
+* `noPadding` - `boolean`. Removes padding of `VbCard` content
+* `dashed` - `boolean`. Makes card border dashed, which makes it easier to see in some cases.
+* `refresh` - `boolean`. Shows on card header a refresh button that redraws card content. Useful for testing reactivity.
+* `width` - `string`. Card width.
+* `height` - `string`. Card height.
+* `color` - `string`. Card color.
+* `dark` - `boolean`. Dark color theme.
+* `state` - `any`. Allows to pass a state which will be accessible in a scoped slot. For details - see below.
+* `focus` - `boolean`. If any `VbCard` is focused - only focused cards will be shown in demo. This is useful when you want to work on specific case and hide unneeded ones. 
+* `error` - `boolean`. Shows red border for card. Intended purpose is to help PR reviewer to mark buggy cases. In merged codebase better idea is to create issues.
 
 #### State
 `state` prop creates a scoped state for single card. That means you can create multiple cards, that use the same values, but they won't conflict. Intended as a substitute for declaring every prop in `data`.

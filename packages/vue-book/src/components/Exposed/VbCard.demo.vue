@@ -44,6 +44,9 @@
       <input type="checkbox" v-model="state.value">
       {{state.value}}
     </VbCard>
+    <VbCard error title="error">
+      Error
+    </VbCard>
   </VbDemo>
 </template>
 
