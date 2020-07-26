@@ -62,6 +62,7 @@ export default class VbCard extends Vue {
   @Prop(String) height!: string
   @Prop(String) color!: string
   @Prop() state!: Record<string, any>
+  @Prop({ type: Boolean, default: false }) error!: boolean
 
   show = true
   cardStyleTemp: {} | { width: string | null, height: string | null } = {}
@@ -90,6 +91,7 @@ export default class VbCard extends Vue {
       'VbCard--no-padding': this.noPadding,
       'VbCard--dashed': this.dashed,
       'VbCard--dark': this.dark,
+      'VbCard--error': this.error,
     }
   }
 
@@ -116,6 +118,9 @@ $card-content-padding: 20px;
   background-color: white;
   padding: $card-content-padding;
 
+  &--error {
+    outline: 2px solid red;
+  }
   &--dark {
     background-color: #252525;
 
