@@ -1,6 +1,6 @@
 import VueBookRouteFactory from './classes/Main/VueBookRouteFactory'
 import './scss/app.scss'
-import './font-awesome-config'
+import './plugins/font-awesome-config'
 import { VueBookConfig } from './classes/Main/VueBookConfig'
 import VbDemo from './components/Exposed/VbDemo.vue'
 import VbCard from './components/Exposed/VbCard.vue'

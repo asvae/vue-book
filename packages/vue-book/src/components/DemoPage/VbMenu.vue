@@ -1,5 +1,5 @@
 <template>
-  <div class="VueBookMenu">
+  <div class="VbMenu">
     <ComButtonIcon
       class="VuebookMenu__icon"
       @click.native="config.mode = DemoPageMode.Tree"
@@ -16,11 +16,10 @@
       :active="config.mode === DemoPageMode.Search"
     />
 
-    <div class="VuebookMenu__filler"></div>
+    <div class="VbMenu__filler"></div>
 
     <template v-if="config.mode === DemoPageMode.Tree">
-      <com-button-icon
-        class="VuebookMenu__icon"
+      <ComButtonIcon
         v-if="currentFile"
         @click.native="$emit('openFolder')"
         title="Expand from Current File"
@@ -38,12 +37,13 @@ import { TreeFile } from '../../classes/Main/TreeFile'
 import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
 
 @Component({
+  name: 'VbMenu',
   components: {
     ComButtonIcon,
     FontAwesomeIcon,
   },
 })
-export default class VueBookMenu extends Vue {
+export default class VbMenu extends Vue {
   @Prop({ type: TreeFile, required: false }) currentFile!: TreeFile
   @Prop({ type: DemoPageConfig, required: false }) config!: DemoPageConfig
 
@@ -54,7 +54,7 @@ export default class VueBookMenu extends Vue {
 <style lang="scss">
 @import "../../scss/resources";
 
-.VueBookMenu {
+.VbMenu {
   display: flex;
 
   &__filler {

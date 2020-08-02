@@ -1,20 +1,20 @@
 <template>
   <VbDemo>
     <VbCard>
-      <VueBookMenu style="width: 300px" :config="config"/>
+      <VbMenu style="width: 300px" :config="config"/>
     </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import VueBookMenu from './VueBookMenu.vue'
+import VbMenu from './VbMenu.vue'
 import DemoPageConfig from './DemoPageConfig'
 
 @Component({
-  components: { VueBookMenu },
+  components: { VbMenu },
 })
-export default class VueBookMenuDemo extends Vue {
+export default class VbMenuDemo extends Vue {
   config = new DemoPageConfig()
 }
 </script>

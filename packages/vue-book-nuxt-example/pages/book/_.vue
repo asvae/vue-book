@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <client-only>
-      <VueBook/>
-    </client-only>
-  </div>
+  <client-only>
+    <VueBook/>
+  </client-only>
 </template>
 
 <script lang="ts">
@@ -15,7 +13,7 @@ if (process.client) {
   // @ts-ignore
   VueBook = require('vue-book').createComponent({
     // @ts-ignore
-    requireContext: require.context('./../components', true, /.demo.vue$/),
+    requireContext: require.context('./../../components', true, /.demo.vue$/),
     hideFileExtensions: true,
   })
 }

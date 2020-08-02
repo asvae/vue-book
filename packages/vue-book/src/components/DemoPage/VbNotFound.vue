@@ -1,16 +1,14 @@
 <template>
-  <div class="vue-book-not-found">
-    <div class="vue-book-not-found__title">Demo was not found.</div>
-    <div class="vue-book-not-found__description" v-if="files.length">
-      Here's some similar ones:
+  <div class="VbNotFound">
+    <div class="VbNotFound__title">Demo was not found.</div>
+    <div class="VbNotFound__description" v-if="files.length">
+      Here's some similar files:
       <ul>
         <li
-          v-for="(file, i) in files"
-          :key="i"
+          v-for="file in files"
+          :key="file.path"
         >
-          <router-link
-            :to="file.path"
-          >
+          <router-link :to="file.path">
             {{ file.path }}
           </router-link>
         </li>
@@ -24,14 +22,16 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 import { TreeFile } from '../../classes/Main/TreeFile'
 
-@Component({})
-export default class VueBookNotFound extends Vue {
-  @Prop({ type: Array, required: true }) files!: TreeFile
+@Component({
+  name: 'VbNotFound'
+})
+export default class VbNotFound extends Vue {
+  @Prop({ type: Array, required: true }) files!: TreeFile[]
 }
 </script>
 
 <style lang="scss">
-.vue-book-not-found {
+.VbNotFound {
   height: 100%;
   display: flex;
   flex-direction: column;

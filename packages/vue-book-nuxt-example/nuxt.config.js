@@ -35,6 +35,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    { src: '~/plugins/vue-book.js', mode: 'client' },
   ],
   /*
   ** Auto import components

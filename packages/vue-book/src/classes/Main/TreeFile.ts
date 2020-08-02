@@ -1,7 +1,7 @@
 import { TreeFolder } from './TreeFolder'
 
 export class TreeFile {
-  path: string = ''
+  path: string = '' // Path is unique for tree file
   component: any | null = null // demo component
   folder: TreeFolder | null = null
 

@@ -4,11 +4,11 @@
       <p>You provided no files in requireContext.</p>
       <p>Please check your path and masks.</p>
     </div>
-    <div class="VbRoot__left-block-folded" v-else-if="foldNavigation">
+    <div class="VbRoot__left-block-folded" v-else-if="isHidden">
       <ComButtonIcon
-        @click="foldNavigation = !foldNavigation"
-        :title="foldNavigation ? 'Unfold navigation panel' : 'Fold navigation panel'"
-        :icon="foldNavigation ? 'bars' : 'arrow-left'"
+        @click="isHidden = !isHidden"
+        :title="isHidden ? 'Unfold navigation panel' : 'Fold navigation panel'"
+        :icon="isHidden ? 'bars' : 'arrow-left'"
         :active="config.mode === DemoPageMode.Tree"
       />
     </div>
@@ -18,7 +18,7 @@
       :style="{'flex-basis': config.width + 'px', 'width': config.width + 'px'}"
     >
       <div class="VbRoot__menu">
-        <vue-book-menu
+        <VbMenu
           :config="config"
           :currentFile="currentFile"
           @openFolder="currentFile.openFolder()"
@@ -28,7 +28,7 @@
         <form autocomplete="off" class="VbRoot__menu__search"
               v-if="config.mode === DemoPageMode.Search"
         >
-          <vue-book-input
+          <VbInput
             class="VbRoot__search-input"
             ref="searchInput"
             v-model="config.searchText"
@@ -71,9 +71,9 @@
 
       <div class="VbRoot__left-block-bottom-menu">
         <ComButtonIcon
-          @click="foldNavigation = !foldNavigation"
-          :title="foldNavigation ? 'Unfold navigation panel' : 'Fold navigation panel'"
-          :icon="foldNavigation ? 'bars' : 'arrow-left'"
+          @click="isHidden = !isHidden"
+          :title="isHidden ? 'Unfold navigation panel' : 'Fold navigation panel'"
+          :icon="isHidden ? 'bars' : 'arrow-left'"
           :active="config.mode === DemoPageMode.Tree"
         />
       </div>
@@ -85,7 +85,7 @@
     </div>
 
     <div class="VbRoot__right-block">
-      <VueBookNotFound :files="similarFiles" v-if="!component"/>
+      <VbNotFound :files="similarFiles" v-if="!component"/>
       <component ref="component" v-else="component" :is="component"/>
     </div>
   </div>
@@ -103,9 +103,9 @@ import { TreeFile } from '../../classes/Main/TreeFile'
 import DemoFileList from '../FileTree/DemoFileList.vue'
 import VueBookResizeLine from '../Service/VueBookResizeLine.vue'
 import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
-import VueBookMenu from './VueBookMenu.vue'
-import VueBookNotFound from './VueBookNotFound.vue'
-import VueBookInput from './ComInput/VueBookInput.vue'
+import VbMenu from './VbMenu.vue'
+import VbNotFound from './VbNotFound.vue'
+import VbInput from './ComInput/VbInput.vue'
 import TreeDemoFileList from '../FileTree/TreeDemoFileList.vue'
 import { ListCursor } from '../FileTree/ListCursor'
 import { TreeFileCollection } from '../../classes/Main/TreeFileCollection'
@@ -142,14 +142,14 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
 @Component({
   components: {
     TreeDemoFileList,
-    VueBookInput,
-    VueBookMenu,
+    VbInput,
+    VbMenu,
     VueBookResizeLine,
     DemoFileList,
     BookComponentListFolder,
     BookComponentListItem,
     FontAwesomeIcon,
-    VueBookNotFound,
+    VbNotFound,
     ComButtonIcon,
   },
   mixins: [
@@ -186,13 +186,6 @@ export default class VbRoot extends Vue {
     selectedTreeFile: null,
     hideFileExtensions: this.getHideFileExtensions(),
   })
-  foldNavigation = false
-
-  created () {
-    if (this.isMobile) {
-      this.foldNavigation = true
-    }
-  }
 
   mounted () {
     const input = this.$refs.searchInput as any
@@ -210,7 +203,7 @@ export default class VbRoot extends Vue {
 
   @Watch('isMobile')
   onIsMobileChange (isMobile: boolean) {
-    this.foldNavigation = isMobile
+    this.config.isHidden = isMobile
   }
 
   @Watch('config', { deep: true })
@@ -230,6 +223,16 @@ export default class VbRoot extends Vue {
 
   get isMobile () {
     return screenSizeService.isMobile
+  }
+
+  set isHidden (isHidden: boolean) {
+    this.config.isHidden = isHidden
+  }
+  get isHidden (): boolean {
+    if (this.config.isHidden === null) {
+      return this.isMobile
+    }
+    return this.config.isHidden
   }
 
   get DemoPageMode () {

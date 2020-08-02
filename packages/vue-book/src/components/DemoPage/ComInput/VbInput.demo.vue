@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard>
-      <VueBookInput
+      <VbInput
         v-model="normal"
         placeholder="Normal"
       />
@@ -11,12 +11,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import VueBookInput from './VueBookInput.vue'
+import VbInput from './VbInput.vue'
 
 @Component({
-  components: { VueBookInput },
+  components: { VbInput },
 })
-export default class VueBookInputDemo extends Vue {
+export default class VbInputDemo extends Vue {
   normal = ''
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <input
-    class="VueBookInput"
+    class="VbInput"
     v-model="valueProxy"
     :name="name"
     :placeholder="placeholder"
@@ -17,8 +17,10 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
-@Component({})
-export default class VueBookInput extends Vue {
+@Component({
+  name: 'VbInput',
+})
+export default class VbInput extends Vue {
   // TODO Check if that default: 'default' is truly needed
   @Prop({ type: String, default: 'default' }) type!: string
   @Prop({ type: String, default: 'default' }) name!: string
@@ -54,7 +56,7 @@ export default class VueBookInput extends Vue {
 <style lang="scss">
 @import "../../../scss/resources";
 
-.VueBookInput {
+.VbInput {
   &:focus::placeholder {
     opacity: 0;
   }
