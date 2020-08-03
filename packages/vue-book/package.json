@@ -1,6 +1,6 @@
 {
   "name": "vue-book",
-  "version": "0.1.0-alpha.38",
+  "version": "0.1.0-alpha.39",
   "description": "Tree view for your demo components",
   "main": "dist/js/app.js",
   "types": "vue-book.d.ts",
