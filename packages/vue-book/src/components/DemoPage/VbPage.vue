@@ -1,10 +1,10 @@
 <template>
-  <div class="VbRoot">
+  <div class="VbPage">
     <div v-if="!files.length">
       <p>You provided no files in requireContext.</p>
       <p>Please check your path and masks.</p>
     </div>
-    <div class="VbRoot__left-block-folded" v-else-if="isHidden">
+    <div class="VbPage__left-block-folded" v-else-if="isHidden">
       <ComButtonIcon
         @click="isHidden = !isHidden"
         :title="isHidden ? 'Unfold navigation panel' : 'Fold navigation panel'"
@@ -13,11 +13,11 @@
       />
     </div>
     <div
-      v-else-if="!getHideNavigation()"
-      class="VbRoot__left-block"
+      v-else-if="!hideNavigation"
+      class="VbPage__left-block"
       :style="{'flex-basis': config.width + 'px', 'width': config.width + 'px'}"
     >
-      <div class="VbRoot__menu">
+      <div class="VbPage__menu">
         <VbMenu
           :config="config"
           :currentFile="currentFile"
@@ -25,11 +25,11 @@
         />
 
         <!-- Why form? See https://github.com/asvae/vue-book/issues/39 -->
-        <form autocomplete="off" class="VbRoot__menu__search"
+        <form autocomplete="off" class="VbPage__menu__search"
               v-if="config.mode === DemoPageMode.Search"
         >
           <VbInput
-            class="VbRoot__search-input"
+            class="VbPage__search-input"
             ref="searchInput"
             v-model="config.searchText"
             placeholder="Search..."
@@ -40,7 +40,7 @@
           />
           <div
             v-if="config.searchText"
-            class="VbRoot__menu__search__icon"
+            class="VbPage__menu__search__icon"
             @click="clearSearch()"
           >
             <font-awesome-icon icon="times"/>
@@ -48,28 +48,28 @@
         </form>
       </div>
 
-      <div class="VbRoot__files">
+      <div class="VbPage__files">
         <template
           v-if="config.mode === DemoPageMode.Search"
         >
           <template v-if="!filteredFiles.length">
             No files found according to search.
           </template>
-          <demo-file-list
+          <DemoFileList
             v-else
             :files="filteredFiles"
             :listCursor="listCursor"
           />
         </template>
 
-        <tree-demo-file-list
+        <TreeDemoFileList
           v-if="config.mode === DemoPageMode.Tree"
-          :folder="treeFolder"
+          :folder="treeFolderLocal"
           :listCursor="listCursor"
         />
       </div>
 
-      <div class="VbRoot__left-block-bottom-menu">
+      <div class="VbPage__left-block-bottom-menu">
         <ComButtonIcon
           @click="isHidden = !isHidden"
           :title="isHidden ? 'Unfold navigation panel' : 'Fold navigation panel'"
@@ -79,12 +79,12 @@
       </div>
 
       <VueBookResizeLine
-        class="VbRoot__left-block__resize-line"
+        class="VbPage__left-block__resize-line"
         v-model="config.width"
       />
     </div>
 
-    <div class="VbRoot__right-block">
+    <div class="VbPage__right-block">
       <VbNotFound :files="similarFiles" v-if="!component"/>
       <component ref="component" v-else="component" :is="component"/>
     </div>
@@ -158,7 +158,7 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
   // TODO Use decorators.
   provide () {
     return {
-      [VueBookTreeOptionsInterface]: (this as VbRoot).vueBookTreeOptions,
+      [VueBookTreeOptionsInterface]: (this as VbPage).vueBookTreeOptions,
     }
   },
   beforeRouteUpdate (to: any, from: any, next: Function) {
@@ -171,20 +171,33 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
     }
   },
 })
-export default class VbRoot extends Vue {
-  @Prop(TreeFolder) treeFolderDefault!: TreeFolder
-  @Prop(TreeFileCollection) treeFileCollectionDefault!: TreeFileCollection
-  @Prop({ type: Boolean, default: false }) hideFileExtensionsDefault!: boolean
-  @Prop({ type: Boolean, default: false }) hideNavigationDefault!: boolean
+export default class VbPage extends Vue {
+  @Prop({ type: TreeFolder, validator (treeFolder: TreeFolder): boolean {
+      if (!(treeFolder instanceof TreeFolder)) {
+        throw new Error('No treeFolder found: pass it to props or provide via route meta')
+      }
+      return true
+    }
+  }) treeFolder!: TreeFolder
+  @Prop({
+    type: TreeFileCollection, validator (treeFileCollection: any): boolean {
+      if (!(treeFileCollection instanceof TreeFileCollection)) {
+        throw new Error('No treeFileCollection found: pass it to props or provide via route meta')
+      }
+      return true
+    },
+  }) treeFileCollection!: TreeFileCollection
+  @Prop({ type: Boolean }) hideFileExtensions!: boolean
+  @Prop({ type: Boolean }) hideNavigation!: boolean
 
-  treeFolder: TreeFolder | null = null
+  treeFolderLocal: TreeFolder | null = null
   listCursor = new ListCursor()
   configStore = new ConfigStore()
   foldersStoreInstance = new FoldersStore()
   vueBookTreeOptions = new VueBookTreeOptions({
     noRouter: this.getNoRouter(),
     selectedTreeFile: null,
-    hideFileExtensions: this.getHideFileExtensions(),
+    hideFileExtensions: this.hideFileExtensions,
   })
 
   mounted () {
@@ -196,9 +209,9 @@ export default class VbRoot extends Vue {
     super()
     this.foldersStoreInstance.load()
     this.configStore.load()
-    const treeFolder = this.getDemoFolder()
+    const treeFolder = this.treeFolder
     treeFolder.mergeWithFolders(this.foldersStoreInstance.openFolders)
-    this.treeFolder = treeFolder
+    this.treeFolderLocal = treeFolder
   }
 
   @Watch('isMobile')
@@ -215,7 +228,7 @@ export default class VbRoot extends Vue {
     }
   }
 
-  @Watch('treeFolder', { deep: true })
+  @Watch('treeFolderLocal', { deep: true })
   onTreeFolderChange (value: TreeFolder) {
     this.foldersStoreInstance.openFolders = value.getOpenFolders()
     this.foldersStoreInstance.save()
@@ -228,6 +241,7 @@ export default class VbRoot extends Vue {
   set isHidden (isHidden: boolean) {
     this.config.isHidden = isHidden
   }
+
   get isHidden (): boolean {
     if (this.config.isHidden === null) {
       return this.isMobile
@@ -241,10 +255,6 @@ export default class VbRoot extends Vue {
 
   get noRouter (): boolean {
     return this.getNoRouter()
-  }
-
-  get hideFileExtensions (): boolean {
-    return this.getHideFileExtensions()
   }
 
   get config (): DemoPageConfig {
@@ -270,19 +280,6 @@ export default class VbRoot extends Vue {
 
   get files (): TreeFile[] {
     return this.treeFileCollection.treeFiles
-  }
-
-  get treeFileCollection (): TreeFileCollection {
-    let treeFileCollection = this.treeFileCollectionDefault
-    if (!treeFileCollection) {
-      treeFileCollection = this.$route.meta.treeFileCollection
-    }
-
-    if (!(treeFileCollection instanceof TreeFileCollection)) {
-      throw new Error('No treeFileCollection found: pass it to props or provide via route meta')
-    }
-
-    return treeFileCollection
   }
 
   get filteredFiles (): TreeFile[] {
@@ -313,36 +310,7 @@ export default class VbRoot extends Vue {
   }
 
   getNoRouter (): boolean {
-    return !!(this.treeFolderDefault && this.treeFileCollectionDefault)
-  }
-
-  getHideFileExtensions (): boolean {
-    if (this.noRouter) {
-      return this.hideFileExtensionsDefault
-    }
-
-    return this.$route.meta.hideFileExtensions
-  }
-
-  getHideNavigation (): boolean {
-    if (this.noRouter) {
-      return this.hideNavigationDefault
-    }
-
-    return this.$route.meta.hideNavigation
-  }
-
-  getDemoFolder (): TreeFolder {
-    let treeFolder = this.treeFolderDefault
-    if (!treeFolder) {
-      treeFolder = this.$route.meta.treeFolder
-    }
-
-    if (!(treeFolder instanceof TreeFolder)) {
-      throw new Error('No treeFolder found: pass it to props or provide via route meta')
-    }
-
-    return treeFolder
+    return !!(this.treeFolderLocal && this.treeFileCollection)
   }
 
   fileSearched (file: TreeFile): boolean {
@@ -405,7 +373,7 @@ export default class VbRoot extends Vue {
 <style lang="scss">
 @import "../../scss/resources";
 
-.VbRoot {
+.VbPage {
   // Reset
   &__menu {
     &__search {

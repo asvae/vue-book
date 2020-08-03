@@ -1,7 +1,5 @@
-import VueBookRouteFactory from './classes/Main/VueBookRouteFactory'
 import './scss/app.scss'
 import './plugins/font-awesome-config'
-import { VueBookConfig } from './classes/Main/VueBookConfig'
 import VbDemo from './components/Exposed/VbDemo.vue'
 import VbCard from './components/Exposed/VbCard.vue'
 
@@ -32,10 +30,4 @@ export const VueBookComponents = {
   },
 }
 
-export function createRoute (options: Partial<VueBookConfig>) {
-  return VueBookRouteFactory.createRoute(new VueBookConfig(options))
-}
-
-export function createComponent (options: Partial<VueBookConfig>) {
-  return VueBookRouteFactory.createComponent(new VueBookConfig(options))
-}
+export {createVueBookRoute as createRoute, createVueBookComponent as createComponent } from './VbPageFactory'

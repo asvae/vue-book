@@ -25,6 +25,7 @@ import {
 } from '../DemoPage/VueBookTreeOptions'
 
 @Component({
+  name: 'BookComponentListItem',
   components: {
     FontAwesomeIcon,
   },
@@ -49,6 +50,7 @@ export default class BookComponentListItem extends Vue {
   }
 
   select (): void {
+    console.log('this.file.path', this.file.path)
     if (this.vueBookTreeOptions.noRouter) {
       this.vueBookTreeOptions.selectedTreeFile = this.file as TreeFile
       return

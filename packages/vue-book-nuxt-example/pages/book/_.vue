@@ -12,6 +12,7 @@ let VueBook = { render: () => '' }
 if (process.client) {
   // @ts-ignore
   VueBook = require('vue-book').createComponent({
+    path: '/book',
     // @ts-ignore
     requireContext: require.context('./../../components', true, /.demo.vue$/),
     hideFileExtensions: true,

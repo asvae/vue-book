@@ -19,6 +19,7 @@ import { ListCursor } from './ListCursor'
 import BookComponentListItem from './BookComponentListItem.vue'
 
 @Component({
+  name: 'DemoFileList',
   components: {
     BookComponentListItem,
   },
