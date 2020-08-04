@@ -14,7 +14,6 @@ export const createVueBookComponent = (config: Partial<VueBookConfig>) => {
 
   const treeFileCollection = new TreeFileCollection({
     treeFiles: requireContext.keys().map((key: string) => {
-      console.log('key', key)
       // requireContext(key).default - webpack 4
       // requireContext(key) - webpack 2
       const component = requireContext(key).default || requireContext(key)

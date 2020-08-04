@@ -269,10 +269,6 @@ export default class VbPage extends Vue {
   }
 
   get currentFile (): TreeFile | null {
-    if (this.noRouter) {
-      return this.vueBookTreeOptions.selectedTreeFile
-    }
-
     return this.files.find((file: any) => {
       return this.$route.path === file.path
     }) || null

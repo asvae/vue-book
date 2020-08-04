@@ -18,8 +18,9 @@ const router = new Router({
     }),
     // vue-book component mode testing
     {
-      path: '/component-mode',
+      path: '/component-mode/*',
       component: createComponent({
+        path: '/component-mode',
         requireContext: require.context('./tree', true, /.vue$/),
         hideFileExtensions: true,
       }),
