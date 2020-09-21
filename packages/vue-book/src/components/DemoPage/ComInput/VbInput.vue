@@ -7,7 +7,7 @@
     :type="type"
     @keydown.up.prevent="$emit('up')"
     @keydown.down.prevent="$emit('down')"
-    @keypress.enter="$emit('enter')"
+    @keypress.enter.prevent="$emit('enter')"
     autocomplete="off"
     @focus="$emit('focus')"
     @blur="$emit('blur')"

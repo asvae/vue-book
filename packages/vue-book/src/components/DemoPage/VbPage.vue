@@ -356,12 +356,12 @@ export default class VbPage extends Vue {
       return
     }
 
-    if (this.noRouter) {
+    if (this.vueBookTreeOptions.noRouter) {
       this.vueBookTreeOptions.selectedTreeFile = fileUnderCursor
       return
     }
 
-    this.$router.push(fileUnderCursor.path)
+    this.$router?.push(fileUnderCursor.path)
   }
 }
 </script>
