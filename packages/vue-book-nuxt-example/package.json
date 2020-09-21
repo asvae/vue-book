@@ -12,7 +12,7 @@
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.10",
     "nuxt": "^2.13.0",
-    "vue-book": "0.1.0-alpha.34"
+    "vue-book": "0.1.0-alpha.42"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^1.0.3"
