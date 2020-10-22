@@ -10,12 +10,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
 import DemoFileList from './DemoFileList.vue'
 import { TreeFileFactory } from '../../classes/Factory/TreeFileFactory'
 import { ListCursor } from './ListCursor'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   components: {
     DemoFileList,
   },
@@ -25,6 +25,7 @@ export default class DemoFileListDemo extends Vue {
     TreeFileFactory.getWithShortPath(),
     TreeFileFactory.getWithLongPath(),
   ]
+
   listCursor = new ListCursor({
     preSelectedItem: this.files[1],
   })

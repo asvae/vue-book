@@ -1,11 +1,11 @@
 import { VueBookConfig } from './classes/Main/VueBookConfig'
-import { Component, Vue } from 'vue-property-decorator'
 import { TreeFileCollection } from './classes/Main/TreeFileCollection'
 import { TreeFile } from './classes/Main/TreeFile'
 import VbPage from './components/DemoPage/VbPage.vue'
 import { TreeFolder } from './classes/Main/TreeFolder'
-import { CreateElement } from 'vue'
-import { RouteConfig } from 'vue-router'
+import { h, resolveComponent, resolveDynamicComponent } from 'vue'
+import { RouteRecordRaw } from 'vue-router'
+import { Vue } from 'vue-class-component'
 
 export const createVueBookComponent = (config: Partial<VueBookConfig>) => {
   const configFull = new VueBookConfig(config)
@@ -24,19 +24,15 @@ export const createVueBookComponent = (config: Partial<VueBookConfig>) => {
       })
     }),
   })
-
-  @Component({})
   class VbPageWrapper extends Vue {
-    render (h: CreateElement) {
+    render () {
       return h(
-        VbPage,
+        resolveComponent('VbPage') as any,
         {
-          props: {
-            treeFolder: TreeFolder.createFromDemoFileCollection(treeFileCollection),
-            treeFileCollection: treeFileCollection,
-            hideFileExtensions: configFull.hideFileExtensions,
-            hideNavigation: configFull.hideNavigation,
-          },
+          treeFolder: TreeFolder.createFromDemoFileCollection(treeFileCollection),
+          treeFileCollection: treeFileCollection,
+          hideFileExtensions: configFull.hideFileExtensions,
+          hideNavigation: configFull.hideNavigation,
         },
       )
     }
@@ -45,10 +41,10 @@ export const createVueBookComponent = (config: Partial<VueBookConfig>) => {
   return VbPageWrapper
 }
 
-export const createVueBookRoute  = (config: Partial<VueBookConfig>): RouteConfig => {
+export const createVueBookRoute = (config: Partial<VueBookConfig>): RouteRecordRaw => {
   const configFull = new VueBookConfig(config)
   return {
-    path: configFull.path + '*',
+    path: configFull.path + ':pathMatch(.*)*',
     component: createVueBookComponent(configFull),
   }
 }

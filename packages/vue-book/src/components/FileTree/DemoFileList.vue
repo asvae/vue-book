@@ -13,16 +13,18 @@
 
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 import { TreeFile } from '../../classes/Main/TreeFile'
 import { ListCursor } from './ListCursor'
 import BookComponentListItem from './BookComponentListItem.vue'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'DemoFileList',
   components: {
     BookComponentListItem,
   },
+  emits: ['selected'],
 })
 export default class DemoFileList extends Vue {
   @Prop({ type: ListCursor, required: true }) listCursor!: ListCursor

@@ -15,16 +15,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { nextTick } from 'vue'
+import { Vue, Options } from 'vue-class-component'
+import { Prop } from 'vue-property-decorator'
 
-@Component({
+@Options({
   name: 'VbInput',
+  emits: ['update:modelValue', 'focus', 'blur', 'up', 'down', 'enter'],
 })
 export default class VbInput extends Vue {
   // TODO Check if that default: 'default' is truly needed
   @Prop({ type: String, default: 'default' }) type!: string
   @Prop({ type: String, default: 'default' }) name!: string
-  @Prop({ type: String, default: '' }) value!: string
+  @Prop({ type: String, default: '' }) modelValue!: string
   @Prop({ type: String, default: '' }) placeholder!: string
   @Prop({ type: String, default: '' }) tooltip!: string
 
@@ -35,20 +38,20 @@ export default class VbInput extends Vue {
   }
 
   get valueProxy () {
-    if (this.value !== this.temporaryValue) {
-      this.temporaryValue = this.value
+    if (this.modelValue && this.modelValue !== this.temporaryValue) {
+      this.temporaryValue = this.modelValue
     }
     return this.temporaryValue
   }
 
   set valueProxy (value: string) {
     this.temporaryValue = value
-    this.$nextTick(() => {
-      if (this.value !== this.temporaryValue) {
-        this.temporaryValue = this.value
+    nextTick(() => {
+      if (this.modelValue && this.modelValue !== this.temporaryValue) {
+        this.temporaryValue = this.modelValue
       }
     })
-    this.$emit('input', value)
+    this.$emit('update:modelValue', value)
   }
 }
 </script>

@@ -1,11 +1,11 @@
-import Vue from 'vue'
+import { reactive } from 'vue'
 
 export class ScreenSizeService {
   public width = window.innerWidth
   constructor () {
-    window.addEventListener("resize", () => {
+    window.addEventListener('resize', () => {
       this.width = window.innerWidth
-    });
+    })
   }
 
   get widthPx (): string {
@@ -17,4 +17,4 @@ export class ScreenSizeService {
   }
 }
 
-export const screenSizeService = Vue.observable(new ScreenSizeService())
+export const screenSizeService = reactive(new ScreenSizeService())

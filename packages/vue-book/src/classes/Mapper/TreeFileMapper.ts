@@ -1,5 +1,5 @@
 import { TreeFile } from '../Main/TreeFile'
-import { Vue } from 'vue-property-decorator'
+import { Vue } from 'vue-class-component'
 
 export class TreeFileMapper {
   static toClass ({ path, component }: { path: string, component: Vue }): TreeFile {

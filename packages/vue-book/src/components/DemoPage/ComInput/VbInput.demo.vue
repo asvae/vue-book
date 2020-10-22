@@ -10,14 +10,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
 import VbInput from './VbInput.vue'
 
-@Component({
+@Options({
   components: { VbInput },
 })
 export default class VbInputDemo extends Vue {
   normal = ''
 }
 </script>
-
