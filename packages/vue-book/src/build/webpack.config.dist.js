@@ -1,6 +1,6 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const VueLoader = require('vue-loader-v16')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
@@ -48,7 +48,15 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        use: 'vue-loader',
+        use: [
+          {
+            loader: 'vue-loader-v16',
+            options: {
+              'vue-loader': require('vue-loader-v16/package.json').version,
+              '@vue/compiler-sfc': require('@vue/compiler-sfc/package.json').version
+            }
+          }
+        ]
       },
       {
         test: /\.ts$/,
@@ -77,7 +85,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new VueLoaderPlugin(),
+    new VueLoader.VueLoaderPlugin(),
     new CleanWebpackPlugin(),
     // new BundleAnalyzerPlugin(),
   ],
