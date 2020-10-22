@@ -1,6 +1,6 @@
 <template>
   <div class="TreeDemoFileList">
-    <BookComponentListFolder :folder="folder"/>
+    <BookComponentListFolder :folder="folder" ref=""/>
   </div>
 </template>
 

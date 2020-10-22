@@ -6,17 +6,17 @@
       :title="key"
       :key="key"
     >
-      <BookComponentListItem :file="value"/>
+      <BookComponentListItem :file="value" />
     </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import { TreeFileFactory } from '../../classes/Factory/TreeFileFactory'
 import BookComponentListItem from './BookComponentListItem.vue'
 
-@Component({
+@Options({
   components: {
     BookComponentListItem,
   },

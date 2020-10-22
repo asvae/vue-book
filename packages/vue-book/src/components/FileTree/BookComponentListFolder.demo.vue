@@ -15,11 +15,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import BookComponentListFolder from './BookComponentListFolder.vue'
 import DemoFolderFactory from '../../classes/Factory/DemoFolderFactory'
 
-@Component({
+@Options({
   components: { BookComponentListFolder },
 })
 export default class BookComponentListFolderDemo extends Vue {
@@ -29,6 +29,7 @@ export default class BookComponentListFolderDemo extends Vue {
     withFiles: DemoFolderFactory.getWithFiles(),
     withFilesAndFolders: DemoFolderFactory.getWithFoldersAndFiles(),
   }
+
   valueSelected = 'empty'
 }
 </script>

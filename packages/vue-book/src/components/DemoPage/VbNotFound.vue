@@ -18,11 +18,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 import { TreeFile } from '../../classes/Main/TreeFile'
+import { Options, Vue } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VbNotFound'
 })
 export default class VbNotFound extends Vue {

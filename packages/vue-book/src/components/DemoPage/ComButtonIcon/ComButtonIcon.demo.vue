@@ -16,10 +16,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
 import ComButtonIcon from './ComButtonIcon.vue'
 
-@Component({
+@Options({
   components: { ComButtonIcon },
 })
 export default class ComButtonIconDemo extends Vue {

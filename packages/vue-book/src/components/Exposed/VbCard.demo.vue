@@ -51,13 +51,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-
 import VbDemo from './VbDemo.vue'
 import VbCard from './VbCard.vue'
 import RefreshCounter from './__demo__/RefreshCounter.vue'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   components: {
     VbDemo,
     VbCard,

@@ -16,7 +16,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Inject } from 'vue-property-decorator'
+import { Prop, Inject } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import { TreeFile } from '../../classes/Main/TreeFile'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
@@ -24,7 +25,7 @@ import {
   VueBookTreeOptionsInterface,
 } from '../DemoPage/VueBookTreeOptions'
 
-@Component({
+@Options({
   name: 'BookComponentListItem',
   components: {
     FontAwesomeIcon,
@@ -46,7 +47,7 @@ export default class BookComponentListItem extends Vue {
       return this.vueBookTreeOptions.selectedTreeFile === this.file
     }
 
-    return this.$route.path === this.file.path
+    return (this as any).$route.path === this.file.path
   }
 
   select (): void {
@@ -55,11 +56,11 @@ export default class BookComponentListItem extends Vue {
       return
     }
 
-    if (this.$route?.path === this.file.path) {
+    if ((this as any).$route?.path === this.file.path) {
       return
     }
 
-    this.$router.push(this.file.path)
+    (this as any).$router.push(this.file.path)
   }
 }
 </script>

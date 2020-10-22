@@ -44,15 +44,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ContainerFocusInjectMixin } from './ContainerFocusService'
+import { Vue, Options, mixins } from 'vue-class-component'
+import { reactive } from 'vue'
 
-@Component({
+@Options({
+  name: 'VbCard',
   components: { FontAwesomeIcon },
-  mixins: [ContainerFocusInjectMixin],
 })
-export default class VbCard extends Vue {
+export default class VbCard extends mixins(ContainerFocusInjectMixin) {
   @Prop(Boolean) noPadding!: boolean
   @Prop(Boolean) dashed!: boolean
   @Prop(String) title!: string
@@ -68,7 +70,8 @@ export default class VbCard extends Vue {
   cardStyleTemp: {} | { width: string | null, height: string | null } = {}
 
   get stateComputed () {
-    return Vue.observable(this.state)
+    // return reactive(this.state)
+    return this.state
   }
 
   get computedStyle () {

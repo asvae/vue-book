@@ -30,18 +30,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ComButtonIcon from './ComButtonIcon/ComButtonIcon.vue'
 import { TreeFile } from '../../classes/Main/TreeFile'
 import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VbMenu',
   components: {
     ComButtonIcon,
     FontAwesomeIcon,
   },
+  emits: ['openFolder'],
 })
 export default class VbMenu extends Vue {
   @Prop({ type: TreeFile, required: false }) currentFile!: TreeFile

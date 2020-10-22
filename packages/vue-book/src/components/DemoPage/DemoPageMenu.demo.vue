@@ -7,11 +7,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
 import VbMenu from './VbMenu.vue'
 import DemoPageConfig from './DemoPageConfig'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   components: { VbMenu },
 })
 export default class VbMenuDemo extends Vue {

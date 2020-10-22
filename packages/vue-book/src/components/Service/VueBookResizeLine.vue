@@ -10,13 +10,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
+import { Prop } from 'vue-property-decorator'
 
-@Component({})
+@Options({
+  emits: ['update:modelValue'],
+})
 export default class VueBookResizeLine extends Vue {
   startValue = 0
   startCoordinate = 0
-  @Prop({ type: Number, required: true }) value!: number
+  @Prop({ type: Number, required: true }) modelValue!: number
   @Prop({ type: Boolean, default: false }) isHorizontal!: boolean
 
   onDrag (event: DragEvent): void {
@@ -24,13 +27,13 @@ export default class VueBookResizeLine extends Vue {
     if (this.isHorizontal) {
       if (event.screenY) {
         const totalHeight = document.documentElement.clientHeight
-        this.$emit('input', totalHeight - (event.clientY))
+        this.$emit('update:modelValue', totalHeight - (event.clientY))
       }
       return
     }
 
     if (event.screenX) {
-      this.$emit('input', event.clientX)
+      this.$emit('update:modelValue', event.clientX)
     }
   }
 }

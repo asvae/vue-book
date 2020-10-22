@@ -1,17 +1,18 @@
 <template>
   <span class="RefreshCounter">
-    {{refreshCounter}}
+    {{ refreshCounter }}
   </span>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 
 let refreshCounter = 0
 
-@Component({})
+@Options({})
 export default class RefreshCounter extends Vue {
   created () {
+    // eslint-disable-next-line no-console
     console.log('created')
   }
 
