@@ -1,14 +1,18 @@
 <template>
   <div class="App">
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
+import VbPage from '../src/components/DemoPage/VbPage.vue'
 import router from './routes'
 
-@Component({ router })
+@Options({
+  router,
+  components: { VbPage },
+})
 export default class App extends Vue {
 }
 </script>

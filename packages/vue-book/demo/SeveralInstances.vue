@@ -1,15 +1,15 @@
 <template>
   <div class="SeveralInstances">
-    <vue-book/>
-    <vue-book/>
+    <vue-book />
+    <vue-book />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import { createComponent } from '../src/app'
 
-@Component({
+@Options({
   components: {
     VueBook: createComponent({
       requireContext: require.context('./tree', true, /.vue$/),
