@@ -47,8 +47,7 @@
 import { Prop } from 'vue-property-decorator'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ContainerFocusInjectMixin } from './ContainerFocusService'
-import { Vue, Options, mixins } from 'vue-class-component'
-import { reactive } from 'vue'
+import { Options, mixins } from 'vue-class-component'
 
 @Options({
   name: 'VbCard',

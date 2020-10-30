@@ -173,7 +173,7 @@ const sortByRelevance = (searchText: string, treeFiles: TreeFile[]) => {
     }
   },
 })
-export default class VbPage extends mixins( ContainerFocusProvideMixin ) {
+export default class VbPage extends mixins(ContainerFocusProvideMixin) {
   @Prop({
     type: TreeFolder,
     validator (treeFolder: TreeFolder): boolean {

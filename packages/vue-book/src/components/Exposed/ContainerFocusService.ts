@@ -1,34 +1,37 @@
 import { Options, Vue } from 'vue-class-component'
 import { ArrayHelpers } from 'asva-helpers'
 import { Inject, Prop } from 'vue-property-decorator'
+import { computed, defineComponent, reactive } from 'vue'
 
 const createContainerFocusService = () => {
-  class Container extends Vue {
-      focusedContainers: string[] = []
+   class FService {
+    focusedContainers: string[] = reactive([])
 
-      focusContainer (id: string): void {
-        this.focusedContainers.push(id)
-      }
+    focusContainer = (id: string): void => {
+      this.focusedContainers.push(id)
+    }
 
-      unfocusContainer (id: string): void {
-        ArrayHelpers.remove(this.focusedContainers, id)
-      }
+    unfocusContainer = (id: string): void => {
+      ArrayHelpers.remove(this.focusedContainers, id)
+    }
 
-      isUnfocused (id: string): boolean {
-        // TODO Use proper TS.
-        return (this as any).focusedContainers.length &&
-          !this.focusedContainers.includes(id)
-      }
+    isUnfocused = (id: string): boolean => {
+      // TODO Use proper TS.
+      return (this as any).focusedContainers.length &&
+        !this.focusedContainers.includes(id)
+    }
   }
-  return Container
+  return new FService()
 }
 
-export class ContainerFocusProvideMixin extends Vue {
+@Options({
   provide () {
     return {
       vbFocusService: createContainerFocusService(),
     }
   }
+})
+export class ContainerFocusProvideMixin extends Vue {
 }
 
 export class ContainerFocusInjectMixin extends Vue {
@@ -37,7 +40,7 @@ export class ContainerFocusInjectMixin extends Vue {
 
   id = Math.round(Math.random() * 100000) + ''
 
-  created () {
+  mounted () {
     if (!this.vbFocusService) {
       return
     }
@@ -46,7 +49,7 @@ export class ContainerFocusInjectMixin extends Vue {
     }
   }
 
-  beforeDestroy () {
+  beforeUnmaunt () {
     if (!this.vbFocusService) {
       return
     }
