@@ -1,7 +1,7 @@
 import { Options, Vue } from 'vue-class-component'
 import { ArrayHelpers } from 'asva-helpers'
 import { Inject, Prop } from 'vue-property-decorator'
-import { computed, defineComponent, reactive } from 'vue'
+import { reactive } from 'vue'
 
 const createContainerFocusService = () => {
    class FService {

@@ -9,6 +9,14 @@ Tree view for your demo components. [Demo](http://vue-book.asva.by/#/Demo/Contac
 * **npm**: `npm install -D vue-book` 
 * **yarn**: `yarn add -D vue-book`
 
+## Versions
+
+* Lastest build is a bit outdated and is not recommended (the one you get by `npm install -D vue-book`).
+* Recent vue 2 version is `0.1.0-alpha.42`.
+* Recent vue 3 version is `0.2.0-alpha.0`.
+
+You shouldn't worry about sitting on alpha version as vue-book doesn't have dependencies and will work for a very long time without issues.
+
 ## Features
 * Display your components as a tree or flat list.
 * Preview components on the page.
