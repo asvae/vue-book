@@ -2,7 +2,7 @@
 
 Tree view for your demo components. [Demo](http://vue-book.asva.by/#/Demo/ContactComponent.vue).
 
-![Interface](packages/vue-book/docs/main.gif)
+![Interface](docs/main.gif)
 
 ## Install
 
@@ -181,6 +181,10 @@ Functional helpers:
 <div>Lorem text: {{ $vb.lorem() }}</div> 
 <div>Lorem text of length: {{ $vb.lorem(5) }}</div>
 ```
+
+## Examples
+
+* [Nuxt example](https://github.com/asvae/vue-book-nuxt-example)
 
 ## Licence
 MIT

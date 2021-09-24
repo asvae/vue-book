@@ -1,3 +1,7 @@
+/dist
+/public
+/coverage
+
 .DS_Store
 node_modules
 
