@@ -1,0 +1,20 @@
+$book-color-black: #000000;
+$book-color-lightgray: #d5d5d5;
+
+$book-color-darkgray: #1c252f;
+$book-color-darkgray--light: #383d47;
+$book-color-darkgray--dark: #10161d;
+
+$book-color-gold: #fbc500;
+$book-color-gold--light: #fbcb1a;
+$book-color-gold--dark: #ddad00;
+
+// @deprecated
+$color--main: #1fc8db;
+$color--white: white;
+$color--icon: #3f506e;
+$color--icon--hover: lighten($color--icon, 30%);
+
+$border-color--main: $color--main;
+
+$border-radius--main: 3px;

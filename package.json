@@ -1,10 +1,77 @@
 {
-  "name": "vue-book-root",
-  "private": true,
-  "devDependencies": {
-    "lerna": "^3.16.4"
+  "name": "vue-book",
+  "version": "0.2.0-alpha.0",
+  "description": "Tree view for your demo components",
+  "main": "dist/js/app.js",
+  "types": "vue-book.d.ts",
+  "private": false,
+  "author": "Yauheni Prakopchyk",
+  "license": "MIT",
+  "scripts": {
+    "dist": "webpack --progress --config src/build/webpack.config.dist.js",
+    "serve": "vue-cli-service serve --port 8093",
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit",
+    "inspect": "vue inspect > inspect-result.js",
+    "push": "yarn dist & npm publish --tag=next",
+    "push-production": "yarn dist & npm publish --tag=latest"
   },
-  "workspaces": [
-    "packages/*"
-  ]
+  "keywords": [
+    "vue",
+    "tree",
+    "demo"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asvae/vue-book.git"
+  },
+  "bugs": {
+    "url": "https://github.com/asvae/vue-book/issues"
+  },
+  "homepage": "https://github.com/asvae/vue-book#readme",
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.3"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/vue-fontawesome": "^3.0.0-2",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.9.6",
+    "@vue/cli-plugin-babel": "^4.5.8",
+    "@vue/cli-plugin-eslint": "^4.5.8",
+    "@vue/cli-plugin-router": "^4.5.8",
+    "@vue/cli-plugin-typescript": "^4.5.8",
+    "@vue/cli-plugin-unit-jest": "^4.5.8",
+    "@vue/cli-service": "^4.5.8",
+    "@vue/compiler-sfc": "^3.1.4",
+    "@vue/eslint-config-standard": "^6.1.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "@vue/test-utils": "^1.1.0",
+    "asva-executors": "^0.1.23",
+    "asva-helpers": "^0.1.5",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "core-js": "^3.6.5",
+    "eslint": "^7.11.0",
+    "eslint-plugin-vue": "^7.0.1",
+    "lint-staged": "^11.1.2",
+    "sass": "^1.27.0",
+    "sass-loader": "^10.0.0",
+    "style-loader": "^3.3.0",
+    "ts-jest": "^27.0.5",
+    "ts-loader": "^9.2.6",
+    "typescript": "~4.4.3",
+    "vue": "^3.0.0",
+    "vue-class-component": "^8.0.0-rc.1",
+    "vue-loader": "^16.8.1",
+    "vue-property-decorator": "10.0.0-rc.3",
+    "vue-router": "^4.0.0-beta.13",
+    "webpack": "^5.53.0",
+    "webpack-bundle-analyzer": "^4.4.2",
+    "webpack-cli": "^4.8.0"
+  }
 }
