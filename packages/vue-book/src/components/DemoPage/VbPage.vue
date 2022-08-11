@@ -45,7 +45,7 @@
             class="VbPage__menu__search__icon"
             @click="clearSearch()"
           >
-            <font-awesome-icon icon="times"/>
+            <font-awesome-icon icon="xmark"/>
           </div>
         </form>
       </div>
@@ -107,7 +107,7 @@ import VueBookResizeLine from '../Service/VueBookResizeLine.vue'
 import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
 import VbMenu from './VbMenu.vue'
 import VbNotFound from './VbNotFound.vue'
-import VbInput from './ComInput/VbInput.vue'
+import VbInput from './VbInput/VbInput.vue'
 import TreeDemoFileList from '../FileTree/TreeDemoFileList.vue'
 import { ListCursor } from '../FileTree/ListCursor'
 import { TreeFileCollection } from '../../classes/Main/TreeFileCollection'
@@ -119,7 +119,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ContainerFocusProvideMixin } from '../Exposed/ContainerFocusService'
 import { Prop, Watch } from 'vue-property-decorator'
 import { screenSizeService } from '../../services/ScreenSizeService'
-import ComButtonIcon from './ComButtonIcon/ComButtonIcon.vue'
+import ComButtonIcon from './VbButtonIcon/VbButtonIcon.vue'
 
 import { Vue, Options, mixins } from 'vue-class-component'
 

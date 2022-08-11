@@ -85,13 +85,6 @@ if (process.env.NODE_ENV !== 'production') {
   ])
 }
 ```
-
-### Deploy
-
- * `yarn serve` - run dev server;
- * `yarn demo` - compile assets;
- * `yarn dist` - compile assets;
- * `npm publish` - publish to npm.
  
  
 ### Use as component

@@ -46,68 +46,75 @@
 <script lang="ts">
 import { Prop } from 'vue-property-decorator'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { ContainerFocusInjectMixin } from './ContainerFocusService'
-import { Options, mixins } from 'vue-class-component'
+import { Options } from 'vue-class-component'
+import { defineComponent, PropType } from 'vue'
 
 @Options({
   name: 'VbCard',
-  components: { FontAwesomeIcon },
+
 })
-export default class VbCard extends mixins(ContainerFocusInjectMixin) {
-  @Prop(Boolean) noPadding!: boolean
-  @Prop(Boolean) dashed!: boolean
-  @Prop(String) title!: string
-  @Prop(Boolean) refresh!: boolean
-  @Prop(Boolean) dark!: boolean
-  @Prop(String) width!: string
-  @Prop(String) height!: string
-  @Prop(String) color!: string
-  @Prop() state!: Record<string, any>
-  @Prop({ type: Boolean, default: false }) error!: boolean
+defineComponent({
+  components: { FontAwesomeIcon },
+  props:{
+    focus: {type: Boolean}, // TODO Implement me (not implemented for vue 3 version)
+    dashed: {type: Boolean},
+    title: {type: String},
+    refresh: {type: Boolean},
+    dark: {type: Boolean},
+    width: {type: String},
+    height: {type: String},
+    color: {type: String},
+    state: {type: Object as <Record<string, any>>},
+    error: {type: Boolean},
+  },
+  data () {
+    return {
+      show: true,
+      cardStyleTemp = {} as {} | { width: string | null, height: string | null }
+    }
+  },
 
-  show = true
-  cardStyleTemp: {} | { width: string | null, height: string | null } = {}
+  computed: {
+    stateComputed () {
+      // return reactive(this.state)
+      return this.state
+    },
+    computedStyle () {
+      if (this.cardStyleTemp) {
+        return {
+          ...this.cardStyleTemp,
+          backgroundColor: this.color,
+        }
+      }
 
-  get stateComputed () {
-    // return reactive(this.state)
-    return this.state
-  }
-
-  get computedStyle () {
-    if (this.cardStyleTemp) {
       return {
-        ...this.cardStyleTemp,
+        height: this.height,
+        width: this.width,
         backgroundColor: this.color,
       }
+    },
+    computedClass () {
+      return {
+        'VbCard--no-padding': this.noPadding,
+        'VbCard--dashed': this.dashed,
+        'VbCard--dark': this.dark,
+        'VbCard--error': this.error,
+      }
     }
+  },
+  methods: {
+    doRefresh () {
+      const { width, height } = window.getComputedStyle(this.$el)
+      this.cardStyleTemp = { width, height }
+      this.show = false
 
-    return {
-      height: this.height,
-      width: this.width,
-      backgroundColor: this.color,
+      setTimeout(() => {
+        this.cardStyleTemp = {}
+        this.show = true
+      })
     }
   }
-
-  get computedClass () {
-    return {
-      'VbCard--no-padding': this.noPadding,
-      'VbCard--dashed': this.dashed,
-      'VbCard--dark': this.dark,
-      'VbCard--error': this.error,
-    }
-  }
-
-  doRefresh () {
-    const { width, height } = window.getComputedStyle(this.$el)
-    this.cardStyleTemp = { width, height }
-    this.show = false
-
-    setTimeout(() => {
-      this.cardStyleTemp = {}
-      this.show = true
-    })
-  }
-}
+})
 </script>
 
 <style lang="scss">

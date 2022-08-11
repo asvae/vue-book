@@ -32,7 +32,7 @@
 <script lang="ts">
 import { Prop } from 'vue-property-decorator'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import ComButtonIcon from './ComButtonIcon/ComButtonIcon.vue'
+import ComButtonIcon from './VbButtonIcon/VbButtonIcon.vue'
 import { TreeFile } from '../../classes/Main/TreeFile'
 import DemoPageConfig, { DemoPageMode } from './DemoPageConfig'
 import { Vue, Options } from 'vue-class-component'

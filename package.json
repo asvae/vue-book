@@ -1,8 +1,8 @@
 {
   "name": "vue-book-root",
   "private": true,
-  "devDependencies": {
-    "lerna": "^3.16.4"
+  "scripts": {
+    "release": "yarn workspace deploy release"
   },
   "workspaces": [
     "packages/*"
